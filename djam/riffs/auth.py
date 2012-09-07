@@ -17,19 +17,16 @@ class AuthRiff(Riff):
     
     def get_urls(self):
         urlpatterns = super(AuthRiff, self).get_urls()
-        
-        def wrap(view):
-            return self.wrap_view(view)
-        
+
         urlpatterns += patterns('',
             url(r'^logout/$',
-                wrap(self.logout_view.as_view(**self.get_logout_kwargs())),
+                self.wrap_view(self.logout_view.as_view(**self.get_logout_kwargs())),
                 name='logout'),
             url(r'^login/$',
-                wrap(self.login_view.as_view(**self.get_login_kwargs())),
+                self.wrap_view(self.login_view.as_view(**self.get_login_kwargs())),
                 name='login'),
         )
-        
+
         return urlpatterns
     
     def has_permission(self, request):

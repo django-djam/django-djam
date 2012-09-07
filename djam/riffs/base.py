@@ -1,10 +1,10 @@
+from urllib import urlencode
+
 from django.conf.urls.defaults import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
-
-from urllib import urlencode
 
 
 class Riff(object):

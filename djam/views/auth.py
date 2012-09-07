@@ -70,7 +70,7 @@ class LogoutView(RiffViewMixin, TemplateView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(LoginView, self).get_context_data(**kwargs)
+        context = super(LogoutView, self).get_context_data(**kwargs)
         context.update({
             'site': Site.objects.get_current(),
             'redirect_to': self.redirect_to,
