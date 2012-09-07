@@ -28,7 +28,7 @@ class Riff(object):
         urlpatterns = self.get_extra_urls()
         
         for riff in self._riffs:
-            urlpatterns += patterns(''
+            urlpatterns += patterns('',
                 url(r'^{slug}/'.format(slug=riff.slug),
                     include(riff.get_urls())),
             )
