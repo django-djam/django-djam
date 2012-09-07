@@ -12,6 +12,8 @@ class Riff(object):
     riff_classes = []
     verbose_name = None
     slug = None
+    namespace = None
+    app_name = 'djam'
 
     def __init__(self, namespace=None, parent=None):
         self.parent = parent
@@ -19,7 +21,7 @@ class Riff(object):
             raise ImproperlyConfigured('Please give me a verbose name')
         if self.slug is None:
             self.slug = slugify(self.verbose_name)
-        self.namespace = namespace or self.slug
+        self.namespace = namespace or self.namespace or self.slug
         self._riffs = []
         for riff_class in self.riff_classes:
             riff = riff_class(parent=self)
@@ -31,18 +33,16 @@ class Riff(object):
         for riff in self._riffs:
             urlpatterns += patterns('',
                 url(r'^{slug}/'.format(slug=riff.slug),
-                    include(riff.get_urls(),
-                            namespace=riff.namespace,
-                            app_name='djam')),
+                    include(riff.get_urls_tuple())),
             )
+
         return urlpatterns
 
     def get_extra_urls(self):
         return patterns('',)
 
-    def urls(self):
-        return self.get_urls(), None, self.namespace
-    urls = property(urls)
+    def get_urls_tuple(self):
+        return self.get_urls(), self.app_name, self.namespace
 
     def get_view_kwargs(self):
         return {'riff':self,}

@@ -1,10 +1,8 @@
 from django.conf.urls import patterns, include, url
 
-from djam.riffs.auth import AuthRiff
+from djam.riffs.admin import admin
 
 
 urlpatterns = patterns('',
-    url(r'^', include(AuthRiff().get_urls(),
-                      namespace='auth',
-                      app_name='djam')),
+    url(r'^admin/', include(admin.get_urls_tuple())),
 )

@@ -7,7 +7,7 @@ from djam.views.auth import LoginView, LogoutView
 class AuthRiff(Riff):
     login_view = LoginView
     logout_view = LogoutView
-    verbose_name = 'auth'
+    verbose_name = 'Auth'
 
     def get_login_kwargs(self):
         return self.get_view_kwargs()
