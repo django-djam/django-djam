@@ -8,20 +8,20 @@ from urllib import urlencode
 
 class Riff(object):
     widgets = []
-    riffs = []
+    riff_classes = []
     verbose_name = None
     slug = None
 
-    def __init__(self, name='djadmin', parent_riff=None):
-        self.name = name
-        self.parent_riff = parent_riff
+    def __init__(self, namespace='djam', parent=None):
+        self.namespace = namespace
+        self.parent = parent
         if self.verbose_name is None:
             raise ImproperlyConfigured('Please give me a verbose name')
         if self.slug is None:
             self.slug = slugify(self.verbose_name)
-        self._riffs = list() #TODO better name
-        for riff_cls in self.riffs:
-            riff = riff_cls(parent_riff=self)
+        self._riffs = []
+        for riff_class in self.riff_classes:
+            riff = riff_class(parent=self)
             self._riffs.append(riff)
 
     def get_urls(self):
@@ -45,8 +45,8 @@ class Riff(object):
         return {'riff':self,}
 
     def has_permission(self, request):
-        if self.parent_riff:
-            return self.parent_riff.has_permission(request)
+        if self.parent:
+            return self.parent.has_permission(request)
         return True
 
     def get_unauthorized_response(self, request):

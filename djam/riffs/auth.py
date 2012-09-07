@@ -1,32 +1,37 @@
 from django.conf.urls import patterns, url
 
 from djam.riffs.base import Riff
+from djam.views.auth import LoginView, LogoutView
 
-class SiteRiff(Riff):
-    login_view = None
-    logout_view = None
-    verbose_name = 'site'
+
+class AuthRiff(Riff):
+    login_view = LoginView
+    logout_view = LogoutView
+    verbose_name = 'auth'
+
+    def get_login_kwargs(self):
+        return {}
+
+    def get_logout_kwargs(self):
+        return {}
     
     def get_urls(self):
-        urlpatterns = super(SiteRiff, self).get_urls()
+        urlpatterns = super(AuthRiff, self).get_urls()
         
         def wrap(view):
             return self.as_view(view)
         
-        init = self.get_view_kwargs()
-        
         urlpatterns += patterns('',
             url(r'^logout/$',
-                wrap(self.logout_view.as_view(**init)),
+                wrap(self.logout_view.as_view(**self.get_logout_kwargs())),
                 name='logout'),
             url(r'^login/$',
-                wrap(self.logout_view.as_view(**init)),
+                wrap(self.login_view.as_view(**self.get_login_kwargs())),
                 name='login'),
         )
         
         return urlpatterns
     
     def has_permission(self, request):
-        if not request.user.is_active and not request.user.is_authenticated():
-            return False
-        return super(SiteRiff, self).has_permission(request)
+        # Login/logout don't care whether you're authenticated.
+        return True
