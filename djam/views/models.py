@@ -1,9 +1,9 @@
 from django.views.generic import ListView, DetailView
 
-from djam.views.base import RiffView
+from djam.views.base import RiffViewMixin
 
 
-class ModelRiffView(RiffView):
+class ModelRiffMixin(RiffViewMixin):
     template_suffix = None
 
     def get_template_names(self):
@@ -17,15 +17,15 @@ class ModelRiffView(RiffView):
                 'djam/{applabel}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel),
                 'djam/{suffix}.html'.format(suffix=self.template_suffix),]
 
-class ModelListView(ModelRiffView, ListView):
+class ModelListView(ModelRiffMixin, ListView):
     template_suffix = 'change_list'
 
-class ModelDetailView(ModelRiffView, DetailView):
+class ModelDetailView(ModelRiffMixin, DetailView):
     template_suffix = 'change_form'
 
-class ModelDeleteView(ModelRiffView, DetailView):
+class ModelDeleteView(ModelRiffMixin, DetailView):
     template_suffix = 'delete'
 
-class ModelHistoryView(ModelRiffView, ListView):
+class ModelHistoryView(ModelRiffMixin, ListView):
     template_suffix = 'history'
 

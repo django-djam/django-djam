@@ -30,7 +30,7 @@ class ModelRiff(Riff):
         urlpatterns = super(ModelRiff, self).get_urls()
 
         def wrap(view):
-            return self.as_view(view)
+            return self.wrap_view(view)
 
         init = self.get_view_kwargs()
 
@@ -65,7 +65,7 @@ class ModelRiff(Riff):
         return GeneratedForm
 
     def get_view_kwargs(self):
-        kwargs = self.get_view_kwargs()
+        kwargs = super(ModelRiff, self).get_view_kwargs()
         kwargs['model'] = self.model
         return kwargs
 
