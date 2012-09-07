@@ -1,3 +1,6 @@
+.. image:: https://secure.travis-ci.org/pculture/django-djam.png?branch=master
+   :target: http://travis-ci.org/pculture/django-djam
+
 django-djam
 ===========
 
