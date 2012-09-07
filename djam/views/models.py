@@ -1,10 +1,10 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from djam.views.base import RiffViewMixin
 
 
 class ModelRiffMixin(RiffViewMixin):
-    template_suffix = None
+    template_name_suffix = None
 
     def get_template_names(self):
         if self.template_name:
@@ -13,19 +13,19 @@ class ModelRiffMixin(RiffViewMixin):
         applabel = self.model._meta.app_label
         slug = self.riff.slug
         
-        return ['djam/{applabel}/{modelname}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel, modelname=slug),
-                'djam/{applabel}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel),
-                'djam/{suffix}.html'.format(suffix=self.template_suffix),]
+        return ['djam/{applabel}/{modelname}/{suffix}.html'.format(suffix=self.template_name_suffix, applabel=applabel, modelname=slug),
+                'djam/{applabel}/{suffix}.html'.format(suffix=self.template_name_suffix, applabel=applabel),
+                'djam/{suffix}.html'.format(suffix=self.template_name_suffix),]
 
-class ModelListView(ModelRiffMixin, ListView):
-    template_suffix = 'change_list'
+class ModelListView(ModelRiffMixin, ListView, CreateView):
+    template_name_suffix = 'change_list'
 
-class ModelDetailView(ModelRiffMixin, DetailView):
-    template_suffix = 'change_form'
+class ModelDetailView(ModelRiffMixin, UpdateView):
+    template_name_suffix = 'change_form'
 
-class ModelDeleteView(ModelRiffMixin, DetailView):
-    template_suffix = 'delete'
+class ModelDeleteView(ModelRiffMixin, DeleteView):
+    template_name_suffix = 'delete'
 
 class ModelHistoryView(ModelRiffMixin, ListView):
-    template_suffix = 'history'
+    template_name_suffix = 'history'
 

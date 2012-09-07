@@ -6,7 +6,7 @@ from django.views.generic import View
 from django.contrib.contenttypes.models import ContentType
 
 from djam.riffs.models import ModelRiff
-from djam.tests.unit.riffs.common import GenericURLResolver
+from djam.tests.common import GenericURLResolver
 
 
 class TestRiff(ModelRiff):
@@ -15,7 +15,7 @@ class TestRiff(ModelRiff):
 class ModelRiffTestCase(TestCase):
     def setUp(self):
         self.request_factory = RequestFactory()
-        self.riff = self.get_test_riff()
+        self.riff = self.get_riff()
         
         #TODO it would be nice if django's test case could just use this!
         self.resolver = GenericURLResolver(r'^', self.riff.get_urls())
@@ -26,7 +26,7 @@ class ModelRiffTestCase(TestCase):
         
         self.riff.reverse = reverse
     
-    def get_test_riff(self):
+    def get_riff(self):
         return TestRiff()
 
     def test_get_urls(self):

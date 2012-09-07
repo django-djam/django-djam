@@ -5,7 +5,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import View
 
 from djam.riffs.base import Riff
-from djam.tests.unit.riffs.common import GenericURLResolver
+from djam.tests.common import GenericURLResolver
 
 
 class TestRiff(Riff):
