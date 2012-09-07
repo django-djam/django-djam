@@ -13,24 +13,35 @@ class Riff(object):
     verbose_name = None
     slug = None
     namespace = None
-    app_name = 'djam'
+    app_name = None
 
-    def __init__(self, namespace=None, parent=None):
+    def __init__(self, parent=None, namespace=None, app_name=None):
         self.parent = parent
         if self.verbose_name is None:
             raise ImproperlyConfigured('Please give me a verbose name')
         if self.slug is None:
             self.slug = slugify(self.verbose_name)
         self.namespace = namespace or self.namespace or self.slug
-        self._riffs = []
-        for riff_class in self.riff_classes:
-            riff = riff_class(parent=self)
-            self._riffs.append(riff)
+        if parent is None:
+            self.base_riff = self
+            self.full_namespace = self.namespace
+        else:
+            self.base_riff = parent.base_riff
+            self.full_namespace = ":".join((parent.full_namespace, self.namespace))
+        self.riffs = [cls(parent=self) for cls in self.riff_classes]
+
+    def get_default_url(self):
+        """
+        Returns the default base url for this riff. Must be implemented by
+        subclasses.
+
+        """
+        raise NotImplementedError('Subclasses must implement get_default_url.')
 
     def get_urls(self):
         urlpatterns = self.get_extra_urls()
 
-        for riff in self._riffs:
+        for riff in self.riffs:
             urlpatterns += patterns('',
                 url(r'^{slug}/'.format(slug=riff.slug),
                     include(riff.get_urls_tuple())),
@@ -61,4 +72,5 @@ class Riff(object):
         return view
 
     def reverse(self, name, *args, **kwargs):
-        return reverse('{namespace}:{viewname}'.format(namespace=self.namespace, viewname=name), args=args, kwargs=kwargs)
+        return reverse('{namespace}:{viewname}'.format(namespace=self.full_namespace, viewname=name),
+                       args=args, kwargs=kwargs)

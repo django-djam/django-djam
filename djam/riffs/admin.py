@@ -10,10 +10,12 @@ class AdminRiff(Riff):
     riff_classes = (AuthRiff,)
     slug = 'admin'
 
-    def __init__(self, namespace=None):
+    def __init__(self, namespace=None, app_name=None):
         site_name = Site.objects.get_current().name
         self.verbose_name = _('Admin for {site_name}'.format(site_name=site_name))
-        super(AdminRiff, self).__init__(namespace=None)
+        super(AdminRiff, self).__init__(parent=None,
+                                        namespace=None,
+                                        app_name=None)
 
 
-admin = AdminRiff()
+admin = AdminRiff(app_name='djam')

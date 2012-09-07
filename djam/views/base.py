@@ -19,3 +19,11 @@ class RiffViewMixin(object):
     
     def get_unauthorized_response(self, request):
         return self.riff.get_unauthorized_response(request)
+
+    def get_context_data(self, **kwargs):
+        context = super(RiffViewMixin, self).get_context_data(**kwargs)
+        context.update({
+            'base_riff': self.riff.base_riff,
+            'riff': self.riff,
+        })
+        return context

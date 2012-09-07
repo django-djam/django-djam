@@ -28,12 +28,12 @@ class LoginView(RiffViewMixin, FormView):
 
         # Use default setting if redirect_to is empty
         if not redirect_to:
-            redirect_to = settings.LOGIN_REDIRECT_URL
+            redirect_to = self.riff.base_riff.get_default_url()
 
         # Heavier security check -- don't allow redirection to a different
         # host.
         elif netloc and netloc != self.request.get_host():
-            redirect_to = settings.LOGIN_REDIRECT_URL
+            redirect_to = self.riff.base_riff.get_default_url()
 
         # Okay, security checks complete. Log the user in.
         login(self.request, form.get_user())
@@ -44,12 +44,13 @@ class LoginView(RiffViewMixin, FormView):
         return HttpResponseRedirect(redirect_to)
 
     def get_context_data(self, **kwargs):
-        kwargs.update({
+        context = super(LoginView, self).get_context_data(**kwargs)
+        context.update({
             'redirect_to': self.redirect_to,
             'redirect_field_name': self.redirect_field_name,
             'site': Site.objects.get_current(),
         })
-        return kwargs
+        return context
 
 
 class LogoutView(RiffViewMixin, TemplateView):
@@ -69,9 +70,10 @@ class LogoutView(RiffViewMixin, TemplateView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        kwargs.update({
+        context = super(LoginView, self).get_context_data(**kwargs)
+        context.update({
             'site': Site.objects.get_current(),
             'redirect_to': self.redirect_to,
             'redirect_field_name': self.redirect_field_name
         })
-        return kwargs
+        return context
