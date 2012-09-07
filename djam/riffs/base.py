@@ -41,7 +41,7 @@ class Riff(object):
         return patterns('',)
 
     def urls(self):
-        return self.get_urls(), None, self.name
+        return self.get_urls(), None, self.namespace
     urls = property(urls)
 
     def get_view_kwargs(self):
