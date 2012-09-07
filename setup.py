@@ -23,6 +23,8 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
     ),
+    tests_require = ["mock", "nose", "django-nose"],
+    test_suite = "example_djam_project.runtests.runtests",
 )
 
 
