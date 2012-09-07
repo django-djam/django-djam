@@ -12,5 +12,9 @@ Python style
 * Use four spaces for indentation.
 * In docstrings, use "action words". For example, "Calculates the number of apples" rather than "Calculate the number of apples".
 * Empty lines should not contain indentation.
+* Always use absolute imports. They're easier to debug and are 3.0
+  forwards-compatible.
+* Be sure to include ``from __future__ import unicode_literals`` at
+  the top of any file that uses strings.
 
 .. _PEP 8: http://www.python.org/dev/peps/pep-0008/

@@ -1,6 +1,6 @@
-from django.conf.urls.defaults import patterns
+from django.conf.urls import patterns, url
 
-from base import Riff
+from djam.riffs.base import Riff
 
 class SiteRiff(Riff):
     login_view = None

@@ -1,5 +1,5 @@
 from django.utils.cache import add_never_cache_headers
-from django.views.generic import import View
+from django.views.generic import View
 
 class RiffMixin(View):
     riff = None
