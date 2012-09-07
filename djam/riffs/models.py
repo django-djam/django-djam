@@ -27,7 +27,7 @@ class ModelRiff(Riff):
         super(ModelRiff, self).__init__(*args, **kwargs)
 
     def get_urls(self):
-        urlpatterns = super(SiteRiff, self).get_urls()
+        urlpatterns = super(ModelRiff, self).get_urls()
 
         def wrap(view):
             return self.as_view(view)
