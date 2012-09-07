@@ -13,9 +13,9 @@ class ModelRiffView(RiffView):
         applabel = self.model._meta.app_label
         slug = self.riff.slug
         
-        return ['djamin/{applabel}/{modelname}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel, modelname=slug),
-                'djamin/{applabel}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel),
-                'djamin/{suffix}.html'.format(suffix=self.template_suffix),]
+        return ['djam/{applabel}/{modelname}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel, modelname=slug),
+                'djam/{applabel}/{suffix}.html'.format(suffix=self.template_suffix, applabel=applabel),
+                'djam/{suffix}.html'.format(suffix=self.template_suffix),]
 
 class ModelListView(ModelRiffView, ListView):
     template_suffix = 'change_list'
