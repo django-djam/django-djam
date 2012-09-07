@@ -16,7 +16,7 @@ setup(
     },
     classifiers=(
         'Environment :: Web Environment',
-          'Framework :: Django',
+        'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
