@@ -10,16 +10,16 @@ class AuthRiff(Riff):
     verbose_name = 'auth'
 
     def get_login_kwargs(self):
-        return {}
+        return self.get_view_kwargs()
 
     def get_logout_kwargs(self):
-        return {}
+        return self.get_view_kwargs()
     
     def get_urls(self):
         urlpatterns = super(AuthRiff, self).get_urls()
         
         def wrap(view):
-            return self.as_view(view)
+            return self.wrap_view(view)
         
         urlpatterns += patterns('',
             url(r'^logout/$',

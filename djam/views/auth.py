@@ -7,11 +7,13 @@ from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, FormView
 
+from djam.views.base import RiffViewMixin
+
 
 REDIRECT_FIELD_NAME = 'next'
 
 
-class LoginView(FormView):
+class LoginView(RiffViewMixin, FormView):
     template_name = 'riffs/auth/login.html'
     redirect_field_name = REDIRECT_FIELD_NAME
     form_class = AuthenticationForm
@@ -50,7 +52,7 @@ class LoginView(FormView):
         return kwargs
 
 
-class LogoutView(TemplateView):
+class LogoutView(RiffViewMixin, TemplateView):
     template_name = 'riffs/auth/logout.html'
     redirect_field_name = REDIRECT_FIELD_NAME
 

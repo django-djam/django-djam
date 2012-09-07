@@ -6,6 +6,7 @@ from django.template.defaultfilters import slugify
 
 from urllib import urlencode
 
+
 class Riff(object):
     widgets = []
     riff_classes = []
@@ -54,7 +55,7 @@ class Riff(object):
         params = urlencode(params)
         return HttpResponseRedirect('{url}?{params}'.format(url=self.reverse('login'), params=params))
 
-    def as_view(self, view):
+    def wrap_view(self, view):
         return view
 
     def reverse(self, name, *args, **kwargs):
