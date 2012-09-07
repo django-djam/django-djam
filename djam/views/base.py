@@ -2,7 +2,7 @@ from django.utils.cache import add_never_cache_headers
 from django.views.generic import View
 
 
-class RiffMixin(View):
+class RiffView(View):
     riff = None
     cacheable = False
     
@@ -11,7 +11,7 @@ class RiffMixin(View):
         if not self.permission_check():
             return self.get_unauthorized_response()
         
-        response = super(RiffMixin, self).dispatch(request, *args, **kwargs)
+        response = super(RiffView, self).dispatch(request, *args, **kwargs)
         if not self.cacheable:
             add_never_cache_headers(response)
         return response

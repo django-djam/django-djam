@@ -6,6 +6,7 @@ from django import forms
 from djam.riffs.base import Riff
 from djam.views.models import ModelListView, ModelDetailView, ModelDeleteView, ModelHistoryView
 
+
 class ModelRiff(Riff):
     model = None
     list_view = ModelListView
