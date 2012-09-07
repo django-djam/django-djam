@@ -4,13 +4,14 @@ from django.core.exceptions import ImproperlyConfigured
 from django import forms
 
 from djam.riffs.base import Riff
+from djam.views.models import ModelListView, ModelDetailView, ModelDeleteView, ModelHistoryView
 
 class ModelRiff(Riff):
     model = None
-    list_view = None
-    detail_view = None
-    delete_view = None
-    history_view = None
+    list_view = ModelListView
+    detail_view = ModelDetailView
+    delete_view = ModelDeleteView
+    history_view = ModelHistoryView
 
     base_form_class = forms.ModelForm
     form_class = None
@@ -25,7 +26,7 @@ class ModelRiff(Riff):
         super(ModelRiff, self).__init__(*args, **kwargs)
 
     def get_urls(self):
-        urlpatterns = super(ModelRiff, self).get_urls()
+        urlpatterns = super(SiteRiff, self).get_urls()
 
         def wrap(view):
             return self.as_view(view)
@@ -61,3 +62,13 @@ class ModelRiff(Riff):
             class Meta:
                 model = self.model
         return GeneratedForm
+
+    def get_view_kwargs(self):
+        kwargs = self.get_view_kwargs()
+        kwargs['model'] = self.model
+        return kwargs
+
+    def get_detail_view_kwargs(self):
+        kwargs = self.get_view_kwargs()
+        kwargs['form_class'] = self.get_form_class()
+        return kwargs
