@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.test.client import RequestFactory
 from django.core.exceptions import ImproperlyConfigured
 from django.conf.urls import patterns, url
 from django.views.generic import View
@@ -19,6 +20,7 @@ class TestRiff(Riff):
 
 class BaseRiffTestCase(TestCase):
     def setUp(self):
+        self.request_factory = RequestFactory()
         self.riff = self.get_test_riff()
         
         #TODO it would be nice if django's test case could just use this!
@@ -47,3 +49,9 @@ class BaseRiffTestCase(TestCase):
     def test_reverse(self):
         url = self.riff.reverse('login')
         self.assertEqual('login/', url)
+    
+    def test_get_unauthorized_response(self):
+        request = self.request_factory.get('/')
+        response = self.riff.get_unauthorized_response(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response['Location'], '{url}?next=/'.format(url=self.riff.reverse('login')))
