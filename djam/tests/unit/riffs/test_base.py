@@ -41,7 +41,7 @@ class BaseRiffTestCase(TestCase):
     def test_get_urls(self):
         urls = self.riff.get_urls()
 
-        purls, appname, namespace = self.riff.urls
+        purls, appname, namespace = self.riff.get_urls_tuple()
 
         #self.assertEquals(urls, purls)
         self.assertEquals(self.riff.namespace, namespace)
