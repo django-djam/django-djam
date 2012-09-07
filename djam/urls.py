@@ -4,5 +4,7 @@ from djam.riffs.auth import AuthRiff
 
 
 urlpatterns = patterns('',
-    url(r'^', include(AuthRiff().get_urls())),
+    url(r'^', include(AuthRiff().get_urls(),
+                      namespace='auth',
+                      app_name='djam')),
 )

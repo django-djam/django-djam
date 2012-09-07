@@ -15,7 +15,7 @@ class RiffViewMixin(object):
         return response
     
     def has_permission(self, request):
-        self.riff.has_permission(request)
+        return self.riff.has_permission(request)
     
     def get_unauthorized_response(self, request):
         return self.riff.get_unauthorized_response(request)
