@@ -1,7 +1,12 @@
+{% load url from future %}
+
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="brand" href="/">{{ base_riff.verbose_name }}</a>
+			<ul class="nav pull-right">
+				<li><a href="{% url "admin:auth:logout" %}">Logout</a></li>
+			</ul>
 		</div>{# /.container #}
 	</div>{# /.navbar-inner #}
 </div>{# /.navbar #}

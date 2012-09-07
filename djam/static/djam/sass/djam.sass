@@ -1,5 +1,7 @@
 @import "../fonts/patuaone.css"
 
+@import compass/css3/border-radius
+
 // Base
 // ==================================================
 
@@ -37,6 +39,12 @@ body
 	letter-spacing: 2px
 
 // navs
+
+.nav-widgets > li
+	border: 1px solid #E5E5E5
+	margin-bottom: 20px
+	background: #FFF
+	+border-radius(5px)
 
 .nav-widgets > li > h2
 	margin: 0
