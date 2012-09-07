@@ -3,5 +3,4 @@ from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
 	url(r'^', include('djam.urls')),
-	url(r'^', TemplateView.as_view('login.html'))
 )
