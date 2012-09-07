@@ -31,3 +31,7 @@ class ModelRiffTestCase(TestCase):
 
     def test_get_urls(self):
         urls = self.riff.get_urls()
+    
+    def get_form_class(self):
+        form_cls = self.riff.get_form_class()
+        self.assertEqual(form_cls._meta.model, ContentType)
