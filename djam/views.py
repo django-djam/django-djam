@@ -5,9 +5,9 @@ class RiffMixin(View):
     riff = None
     cacheable = False
     
-    def dispatch(self, request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
         self.request = request
-        if not self.permission_check()
+        if not self.permission_check():
             return self.get_unauthorized_response()
         
         response = super(RiffMixin, self).dispatch(request, *args, **kwargs)
