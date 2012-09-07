@@ -4,10 +4,11 @@ from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
 from djam.riffs.auth import AuthRiff
+from djam.riffs.dashboard import DashboardRiff
 
 
 class AdminRiff(Riff):
-    riff_classes = (AuthRiff,)
+    riff_classes = (DashboardRiff, AuthRiff,)
     slug = 'admin'
 
     def __init__(self, namespace=None, app_name=None):
@@ -16,6 +17,9 @@ class AdminRiff(Riff):
         super(AdminRiff, self).__init__(parent=None,
                                         namespace=None,
                                         app_name=None)
+
+    def get_default_url(self):
+        return self.riffs[0].get_default_url()
 
 
 admin = AdminRiff(app_name='djam')
