@@ -4,14 +4,14 @@ from django.core.exceptions import ImproperlyConfigured
 from django import forms
 
 from djam.riffs.base import Riff
-from djam.views.models import ModelListView, ModelCreateView, ModelDetailView, ModelDeleteView, ModelHistoryView
+from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView, ModelHistoryView
 
 
 class ModelRiff(Riff):
     model = None
     list_view = ModelListView
     create_view = ModelCreateView
-    detail_view = ModelDetailView
+    update_view = ModelUpdateView
     delete_view = ModelDeleteView
     history_view = ModelHistoryView
 
@@ -25,6 +25,10 @@ class ModelRiff(Riff):
             self.verbose_name = self.model._meta.verbose_name
         if self.slug is None:
             self.slug = self.model._meta.module_name
+        if self.namespace is None:
+            self.namespace = '{appname}_{modelname}'.format(
+                appname=self.model._meta.app_label,
+                modelname=self.model._meta.module_name)
         super(ModelRiff, self).__init__(*args, **kwargs)
 
     def get_urls(self):
@@ -32,33 +36,28 @@ class ModelRiff(Riff):
 
         init = self.get_view_kwargs()
 
-        format_params = {
-            'appname': self.model._meta.app_label,
-            'modelname': self.slug
-        }
-
         urlpatterns += patterns('',
-            url(r'^/$',
+            url(r'^$',
                 self.wrap_view(self.list_view.as_view(**init)),
-                name='{appname}_{modelname}_list'.format(**format_params)),
+                name='list'),
             url(r'^add/$',
                 self.wrap_view(self.create_view.as_view(**self.get_create_view_kwargs())),
-                name='{appname}_{modelname}_add'.format(**format_params)),
+                name='create'),
             url(r'^(?P<pk>\w+)/$',
-                self.wrap_view(self.detail_view.as_view(**self.get_detail_view_kwargs())),
-                name='{appname}_{modelname}_change'.format(**format_params)),
+                self.wrap_view(self.update_view.as_view(**self.get_update_view_kwargs())),
+                name='update'),
             url(r'^(?P<pk>\w+)/delete/$',
                 self.wrap_view(self.delete_view.as_view(**init)),
-                name='{appname}_{modelname}_delete'.format(**format_params)),
+                name='delete'),
             url(r'^(?P<pk>\w+)/history/$',
                 self.wrap_view(self.history_view.as_view(**init)),
-                name='{appname}_{modelname}_history'.format(**format_params)),
+                name='history'),
         )
 
         return urlpatterns
 
     def get_default_url(self):
-        return self.reverse('{appname}_{modelname}_list'.format(appname=self.model._meta.app_label, modelname=self.slug))
+        return self.reverse('list'.format(appname=self.model._meta.app_label, modelname=self.slug))
 
     def get_form_class(self):
         if self.form_class:
@@ -73,7 +72,7 @@ class ModelRiff(Riff):
         kwargs['model'] = self.model
         return kwargs
 
-    def get_detail_view_kwargs(self):
+    def get_update_view_kwargs(self):
         kwargs = self.get_view_kwargs()
         kwargs['form_class'] = self.get_form_class()
         return kwargs
