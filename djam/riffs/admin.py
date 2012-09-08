@@ -14,12 +14,10 @@ from djam.riffs.dashboard import DashboardRiff
 class AdminRiff(Riff):
     auth_riff_class = AuthRiff
     riff_classes = (DashboardRiff,)
+    verbose_name = _('Djam Admin')
     slug = 'admin'
 
     def __init__(self, namespace=None, app_name=None):
-        site_name = Site.objects.get_current().name
-        if self.verbose_name is None:
-            self.verbose_name = _('Admin for {site_name}'.format(site_name=site_name))
         super(AdminRiff, self).__init__(parent=None,
                                         namespace=None,
                                         app_name=None)
