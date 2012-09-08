@@ -1,0 +1,14 @@
+{% extends 'djam/__base.html' %}
+
+{% load djam %}
+
+{% block main %}
+    <p><a href="{% riff_url riff 'create' %}">Add a {{ verbose_name }}</a></p>
+    {% for object in object_list %}
+        <div class="row">
+            <div class="span8">
+                <a href="{% riff_url riff 'update' pk=object.pk %}">{{ object }}</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

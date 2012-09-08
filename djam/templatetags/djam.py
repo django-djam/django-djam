@@ -15,3 +15,7 @@ def get_displayed_riffs(context, riff):
         return ''
 
     return [r for r in riff.riffs if not r.is_hidden(request)]
+
+@register.simple_tag
+def riff_url(riff, view_name, *args, **kwargs):
+    return riff.reverse(view_name, *args, **kwargs)

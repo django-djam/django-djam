@@ -17,6 +17,11 @@ class ModelRiffMixin(RiffViewMixin):
                 'djam/models/{applabel}/{suffix}.html'.format(suffix=self.template_name_suffix, applabel=applabel),
                 'djam/models/{suffix}.html'.format(suffix=self.template_name_suffix),]
 
+    def get_context_data(self, **kwargs):
+        context = super(ModelRiffMixin, self).get_context_data(**kwargs)
+        context.update(verbose_name=self.model._meta.verbose_name)
+        return context
+
 class ModelListView(ModelRiffMixin, ListView):
     template_name_suffix = 'list'
 

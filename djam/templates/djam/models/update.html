@@ -1,0 +1,14 @@
+{% extends 'djam/__base.html' %}
+
+{% load i18n %}
+
+{% block main %}
+    <div class="row">
+        <form method='POST' action='{{ request.path }}'>
+            {% include 'djam/_form.html' %}
+            <div class="control-group">
+                <button type="submit" class="btn btn-large btn-primary btn-block">{% trans "Submit" %}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
