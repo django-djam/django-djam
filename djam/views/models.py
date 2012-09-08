@@ -17,8 +17,11 @@ class ModelRiffMixin(RiffViewMixin):
                 'djam/{applabel}/{suffix}.html'.format(suffix=self.template_name_suffix, applabel=applabel),
                 'djam/{suffix}.html'.format(suffix=self.template_name_suffix),]
 
-class ModelListView(ModelRiffMixin, ListView, CreateView):
+class ModelListView(ModelRiffMixin, ListView):
     template_name_suffix = 'change_list'
+
+class ModelCreateView(ModelRiffMixin, CreateView):
+    template_name_suffix = 'change_form'
     
     def get_success_url(self):
         format_params = {

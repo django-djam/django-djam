@@ -4,12 +4,13 @@ from django.core.exceptions import ImproperlyConfigured
 from django import forms
 
 from djam.riffs.base import Riff
-from djam.views.models import ModelListView, ModelDetailView, ModelDeleteView, ModelHistoryView
+from djam.views.models import ModelListView, ModelCreateView, ModelDetailView, ModelDeleteView, ModelHistoryView
 
 
 class ModelRiff(Riff):
     model = None
     list_view = ModelListView
+    create_view = ModelCreateView
     detail_view = ModelDetailView
     delete_view = ModelDeleteView
     history_view = ModelHistoryView
@@ -40,8 +41,11 @@ class ModelRiff(Riff):
             url(r'^/$',
                 self.wrap_view(self.list_view.as_view(**init)),
                 name='{appname}_{modelname}_list'.format(**format_params)),
+            url(r'^add/$',
+                self.wrap_view(self.create_view.as_view(**self.get_create_view_kwargs())),
+                name='{appname}_{modelname}_add'.format(**format_params)),
             url(r'^(?P<pk>\w+)/$',
-                self.wrap_view(self.detail_view.as_view(**init)),
+                self.wrap_view(self.detail_view.as_view(**self.get_detail_view_kwargs())),
                 name='{appname}_{modelname}_change'.format(**format_params)),
             url(r'^(?P<pk>\w+)/delete/$',
                 self.wrap_view(self.delete_view.as_view(**init)),
@@ -73,3 +77,9 @@ class ModelRiff(Riff):
         kwargs = self.get_view_kwargs()
         kwargs['form_class'] = self.get_form_class()
         return kwargs
+    
+    def get_create_view_kwargs(self):
+        kwargs = self.get_view_kwargs()
+        kwargs['form_class'] = self.get_form_class()
+        return kwargs
+

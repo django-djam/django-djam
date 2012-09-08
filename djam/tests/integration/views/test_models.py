@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django import forms
 
 from djam.riffs.models import ModelRiff
-from djam.views.models import ModelListView, ModelDetailView, ModelDeleteView, ModelHistoryView
+from djam.views.models import ModelListView, ModelCreateView, ModelDetailView, ModelDeleteView, ModelHistoryView
 from djam.tests.common import SuperUserRequestFactory, GenericURLResolver
 
 
@@ -41,13 +41,23 @@ class ModelListViewTestCase(BaseModelViewTestCase):
     def setUp(self):
         super(ModelListViewTestCase, self).setUp()
         self.view = ModelListView.as_view(riff=self.riff,
-                                          model=ContentType,
-                                          form_class=self.form_class,)
+                                          model=ContentType,)
 
     def test_get_list(self):
         request = self.request_factory.get('/')
         response = self.view(request)
-    
+
+class ModelCreateViewTestCase(BaseModelViewTestCase):
+    def setUp(self):
+        super(ModelCreateViewTestCase, self).setUp()
+        self.view = ModelCreateView.as_view(riff=self.riff,
+                                            model=ContentType,
+                                            form_class=self.form_class,)
+
+    def test_get(self):
+        request = self.request_factory.get('/')
+        response = self.view(request)
+
     def test_post_create(self):
         request = self.request_factory.post('/')
         response = self.view(request)
