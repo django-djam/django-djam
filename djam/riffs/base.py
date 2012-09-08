@@ -1,9 +1,6 @@
-from urllib import urlencode
-
 from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponseRedirect
 from django.template.defaultfilters import slugify
 
 
@@ -72,9 +69,7 @@ class Riff(object):
         return not self.has_permission(request)
 
     def get_unauthorized_response(self, request):
-        params = {'next':request.path}
-        params = urlencode(params)
-        return HttpResponseRedirect('{url}?{params}'.format(url=self.reverse('login'), params=params))
+        return self.base_riff.get_unauthorized_response(request)
 
     def wrap_view(self, view):
         return view

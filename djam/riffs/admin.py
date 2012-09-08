@@ -1,5 +1,8 @@
+from urllib import urlencode
+
 from django.conf.urls import patterns, include, url
 from django.contrib.sites.models import Site
+from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
@@ -28,6 +31,14 @@ class AdminRiff(Riff):
         return patterns('',
             url(r'^', include(self.auth_riff.get_urls_tuple()))
         )
+
+    def has_permission(self, request):
+        return request.user.is_active and request.user.is_authenticated()
+
+    def get_unauthorized_response(self, request):
+        params = {'next':request.path}
+        params = urlencode(params)
+        return HttpResponseRedirect('{url}?{params}'.format(url=self.auth_riff.reverse('login'), params=params))
 
 
 admin = AdminRiff(app_name='djam')
