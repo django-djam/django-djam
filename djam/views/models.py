@@ -43,6 +43,3 @@ class ModelDeleteView(ModelRiffMixin, DeleteView):
     def get_success_url(self):
         return self.riff.get_default_url()
 
-class ModelHistoryView(ModelRiffMixin, ListView):
-    template_name_suffix = 'history'
-

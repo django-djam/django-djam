@@ -4,7 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django import forms
 
 from djam.riffs.base import Riff
-from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView, ModelHistoryView
+from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView
 
 
 class ModelRiff(Riff):
@@ -13,7 +13,6 @@ class ModelRiff(Riff):
     create_view = ModelCreateView
     update_view = ModelUpdateView
     delete_view = ModelDeleteView
-    history_view = ModelHistoryView
 
     base_form_class = forms.ModelForm
     form_class = None
@@ -47,9 +46,6 @@ class ModelRiff(Riff):
             url(r'^(?P<pk>\w+)/delete/$',
                 self.wrap_view(self.delete_view.as_view(**init)),
                 name='delete'),
-            url(r'^(?P<pk>\w+)/history/$',
-                self.wrap_view(self.history_view.as_view(**init)),
-                name='history'),
         )
 
     def get_default_url(self):
