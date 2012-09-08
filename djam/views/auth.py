@@ -14,7 +14,7 @@ REDIRECT_FIELD_NAME = 'next'
 
 
 class LoginView(RiffViewMixin, FormView):
-    template_name = 'riffs/auth/login.html'
+    template_name = 'djam/auth/login.html'
     redirect_field_name = REDIRECT_FIELD_NAME
     form_class = AuthenticationForm
 
@@ -54,7 +54,7 @@ class LoginView(RiffViewMixin, FormView):
 
 
 class LogoutView(RiffViewMixin, TemplateView):
-    template_name = 'riffs/auth/logout.html'
+    template_name = 'djam/auth/logout.html'
     redirect_field_name = REDIRECT_FIELD_NAME
 
     def get(self, request, *args, **kwargs):

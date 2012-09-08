@@ -1,0 +1,47 @@
+{% extends "djam/__base.html" %}
+{% load i18n static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "djam/stylesheets/login.css" %}" type="text/css" media="screen" title="no title" charset="utf-8">
+{% endblock %}
+
+{% block body_classes %}{{ block.super }} login{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="login-pod">
+            <h1 class="title-bar-dark">{{ base_riff.verbose_name }}</h1>
+            <div class="l-padded">
+                <form class="login-form" method="POST">
+                    {% csrf_token %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                        <div class="control-group{% if field.errors %} error{% endif %}">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="alert alert-error">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    {% for field in form.hidden_fields %}
+                        {{ field }}
+                    {% endfor %}
+                    {% if redirect_field_name and redirect_to %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_to }}" />
+                    {% endif %}
+                    <div class="control-group">
+                        <button type="submit" class="btn btn-large btn-primary btn-block">{% trans "Log In" %}</button>
+                    </div>
+                </form>
+            </div>{# /.l-padded #}
+        </div>{# /.login-pod #}
+    </div>{# /.container #}
+{% endblock %}
