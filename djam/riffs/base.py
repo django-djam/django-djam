@@ -28,7 +28,12 @@ class Riff(object):
         else:
             self.base_riff = parent.base_riff
             self.full_namespace = ":".join((parent.full_namespace, self.namespace))
-        self.riffs = [cls(parent=self) for cls in self.riff_classes]
+        self.riffs = list()
+        for riff_cls in self.riff_classes:
+            self.register_riff(cls)
+
+    def register_riff(self, riff_class):
+        self.riffs.append(riff_class(parent=self))
 
     def get_default_url(self):
         """
