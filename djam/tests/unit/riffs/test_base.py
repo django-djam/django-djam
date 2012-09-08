@@ -53,5 +53,4 @@ class BaseRiffTestCase(TestCase):
     def test_get_unauthorized_response(self):
         request = self.request_factory.get('/')
         response = self.riff.get_unauthorized_response(request)
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response['Location'], '{url}?next=/'.format(url=self.riff.reverse('login')))
+        self.assertEqual(response.status_code, 403)

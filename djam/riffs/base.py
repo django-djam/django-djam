@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpResponseForbidden
 from django.template.defaultfilters import slugify
 
 from djam.views.base import DefaultRedirectView
@@ -76,7 +77,9 @@ class Riff(object):
         return not self.has_permission(request)
 
     def get_unauthorized_response(self, request):
-        return self.base_riff.get_unauthorized_response(request)
+        if self.base_riff is not self:
+            return self.base_riff.get_unauthorized_response(request)
+        return HttpResponseForbidden()
 
     def wrap_view(self, view):
         return view
