@@ -1,9 +1,13 @@
+from __future__ import unicode_literals
+
 from django.test.client import RequestFactory
 from django.core.urlresolvers import RegexURLResolver
+
 
 class MockSession(dict):
     def flush(self):
         pass
+
 
 class SuperUserRequestFactory(RequestFactory):
     def __init__(self, **kwargs):
@@ -16,6 +20,7 @@ class SuperUserRequestFactory(RequestFactory):
         ret.session = MockSession()
         ret.csrf_processing_done = True #lets not worry about csrf
         return ret
+
 
 class GenericURLResolver(RegexURLResolver):
     def __init__(self, regex, url_patterns, default_kwargs=None, app_name=None, namespace=None):

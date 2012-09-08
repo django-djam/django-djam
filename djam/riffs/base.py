@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured

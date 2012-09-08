@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.conf.urls import patterns, include, url
 
 from djam.riffs.admin import admin

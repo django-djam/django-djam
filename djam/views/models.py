@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from djam.views.base import RiffViewMixin
