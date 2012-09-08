@@ -29,15 +29,13 @@ class ModelCreateView(ModelRiffMixin, CreateView):
     template_name_suffix = 'create'
     
     def get_success_url(self):
-        format_params = {
-            'appname': self.model._meta.app_label,
-            'modelname': self.riff.slug
-        }
-        
-        return self.reverse('{appname}_{modelname}_change'.format(**format_params), pk=self.object.pk)
+        return self.riff.reverse('update', pk=self.object.pk)
 
 class ModelUpdateView(ModelRiffMixin, UpdateView):
     template_name_suffix = 'update'
+    
+    def get_success_url(self):
+        return self.riff.reverse('update', pk=self.object.pk)
 
 class ModelDeleteView(ModelRiffMixin, DeleteView):
     template_name_suffix = 'delete'

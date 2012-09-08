@@ -3,7 +3,7 @@
 {% load djam %}
 
 {% block main %}
-    <p><a href="{% riff_url riff 'create' %}">Add a {{ verbose_name }}</a></p>
+    <a class='btn btn-large btn-block btn-primary' href="{% riff_url riff 'create' %}">Add a {{ verbose_name }}</a>
     {% for object in object_list %}
         <div class="row">
             <div class="span8">

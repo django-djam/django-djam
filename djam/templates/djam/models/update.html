@@ -1,8 +1,15 @@
 {% extends 'djam/__base.html' %}
 
-{% load i18n %}
+{% load i18n djam %}
 
 {% block main %}
+    <div class="row">
+        <div class="span8">
+            <ul class='nav nav-widgets'>
+                <li><h2><a href='{% riff_url riff "list" %}'>Back to {{ verbose_name }} list</a></h2></li>
+            </ul>
+        </div>
+    </div>
     <div class="row">
         <form method='POST' action='{{ request.path }}'>
             {% include 'djam/_form.html' %}
