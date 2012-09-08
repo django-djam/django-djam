@@ -17,3 +17,7 @@ class DashboardRiff(Riff):
 
     def get_default_url(self):
         return self.reverse('dashboard')
+
+    def is_hidden(self, request):
+        """Always returns True to hide the dashboard."""
+        return True
