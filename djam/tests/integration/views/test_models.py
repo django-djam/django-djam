@@ -8,7 +8,7 @@ from django import forms
 
 from djam.riffs.models import ModelRiff
 from djam.views.models import ModelListView, ModelDetailView, ModelDeleteView, ModelHistoryView
-from djam.tests.common import SuperUserRequestFactory
+from djam.tests.common import SuperUserRequestFactory, GenericURLResolver
 
 
 class TestRiff(ModelRiff):
@@ -18,6 +18,15 @@ class BaseModelViewTestCase(TestCase):
     def setUp(self):
         self.request_factory = SuperUserRequestFactory()
         self.riff = self.get_riff()
+        
+        #TODO it would be nice if django's test case could just use this!
+        self.resolver = GenericURLResolver(r'^', self.riff.get_urls())
+        
+        def reverse(name, *args, **kwargs):
+            ret = self.resolver.reverse(name, *args, **kwargs)
+            return ret
+        
+        self.riff.reverse = reverse
         
         class form_class(forms.ModelForm):
             class Meta:

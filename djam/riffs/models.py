@@ -53,6 +53,9 @@ class ModelRiff(Riff):
 
         return urlpatterns
 
+    def get_default_url(self):
+        return self.reverse('{appname}_{modelname}_list'.format(appname=self.model._meta.app_label, modelname=self.slug))
+
     def get_form_class(self):
         if self.form_class:
             return self.form_class

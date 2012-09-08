@@ -19,12 +19,23 @@ class ModelRiffMixin(RiffViewMixin):
 
 class ModelListView(ModelRiffMixin, ListView, CreateView):
     template_name_suffix = 'change_list'
+    
+    def get_success_url(self):
+        format_params = {
+            'appname': self.model._meta.app_label,
+            'modelname': self.riff.slug
+        }
+        
+        return self.reverse('{appname}_{modelname}_change'.format(**format_params), pk=self.object.pk)
 
 class ModelDetailView(ModelRiffMixin, UpdateView):
     template_name_suffix = 'change_form'
 
 class ModelDeleteView(ModelRiffMixin, DeleteView):
     template_name_suffix = 'delete'
+    
+    def get_success_url(self):
+        return self.riff.get_default_url()
 
 class ModelHistoryView(ModelRiffMixin, ListView):
     template_name_suffix = 'history'
