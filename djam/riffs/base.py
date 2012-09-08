@@ -1,6 +1,6 @@
 from urllib import urlencode
 
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseRedirect
@@ -30,7 +30,7 @@ class Riff(object):
             self.full_namespace = ":".join((parent.full_namespace, self.namespace))
         self.riffs = list()
         for riff_cls in self.riff_classes:
-            self.register_riff(cls)
+            self.register_riff(riff_cls)
 
     def register_riff(self, riff_class):
         self.riffs.append(riff_class(parent=self))
@@ -61,12 +61,15 @@ class Riff(object):
         return self.get_urls(), self.app_name, self.namespace
 
     def get_view_kwargs(self):
-        return {'riff':self,}
+        return {'riff': self}
 
     def has_permission(self, request):
         if self.parent:
             return self.parent.has_permission(request)
         return True
+
+    def is_hidden(self, request):
+        return not self.has_permission(request)
 
     def get_unauthorized_response(self, request):
         params = {'next':request.path}

@@ -1,22 +1,30 @@
 {% extends "djam/__base.html" %}
 
+{% load djam %}
+
 {% block main %}
     <div class="row">
         <div class="span8">
-            <ul class="nav nav-widgets">
-            {% for riff in base_riff.riffs %}
-                <li>
-                    <h2>
-                        <a href="{{ riff.get_default_url }}">{{ riff.verbose_name }}</a>
-                        {% if riff.riffs %}
-                            <ul class="nav nav-horizontal">
-                                {% for subriff in riff.riffs %}
-                                    <li><a href="{{ subriff.get_default_url }}">{{ subriff.verbose_name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </h2>
-            {% endfor %}
+            {% get_displayed_riffs base_riff as displayed_riffs %}
+            {% if displayed_riffs %}
+                <ul class="nav nav-widgets">
+                {% for riff in displayed_riffs %}
+                    <li>
+                        <h2>
+                            <a href="{{ riff.get_default_url }}">{{ riff.verbose_name }}</a>
+                            {% get_displayed_riffs riff as displayed_subriffs %}
+                            {% if displayed_subriffs %}
+                                <ul class="nav nav-horizontal">
+                                    {% for subriff in displayed_subriffs %}
+                                        <li><a href="{{ subriff.get_default_url }}">{{ subriff.verbose_name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </h2>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
         </div>{# /.span8 #}
         <div class="span4">
             {# TODO: widgets? #}
