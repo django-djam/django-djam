@@ -1,4 +1,5 @@
 from django.utils.cache import add_never_cache_headers
+from django.views.generic import RedirectView
 
 
 class RiffViewMixin(object):
@@ -27,3 +28,10 @@ class RiffViewMixin(object):
             'riff': self.riff,
         })
         return context
+
+
+class DefaultRedirectView(RiffViewMixin, RedirectView):
+    permanent = False
+
+    def get_redirect_url(self, **kwargs):
+        return self.riff.get_default_url()

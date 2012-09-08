@@ -31,12 +31,10 @@ class ModelRiff(Riff):
                 modelname=self.model._meta.module_name)
         super(ModelRiff, self).__init__(*args, **kwargs)
 
-    def get_urls(self):
-        urlpatterns = super(ModelRiff, self).get_urls()
-
+    def get_extra_urls(self):
         init = self.get_view_kwargs()
 
-        urlpatterns += patterns('',
+        return patterns('',
             url(r'^$',
                 self.wrap_view(self.list_view.as_view(**init)),
                 name='list'),
@@ -53,8 +51,6 @@ class ModelRiff(Riff):
                 self.wrap_view(self.history_view.as_view(**init)),
                 name='history'),
         )
-
-        return urlpatterns
 
     def get_default_url(self):
         return self.reverse('list'.format(appname=self.model._meta.app_label, modelname=self.slug))

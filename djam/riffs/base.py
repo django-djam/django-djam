@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.template.defaultfilters import slugify
 
+from djam.views.base import DefaultRedirectView
+
 
 class Riff(object):
     widgets = []
@@ -11,6 +13,7 @@ class Riff(object):
     slug = None
     namespace = None
     app_name = None
+    default_redirect_view = DefaultRedirectView
 
     def __init__(self, parent=None, namespace=None, app_name=None):
         self.parent = parent
@@ -42,6 +45,10 @@ class Riff(object):
 
     def get_urls(self):
         urlpatterns = self.get_extra_urls()
+
+        urlpatterns += patterns('',
+            url(r'^$', self.default_redirect_view.as_view(riff=self)),
+        )
 
         for riff in self.riffs:
             urlpatterns += patterns('',

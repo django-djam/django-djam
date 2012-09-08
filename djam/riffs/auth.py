@@ -32,3 +32,8 @@ class AuthRiff(Riff):
     def has_permission(self, request):
         # Login/logout don't care whether you're authenticated.
         return True
+
+    def get_default_url(self):
+        if self.parent is not None:
+            return self.parent.get_default_url()
+        return self.reverse('login')
