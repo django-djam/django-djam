@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django import forms
 
 from djam.riffs.models import ModelRiff
-from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView, ModelHistoryView
+from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView
 from djam.tests.common import SuperUserRequestFactory, GenericURLResolver
 
 
