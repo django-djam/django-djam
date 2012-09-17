@@ -6,7 +6,7 @@ setup(
     version='0.1.0',
     maintainer='Stephen Burrows',
     maintainer_email='stephen.r.burrows@gmail.com',
-    url='https://github.com/pculture/django-djam',
+    url='https://github.com/django-djam/django-djam',
     license='BSD',
     packages=find_packages(),
     install_requires=[],
