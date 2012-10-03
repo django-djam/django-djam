@@ -18,7 +18,6 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, 'db.sl3'),
     }
 }
 
@@ -70,6 +69,7 @@ INSTALLED_APPS = (
 
     # Add the following installed apps.
     'djam',
+    'django_nose',
 )
 
 # Be sure to set the context processors to include the request.
@@ -107,3 +107,5 @@ LOGGING = {
         },
     }
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

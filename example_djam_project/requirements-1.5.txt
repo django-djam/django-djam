@@ -1,0 +1,8 @@
+-e git://github.com/django/django.git#egg=django
+tox==1.4.2
+django-nose==1.1
+nose==1.2.1
+mock==1.0b1
+py==1.4.9
+virtualenv==1.8.2
+sphinx==1.1.3
