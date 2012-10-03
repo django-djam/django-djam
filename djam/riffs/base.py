@@ -13,6 +13,7 @@ class Riff(object):
     widgets = []
     riff_classes = []
     verbose_name = None
+    verbose_name_plural = None
     slug = None
     namespace = None
     app_name = None
@@ -22,6 +23,8 @@ class Riff(object):
         self.parent = parent
         if self.verbose_name is None:
             raise ImproperlyConfigured('Please give me a verbose name')
+        if self.verbose_name_plural is None:
+            self.verbose_name_plural = self.verbose_name + "s"
         if self.slug is None:
             self.slug = slugify(self.verbose_name)
         self.namespace = namespace or self.namespace or self.slug
@@ -31,12 +34,7 @@ class Riff(object):
         else:
             self.base_riff = parent.base_riff
             self.full_namespace = ":".join((parent.full_namespace, self.namespace))
-        self.riffs = list()
-        for riff_cls in self.riff_classes:
-            self.register_riff(riff_cls)
-
-    def register_riff(self, riff_class):
-        self.riffs.append(riff_class(parent=self))
+        self.riffs = [riff_class(parent=self) for riff_class in self.riff_classes]
 
     def get_default_url(self):
         """

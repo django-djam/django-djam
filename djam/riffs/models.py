@@ -23,6 +23,8 @@ class ModelRiff(Riff):
             raise ImproperlyConfigured('Please specify a model')
         if self.verbose_name is None:
             self.verbose_name = self.model._meta.verbose_name
+        if self.verbose_name_plural is None:
+            self.verbose_name_plural = self.model._meta.verbose_name_plural
         if self.slug is None:
             self.slug = self.model._meta.module_name
         if self.namespace is None:
