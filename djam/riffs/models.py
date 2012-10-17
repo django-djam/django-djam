@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls.defaults import patterns, url
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 import floppyforms as forms
@@ -89,3 +89,4 @@ class ModelRiff(Riff):
 class UserRiff(ModelRiff):
     model = User
     create_form_class = UserCreationForm
+    update_form_class = UserChangeForm
