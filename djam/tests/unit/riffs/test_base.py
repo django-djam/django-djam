@@ -11,7 +11,7 @@ from djam.tests.common import GenericURLResolver
 
 
 class TestRiff(Riff):
-    verbose_name = 'test riff'
+    display_name = 'test riff'
     
     def get_extra_urls(self):
         return patterns('',

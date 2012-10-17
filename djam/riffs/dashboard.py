@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import patterns, url
+from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
 from djam.views.dashboard import DashboardView
@@ -8,7 +9,7 @@ from djam.views.dashboard import DashboardView
 
 class DashboardRiff(Riff):
     dashboard_view = DashboardView
-    verbose_name = 'Dashboard'
+    display_name = _('Dashboard')
 
     def get_extra_urls(self):
         return patterns('',

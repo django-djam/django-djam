@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.conf.urls import patterns, url
+from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
 from djam.views.auth import LoginView, LogoutView
@@ -9,7 +10,7 @@ from djam.views.auth import LoginView, LogoutView
 class AuthRiff(Riff):
     login_view = LoginView
     logout_view = LogoutView
-    verbose_name = 'Auth'
+    display_name = _('Auth')
 
     def get_login_kwargs(self):
         return self.get_view_kwargs()

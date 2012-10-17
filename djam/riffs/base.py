@@ -12,8 +12,7 @@ from djam.views.base import DefaultRedirectView
 class Riff(object):
     widgets = []
     riff_classes = []
-    verbose_name = None
-    verbose_name_plural = None
+    display_name = None
     slug = None
     namespace = None
     app_name = None
@@ -21,19 +20,17 @@ class Riff(object):
 
     def __init__(self, parent=None, namespace=None, app_name=None):
         self.parent = parent
-        if self.verbose_name is None:
-            raise ImproperlyConfigured('Please give me a verbose name')
-        if self.verbose_name_plural is None:
-            self.verbose_name_plural = self.verbose_name + "s"
+        if self.display_name is None:
+            raise ImproperlyConfigured('Please give me a display name')
         if self.slug is None:
-            self.slug = slugify(self.verbose_name)
+            self.slug = slugify(self.display_name)
         self.namespace = namespace or self.namespace or self.slug
         if parent is None:
             self.base_riff = self
-            self.full_namespace = self.namespace
+            self.path = (self,)
         else:
             self.base_riff = parent.base_riff
-            self.full_namespace = ":".join((parent.full_namespace, self.namespace))
+            self.path = parent.path + (self,)
         self.riffs = [riff_class(parent=self) for riff_class in self.riff_classes]
 
     def get_default_url(self):
@@ -87,3 +84,7 @@ class Riff(object):
     def reverse(self, name, *args, **kwargs):
         return reverse('{namespace}:{viewname}'.format(namespace=self.full_namespace, viewname=name),
                        args=args, kwargs=kwargs)
+
+    @property
+    def full_namespace(self):
+        return ":".join([r.namespace for r in self.path])

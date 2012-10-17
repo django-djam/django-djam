@@ -4,13 +4,6 @@
 
 {% block main %}
     <div class="row">
-        <div class="span8">
-            <ul class='nav nav-widgets'>
-                <li><h2><a href='{% riff_url riff "list" %}'>Back to {{ verbose_name }} list</a></h2></li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
         <form method='post' action='{{ request.path }}' class="form-horizontal">
             {% csrf_token %}
             {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}

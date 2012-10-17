@@ -10,7 +10,7 @@
 			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		{% endblock %}
 
-		<title>{% block title %}{{ base_riff.verbose_name }}{% endblock %}</title>
+		<title>{% block title %}{% if page_title %}{{ page_title }} – {% endif %}{% for riff in riff.path reversed %}{{ riff.display_name }}{% if not forloop.last %} – {% endif %}{% endfor %}{% endblock %}</title>
 
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{% static "djam/libs/bootstrap/css/bootstrap.css" %}" type="text/css" media="screen" title="no title" charset="utf-8">
@@ -32,6 +32,20 @@
 			{% endblock %}
 
 			<div class="container">
+				{% block breadcrumb %}
+					<ul class="breadcrumb">
+						{% for crumb in riff.path %}
+							{% if forloop.last and not page_title %}
+								<li class="active">{{ riff.display_name }}</li>
+							{% else %}
+								<li><a href="{{ crumb.get_default_url }}">{{ crumb.display_name }}</a> <span class="divider">/</span></li>
+							{% endif %}
+						{% endfor %}
+						{% if page_title %}
+							<li class="active">{{ page_title }}</li>
+						{% endif %}
+					</ul>
+				{% endblock %}
 				{% block main %}
 				{% endblock %}
 			</div>

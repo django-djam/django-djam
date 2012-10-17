@@ -15,7 +15,7 @@ from djam.riffs.models import ModelRiff
 class AdminRiff(Riff):
     auth_riff_class = AuthRiff
     riff_classes = (DashboardRiff,)
-    verbose_name = _('Djam Admin')
+    display_name = _('Djam Admin')
     slug = 'admin'
 
     def __init__(self, namespace=None, app_name=None):

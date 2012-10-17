@@ -11,7 +11,7 @@
 {% block body %}
     <div class="container">
         <div class="login-pod">
-            <h1 class="title-bar-dark">{{ base_riff.verbose_name }}</h1>
+            <h1 class="title-bar-dark">{{ base_riff.display_name }}</h1>
             <div class="l-padded">
                 <form class="login-form" method="post">
                     {% csrf_token %}

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
+from django.template.defaultfilters import capfirst
 import floppyforms as forms
 
 from djam.riffs.base import Riff
@@ -29,10 +30,8 @@ class ModelRiff(Riff):
     def __init__(self, *args, **kwargs):
         if not self.model:
             raise ImproperlyConfigured('Please specify a model')
-        if self.verbose_name is None:
-            self.verbose_name = self.model._meta.verbose_name
-        if self.verbose_name_plural is None:
-            self.verbose_name_plural = self.model._meta.verbose_name_plural
+        if self.display_name is None:
+            self.display_name = capfirst(self.model._meta.verbose_name_plural)
         if self.slug is None:
             self.slug = self.model._meta.module_name
         if self.namespace is None:

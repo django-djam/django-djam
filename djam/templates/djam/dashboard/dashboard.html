@@ -11,12 +11,12 @@
                 {% for riff in displayed_riffs %}
                     <li>
                         <h2>
-                            <a href="{{ riff.get_default_url }}">{{ riff.verbose_name_plural|capfirst }}</a>
+                            <a href="{{ riff.get_default_url }}">{{ riff.display_name }}</a>
                             {% get_displayed_riffs riff as displayed_subriffs %}
                             {% if displayed_subriffs %}
                                 <ul class="nav nav-horizontal">
                                     {% for subriff in displayed_subriffs %}
-                                        <li><a href="{{ subriff.get_default_url }}">{{ subriff.verbose_name_plural|capfirst }}</a></li>
+                                        <li><a href="{{ subriff.get_default_url }}">{{ subriff.display_name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             {% endif %}
