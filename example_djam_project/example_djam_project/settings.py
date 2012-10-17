@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     # Add the following installed apps.
     'djam',
     'django_nose',
+    'floppyforms',
 )
 
 # Be sure to set the context processors to include the request.

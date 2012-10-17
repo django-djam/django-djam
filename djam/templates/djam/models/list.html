@@ -4,11 +4,22 @@
 
 {% block main %}
     <a class='btn btn-large btn-block btn-primary' href="{% riff_url riff 'create' %}">Add a {{ verbose_name }}</a>
-    {% for object in object_list %}
-        <div class="row">
-            <div class="span8">
-                <a href="{% riff_url riff 'update' pk=object.pk %}">{{ object }}</a>
-            </div>
-        </div>
-    {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pk</th>
+                <th>Unicode</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.pk }}</td>
+                    <td>
+                        <a href="{% riff_url riff 'update' pk=object.pk %}">{{ object }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
