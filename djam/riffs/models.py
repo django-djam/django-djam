@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.conf.urls.defaults import patterns, url
 from django.core.exceptions import ImproperlyConfigured
-from django import forms
+import floppyforms as forms
 
 from djam.riffs.base import Riff
 from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView

@@ -1,16 +1,18 @@
-{% load floppyforms %}
+{% load floppyforms djam %}
 
 {% block row %}
   {% for field in fields %}
-    {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
+    {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text is_checkbox=field|is_checkbox %}
       {% block field %}
         <div class="control-group{% if field.errors %} error{% endif %} {{ classes }}">
           {% block label %}
-            <label class="control-label"{% if field|id %} for="{{ field|id }}"{% endif %}>{{ label }}</label>
+            {% if not is_checkbox %}
+              <label class="control-label"{% if field|id %} for="{{ field|id }}"{% endif %}>{{ label }}</label>
+            {% endif %}
           {% endblock %}
 
           <div class="controls">
-            {% block widget %}{% formfield field %}{% endblock %}
+            {% block widget %}{% if is_checkbox %}<label class="checkbox" {% if field|id %}for="{{ field|id }}"{% endif %}>{% endif %}{% formfield field %}{% if is_checkbox %}{{ label }}</label>{% endif %}{% endblock %}
             {% block errors %}<span class="help-block">{% include "floppyforms/errors.html" with errors=field.errors %}</span>{% endblock %}
             {% block help_text %}{% if help_text %}<span class="help-block">{{ help_text }}</span>{% endif %}{% endblock %}
           </div>

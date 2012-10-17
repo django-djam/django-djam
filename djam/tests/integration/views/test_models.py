@@ -6,7 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.conf.urls import patterns, url
 from django.views.generic import View
 from django.contrib.contenttypes.models import ContentType
-from django import forms
+import floppyforms as forms
 
 from djam.riffs.models import ModelRiff
 from djam.views.models import ModelListView, ModelCreateView, ModelUpdateView, ModelDeleteView
