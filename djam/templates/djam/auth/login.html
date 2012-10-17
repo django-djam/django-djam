@@ -1,5 +1,5 @@
 {% extends "djam/__base.html" %}
-{% load i18n static %}
+{% load i18n static floppyforms %}
 
 {% block stylesheets %}
     {{ block.super }}
@@ -13,8 +13,9 @@
         <div class="login-pod">
             <h1 class="title-bar-dark">{{ base_riff.verbose_name }}</h1>
             <div class="l-padded">
-                <form class="login-form" method="POST">
-                    {% include 'djam/_form.html' %}
+                <form class="login-form" method="post">
+                    {% csrf_token %}
+                    {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
                     {% if redirect_field_name and redirect_to %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_to }}" />
                     {% endif %}

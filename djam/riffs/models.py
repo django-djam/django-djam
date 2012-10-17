@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
 
 from django.conf.urls.defaults import patterns, url
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ImproperlyConfigured
+from django.forms.models import modelform_factory
 import floppyforms as forms
 
 from djam.riffs.base import Riff
@@ -15,8 +18,13 @@ class ModelRiff(Riff):
     update_view = ModelUpdateView
     delete_view = ModelDeleteView
 
-    base_form_class = forms.ModelForm
-    form_class = None
+    create_form_class = None
+    create_form_fields = None
+    create_form_exclude = None
+
+    update_form_class = None
+    update_form_fields = None
+    update_form_exclude = None
 
     def __init__(self, *args, **kwargs):
         if not self.model:
@@ -54,14 +62,6 @@ class ModelRiff(Riff):
     def get_default_url(self):
         return self.reverse('list'.format(appname=self.model._meta.app_label, modelname=self.slug))
 
-    def get_form_class(self):
-        if self.form_class:
-            return self.form_class
-        class GeneratedForm(forms.ModelForm):
-            class Meta:
-                model = self.model
-        return GeneratedForm
-
     def get_view_kwargs(self):
         kwargs = super(ModelRiff, self).get_view_kwargs()
         kwargs['model'] = self.model
@@ -69,11 +69,23 @@ class ModelRiff(Riff):
 
     def get_update_view_kwargs(self):
         kwargs = self.get_view_kwargs()
-        kwargs['form_class'] = self.get_form_class()
+        base_form_class = self.update_form_class or forms.ModelForm
+        form_class = modelform_factory(self.model, base_form_class,
+                                       fields=self.update_form_fields,
+                                       exclude=self.update_form_exclude)
+        kwargs['form_class'] = form_class
         return kwargs
     
     def get_create_view_kwargs(self):
         kwargs = self.get_view_kwargs()
-        kwargs['form_class'] = self.get_form_class()
+        base_form_class = self.create_form_class or forms.ModelForm
+        form_class = modelform_factory(self.model, base_form_class,
+                                       fields=self.create_form_fields,
+                                       exclude=self.create_form_exclude)
+        kwargs['form_class'] = form_class
         return kwargs
 
+
+class UserRiff(ModelRiff):
+    model = User
+    create_form_class = UserCreationForm
