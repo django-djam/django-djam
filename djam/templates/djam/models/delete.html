@@ -1,5 +1,10 @@
 {% extends 'djam/__base.html' %}
 
-{% block main %}
+{% load i18n %}
 
+{% block main %}
+    <p>Are you sure you want to delete {{ object }}?</p>
+    <form action="{{ request.path }}" method="post">{% csrf_token %}
+        <button type="submit" class="btn btn-danger">{% trans "Yes, I'm sure" %}</button>
+    </form>
 {% endblock %}

@@ -8,7 +8,12 @@
             {% csrf_token %}
             {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
             <div class="control-group">
-                <button type="submit" class="btn btn-large btn-primary btn-block">{% trans "Submit" %}</button>
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
+                    {% if form.instance.pk %}
+                        <a class='btn btn-danger' href="{% riff_url riff 'delete' pk=form.instance.pk %}">Delete</a>
+                    {% endif %}
+                </div>
             </div>
         </form>
     </div>
