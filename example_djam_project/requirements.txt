@@ -1,0 +1,12 @@
+# Dependencies.
+django==1.5
+django-floppyforms==1.1
+
+# For testing.
+tox==1.4.3
+django-nose==1.1
+nose==1.2.1
+blessings==1.5
+mock==1.0.1
+py==1.4.13
+virtualenv==1.9.1

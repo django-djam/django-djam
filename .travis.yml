@@ -2,12 +2,10 @@ language: python
 python:
   - "2.6"
   - "2.7"
-  - "pypy"
-env:
-  - DJANGO_VERSION=1.4.1
 
 install:
-  - pip install -q Django==$DJANGO_VERSION
-  - python setup.py -q install
+  - pip install . --no-deps
+  - pip install --use-mirrors --no-deps -r example_djam_project/requirements.txt
 script:
-  - python setup.py test
+  - cd example_djam_project
+  - ./manage.py test --verbosity=2 djam
