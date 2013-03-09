@@ -5,7 +5,7 @@ python:
 
 install:
   - pip install . --no-deps
-  - pip install --use-mirrors --no-deps -r example_djam_project/requirements.txt
+  - pip install --use-mirrors --no-deps -r test_project/requirements.txt
 script:
-  - cd example_djam_project
+  - cd test_project
   - ./manage.py test --verbosity=2 djam

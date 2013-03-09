@@ -1,3 +1,6 @@
 *.pyc
-docs/_build/*
-.sass-cache
+/docs/_build/
+/djam/.sass-cache/
+/test_project/test_project/db.sl3
+/.tox/
+/*.egg-info/

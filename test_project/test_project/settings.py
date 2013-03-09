@@ -1,4 +1,4 @@
-# Django settings for example_djam_project project.
+# Django settings for test_project project.
 # These settings are meant for development environments ONLY.
 # Using these settings in a production environment would be
 # EXTREMELY INSECURE.
@@ -56,9 +56,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'example_djam_project.urls'
+ROOT_URLCONF = 'test_project.urls'
 
-WSGI_APPLICATION = 'example_djam_project.wsgi.application'
+WSGI_APPLICATION = 'test_project.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
