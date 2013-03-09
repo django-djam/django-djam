@@ -2,11 +2,11 @@
 
 # Set this to the root of your project when deployed:
 http_path = "/"
-css_dir = "stylesheets"
+css_dir = "static/djam/css"
 sass_dir = "sass"
-images_dir = "images"
-javascripts_dir = "javascripts"
-output_style = :compressed
+images_dir = "static/djam/images"
+javascripts_dir = "static/djam/js"
+output_style = :compact
 relative_assets = true
 line_comments = false
 preferred_syntax = :sass
