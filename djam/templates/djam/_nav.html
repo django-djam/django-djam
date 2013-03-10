@@ -5,7 +5,7 @@
 		<div class="container">
 			<a class="brand" href="/">{{ base_riff.display_name }}</a>
 			<ul class="nav pull-right">
-				<li><a href="{% url "admin:auth:logout" %}">Logout</a></li>
+				<li><a href="{% url base_riff.namespace|add:":auth:logout" %}">Logout</a></li>
 			</ul>
 		</div>{# /.container #}
 	</div>{# /.navbar-inner #}

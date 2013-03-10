@@ -35,6 +35,15 @@ class FloppyformsMixin(object):
                                      exclude=self.readonly,
                                      fields=fields)
 
+    def get_context_data(self, **kwargs):
+        context = super(FloppyformsMixin, self).get_context_data(**kwargs)
+        fieldsets = self.fieldsets or ((None, {'fields': list(context['form'].fields)}),)
+        context.update({
+            'fieldsets': fieldsets,
+            'readonly': self.readonly,
+        })
+        return context
+
 
 class ModelRiffMixin(RiffViewMixin):
     template_name_suffix = None

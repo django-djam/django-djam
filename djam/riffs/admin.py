@@ -17,6 +17,7 @@ class AdminRiff(Riff):
     riff_classes = (DashboardRiff,)
     display_name = _('Djam Admin')
     slug = 'admin'
+    namespace = 'djam'
 
     def __init__(self, namespace=None, app_name=None):
         super(AdminRiff, self).__init__(parent=None,

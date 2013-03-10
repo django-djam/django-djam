@@ -61,12 +61,14 @@ ROOT_URLCONF = 'test_project.urls'
 WSGI_APPLICATION = 'test_project.wsgi.application'
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.flatpages',
 
     # Add the following installed apps.
     'djam',
