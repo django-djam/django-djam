@@ -23,7 +23,7 @@ class ModelRiff(Riff):
     create_form_fields = None
     create_form_exclude = None
 
-    update_form_class = None
+    update_form_class = forms.ModelForm
     update_form_fields = None
     update_form_exclude = None
 
@@ -41,11 +41,9 @@ class ModelRiff(Riff):
         super(ModelRiff, self).__init__(*args, **kwargs)
 
     def get_extra_urls(self):
-        init = self.get_view_kwargs()
-
         return patterns('',
             url(r'^$',
-                self.wrap_view(self.list_view.as_view(**init)),
+                self.wrap_view(self.list_view.as_view(**self.get_list_view_kwargs())),
                 name='list'),
             url(r'^add/$',
                 self.wrap_view(self.create_view.as_view(**self.get_create_view_kwargs())),
@@ -54,7 +52,7 @@ class ModelRiff(Riff):
                 self.wrap_view(self.update_view.as_view(**self.get_update_view_kwargs())),
                 name='update'),
             url(r'^(?P<pk>\w+)/delete/$',
-                self.wrap_view(self.delete_view.as_view(**init)),
+                self.wrap_view(self.delete_view.as_view(**self.get_view_kwargs())),
                 name='delete'),
         )
 
@@ -66,19 +64,25 @@ class ModelRiff(Riff):
         kwargs['model'] = self.model
         return kwargs
 
+    def get_list_view_kwargs(self):
+        kwargs = self.get_view_kwargs()
+        return kwargs
+
     def get_update_view_kwargs(self):
         kwargs = self.get_view_kwargs()
-        base_form_class = self.update_form_class or forms.ModelForm
-        form_class = modelform_factory(self.model, base_form_class,
+        form_class = modelform_factory(self.model,
+                                       self.update_form_class,
                                        fields=self.update_form_fields,
                                        exclude=self.update_form_exclude)
         kwargs['form_class'] = form_class
         return kwargs
     
     def get_create_view_kwargs(self):
+        if self.create_form_class is None:
+            return self.get_update_view_kwargs()
         kwargs = self.get_view_kwargs()
-        base_form_class = self.create_form_class or forms.ModelForm
-        form_class = modelform_factory(self.model, base_form_class,
+        form_class = modelform_factory(self.model,
+                                       self.create_form_class,
                                        fields=self.create_form_fields,
                                        exclude=self.create_form_exclude)
         kwargs['form_class'] = form_class

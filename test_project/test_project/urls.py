@@ -1,12 +1,9 @@
 from django.conf.urls import patterns, include, url
-from django.contrib.auth.models import User
-from djam.riffs.admin import admin
-from djam.riffs.models import UserRiff
 
-
-admin.register_model(User, UserRiff)
+import djam
+djam.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^', include('djam.urls')),
+    url(r'^admin/', include(djam.admin.get_urls_tuple())),
 )
