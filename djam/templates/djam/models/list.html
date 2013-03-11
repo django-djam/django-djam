@@ -7,17 +7,21 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Pk</th>
-                <th>Unicode</th>
+                {% for column in columns %}
+                    <th>{{ column|column }}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
             {% for object in object_list %}
                 <tr>
-                    <td>{{ object.pk }}</td>
-                    <td>
-                        <a href="{% riff_url riff 'update' pk=object.pk %}">{{ object }}</a>
-                    </td>
+                    {% for column in columns %}
+                        {% if column in link_columns %}
+                            <td><a href="{% riff_url riff 'update' pk=object.pk %}">{{ column|column:object }}</a></td>
+                        {% else %}
+                            <td>{{ column|column:object }}</td>
+                        {% endif %}
+                    {% endfor %}
                 </tr>
             {% endfor %}
         </tbody>

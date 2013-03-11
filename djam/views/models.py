@@ -67,6 +67,22 @@ class ModelRiffMixin(RiffViewMixin):
 
 class ModelListView(ModelRiffMixin, ListView):
     template_name_suffix = 'list'
+    unicode_func = lambda obj: unicode(obj)
+    unicode_func.short_description = 'unicode'
+    unicode_func.do_not_call_in_templates = True
+    columns = (unicode_func,)
+    link_columns = None
+    per_page = 100
+    filters = None
+    search = None
+
+    def get_context_data(self, **kwargs):
+        context = super(ModelListView, self).get_context_data(**kwargs)
+        context.update({
+            'columns': self.columns,
+            'link_columns': self.link_columns or self.columns[:1],
+        })
+        return context
 
 
 class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):

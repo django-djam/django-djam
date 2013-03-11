@@ -22,6 +22,14 @@ class ModelRiff(Riff):
     update_kwargs = {}
     create_kwargs = {}
 
+    # list kwargs can contain:
+    # - columns
+    # - link_columns
+    # - filters (To be implemented.)
+    # - search (To be implemented.)
+    # - per_page
+    list_kwargs = {}
+
     def __init__(self, *args, **kwargs):
         if not self.model:
             raise ImproperlyConfigured('Please specify a model')
@@ -61,6 +69,7 @@ class ModelRiff(Riff):
 
     def get_list_kwargs(self):
         kwargs = self.get_view_kwargs()
+        kwargs.update(self.list_kwargs)
         return kwargs
 
     def get_update_kwargs(self):

@@ -29,7 +29,17 @@ def autodiscover():
                 'fieldsets': fieldsets,
                 'readonly': modeladmin.readonly_fields,
             },
+            'list_kwargs': {
+                'columns': modeladmin.list_display,
+                'link_columns': modeladmin.list_display_links,
+                'filters': modeladmin.list_filter,
+                'search': modeladmin.search_fields,
+                'per_page': modeladmin.list_per_page,
+            }
         }
+        for column in attrs['list_kwargs']['columns']:
+            if callable('column'):
+                column.do_not_call_in_templates = True
         if hasattr(modeladmin, 'add_form'):
             attrs['create_kwargs'] = {'form_class': modeladmin.add_form}
             if hasattr(modeladmin, 'add_fieldsets'):
