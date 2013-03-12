@@ -1,6 +1,7 @@
-@import "../fonts/patuaone.css"
+$fontAwesomePath: '../fonts'
 
-@import compass/css3/border-radius
+@import partials/font-awesome
+@import partials/patuaone
 
 // Base
 // ==================================================
@@ -37,32 +38,3 @@ body
 	padding: 10px
 	color: #FFF
 	letter-spacing: 2px
-
-// navs
-
-.nav-widgets > li
-	border: 1px solid #E5E5E5
-	margin-bottom: 20px
-	background: #FFF
-	+border-radius(5px)
-
-.nav-widgets > li > h2
-	margin: 0
-
-.nav-widgets > li > h2 > a
-	padding: 8px 14px
-	color: inherit
-	display: block
-
-.nav-widgets > li > h2 > a:hover
-	background: #EEE
-	text-decoration: none
-
-.nav-horizontal
-	margin: 0
-
-.nav-horizontal > li
-	display: inline-block
-
-.nav-horizontal > li > a
-	padding: 8px 14px

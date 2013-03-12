@@ -10,6 +10,8 @@ Djam is a third-party admin started at DjangoCon 2012 with the following goals:
 
 The name is alliterative; the beginning of Djam is pronounced the same as the beginning of Django.
 
+Djam uses `Font Awesome by Dave Gandy <http://fortawesome.github.com/Font-Awesome>`_.
+
 Links
 =====
 
