@@ -34,7 +34,7 @@
     {% for form in forms %}
       {% block default_rows %}
         {% for field in form %}
-          {% block default_row %}{% formrow item %}{% endblock %}
+          {% block default_row %}{% formrow field %}{% endblock %}
         {% endfor %}
       {% endblock %}
     {% endfor %}

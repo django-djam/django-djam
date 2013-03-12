@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container">
         <div class="alert alert-success">
-            {% trans "You have successfully logged out." %} <a href="{% url "admin:auth:login" %}">{% trans "Log in again." %}</a>
+            {% trans "You have successfully logged out." %} <a href="{% url base_riff.namespace|add:":auth:login" %}">{% trans "Log in again." %}</a>
         </div>
     </div>
 {% endblock %}

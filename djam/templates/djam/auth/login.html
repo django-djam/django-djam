@@ -1,17 +1,12 @@
 {% extends "djam/__base.html" %}
 {% load i18n static floppyforms %}
 
-{% block stylesheets %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static "djam/css/login.css" %}" type="text/css" media="screen" title="no title" charset="utf-8">
-{% endblock %}
-
 {% block body_classes %}{{ block.super }} login{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="login-pod">
-            <h1 class="title-bar-dark">{{ base_riff.display_name }}</h1>
+            <h1 class="login-title">{{ base_riff.display_name }}</h1>
             <div class="l-padded">
                 <form class="login-form" method="post">
                     {% csrf_token %}
