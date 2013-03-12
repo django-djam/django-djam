@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 import operator
 
-from django.db.models import Q
+from django.db import models
 from django.contrib.admin.util import flatten_fieldsets, lookup_needs_distinct
 from django.forms.models import modelform_factory
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -104,7 +104,7 @@ class ModelListView(ModelRiffMixin, ListView):
             lookups = [self._search_lookup(str(field))
                        for field in self.search]
             for bit in query.split():
-                or_qlist = [Q(**{lookup: bit}) for lookup in lookups]
+                or_qlist = [models.Q(**{lookup: bit}) for lookup in lookups]
                 queryset = queryset.filter(reduce(operator.or_, or_qlist))
 
             if not use_distinct:
@@ -118,8 +118,27 @@ class ModelListView(ModelRiffMixin, ListView):
 
         return queryset
 
+    def _select_related(self, queryset):
+        # If the queryset doesn't already have select_related defined,
+        # check the columns option to auto-select ManyToOne rels that
+        # will be used.
+        if not queryset.query.select_related:
+            related = []
+            for field_name in self.columns:
+                try:
+                    field = self.model._meta.get_field(field_name)
+                except models.FieldDoesNotExist:
+                    pass
+                else:
+                    if isinstance(field.rel, models.ManyToOneRel):
+                        related.append(field_name)
+            if related:
+                queryset = queryset.select_related(*related)
+        return queryset
+
     def get_queryset(self):
         queryset = super(ModelListView, self).get_queryset()
+        queryset = self._select_related(queryset)
         return self._search(queryset)
 
     def get_context_data(self, **kwargs):
