@@ -613,13 +613,21 @@ body.login { text-align: center; }
 
 .login-title { text-align: center; text-shadow: 0 -1px 0 black; background-color: #222222; background-image: -webkit-linear-gradient(top, #444444, #222222); background-image: -moz-linear-gradient(top, #444444, #222222); background-image: linear-gradient(top, #444444, #222222); border-top: 1px solid #555555; border-bottom: 1px solid black; margin: 0 0 20px 0; padding: 10px; color: white; letter-spacing: 2px; }
 
-.nav-widgets > li { border: 1px solid #e5e5e5; margin-bottom: 20px; background: white; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+.widget-list { list-style: none; }
 
-.nav-widgets > li > h2 { margin: 0; }
+.widget { border: 1px solid #e5e5e5; margin: 0 -1px 20px 19px; background: white; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; display: inline-block; }
 
-.nav-widgets > li > h2 > a { padding: 8px 14px; color: inherit; display: block; }
+.widget-link a { padding: 8px 14px; color: #333333; font-size: 31.5px; line-height: 40px; display: inline-block; }
+.widget-link a:hover { background: #eeeeee; text-decoration: none; }
 
-.nav-widgets > li > h2 > a:hover { background: #eeeeee; text-decoration: none; }
+.widget-inner { display: inline-block; width: 100%; }
+.widget-inner a { display: block; }
+
+.widget-append { position: relative; }
+.widget-append .add-on, .widget-append .btn { position: absolute; right: -1px; top: -1px; display: inline-block; background-color: #eeeeee; border: 1px solid #cccccc; text-align: center; text-shadow: 0 1px 0 white; }
+.widget-append .add-on, .widget-append .btn, .widget-append .btn-group > .droptown-toggle { vertical-align: top; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; }
+.widget-append .add-on, .widget-append .btn, .widget-append .btn-group { margin-left: -1px; }
+.widget-append .add-on:last-child, .widget-append .btn:last-child, .widget-append .btn-group:last-child > .dropdown-toggle { -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
 
 h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia, serif; font-weight: normal; }
 
