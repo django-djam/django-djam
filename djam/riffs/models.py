@@ -26,7 +26,7 @@ class ModelRiff(Riff):
     # - columns
     # - link_columns
     # - filters (To be implemented.)
-    # - search (To be implemented.)
+    # - search
     # - per_page
     list_kwargs = {}
 

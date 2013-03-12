@@ -1,6 +1,9 @@
 from __future__ import unicode_literals
 
-from django.contrib.admin.util import flatten_fieldsets
+import operator
+
+from django.db.models import Q
+from django.contrib.admin.util import flatten_fieldsets, lookup_needs_distinct
 from django.forms.models import modelform_factory
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.utils.translation import ugettext_lazy as _
@@ -61,7 +64,10 @@ class ModelRiffMixin(RiffViewMixin):
 
     def get_context_data(self, **kwargs):
         context = super(ModelRiffMixin, self).get_context_data(**kwargs)
-        context.update(verbose_name=self.model._meta.verbose_name)
+        context.update({
+            'verbose_name': self.model._meta.verbose_name,
+            'verbose_name_plural': self.model._meta.verbose_name_plural,
+        })
         return context
 
 
@@ -75,6 +81,46 @@ class ModelListView(ModelRiffMixin, ListView):
     per_page = 100
     filters = None
     search = None
+
+    def _search_lookup(self, field):
+        # returns a lookup for searching a database field based
+        # on a shortcut name.
+        if field[0] in ('^', '=', '@'):
+            if field.startswith('^'):
+                lookup = 'istartswith'
+            elif field.startswith('='):
+                lookup = 'iexact'
+            elif field.startswith('@'):
+                lookup = 'icontains'
+            field = field[1:]
+        else:
+            lookup = 'icontains'
+        return "{0}__{1}".format(field, lookup)
+
+    def _search(self, queryset):
+        query = self.request.GET.get('search')
+        use_distinct = False
+        if self.search and query:
+            lookups = [self._search_lookup(str(field))
+                       for field in self.search]
+            for bit in query.split():
+                or_qlist = [Q(**{lookup: bit}) for lookup in lookups]
+                queryset = queryset.filter(reduce(operator.or_, or_qlist))
+
+            if not use_distinct:
+                for lookup in lookups:
+                    if lookup_needs_distinct(self.model._meta, lookup):
+                        use_distinct = True
+                        break
+
+        if use_distinct:
+            queryset = queryset.distinct()
+
+        return queryset
+
+    def get_queryset(self):
+        queryset = super(ModelListView, self).get_queryset()
+        return self._search(queryset)
 
     def get_context_data(self, **kwargs):
         context = super(ModelListView, self).get_context_data(**kwargs)

@@ -3,27 +3,42 @@
 {% load djam %}
 
 {% block main %}
-    <a class='btn btn-large btn-block btn-primary' href="{% riff_url riff 'create' %}">Add a {{ verbose_name }}</a>
-    <table class="table">
-        <thead>
-            <tr>
-                {% for column in columns %}
-                    <th>{{ column|column }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for object in object_list %}
-                <tr>
-                    {% for column in columns %}
-                        {% if column in link_columns %}
-                            <td><a href="{% riff_url riff 'update' pk=object.pk %}">{{ column|column:object }}</a></td>
-                        {% else %}
-                            <td>{{ column|column:object }}</td>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <div class='navbar'>
+    <div class='navbar-inner'>
+      <span class='brand'>{{ verbose_name_plural|capfirst }}</span>
+      <ul class='nav'>
+        <li class="divider-vertical"></li>
+        <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>
+        <li class="divider-vertical"></li>
+      </ul>
+      {% if riff.list_kwargs.search %}
+        <form class="navbar-form pull-right">
+          <input type="search" class="search-query" name='search' placeholder="Search"{% if 'search' in request.GET %} value='{{ request.GET.search }}'{% endif %}>
+          <button class='btn' type='submit'><i class='icon-search' title='Search'></i></button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        {% for column in columns %}
+          <th>{{ column|column }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for object in object_list %}
+        <tr>
+          {% for column in columns %}
+            {% if column in link_columns %}
+              <td><a href="{% riff_url riff 'update' pk=object.pk %}">{{ column|column:object }}</a></td>
+            {% else %}
+              <td>{{ column|column:object }}</td>
+            {% endif %}
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
