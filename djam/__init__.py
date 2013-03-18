@@ -52,6 +52,7 @@ def autodiscover():
                 'filters': modeladmin.list_filter,
                 'search': modeladmin.search_fields,
                 'per_page': modeladmin.list_per_page,
+                'order': modeladmin.ordering or None,
             }
         }
         for column in attrs['list_kwargs']['columns']:

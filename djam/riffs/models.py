@@ -25,9 +25,10 @@ class ModelRiff(Riff):
     # list kwargs can contain:
     # - columns
     # - link_columns
-    # - filters (To be implemented.)
+    # - filters
     # - search
     # - per_page
+    # - order
     list_kwargs = {}
 
     def __init__(self, *args, **kwargs):

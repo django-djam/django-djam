@@ -83,11 +83,19 @@ class ModelListView(ModelRiffMixin, ListView):
     per_page = 100
     filters = None
     search = None
+    #: May be a list of fields to use to order the list. Currently
+    #: only the first field will actually be used.
+    order = None
 
     def get_queryset(self):
         queryset = super(ModelListView, self).get_queryset()
+        data = self.request.GET.copy()
+        if 'order' not in data:
+            order = self.order or self.model._meta.ordering
+            if order:
+                data['order'] = order[0]
         self.form = QueryForm(queryset, self.filters, self.columns,
-                              self.search, data=self.request.GET)
+                              self.search, data=data)
         return self.form.get_queryset()
 
     def get_context_data(self, **kwargs):

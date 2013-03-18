@@ -119,7 +119,7 @@ class QueryForm(forms.Form):
                 choices = reduce(operator.add,
                                  (((f, f), (_reverse_order(f), _reverse_order(f)))
                                   for f in self.order_fields.itervalues()))
-                self.fields['order'] = forms.MultipleChoiceField(choices=choices, required=False)
+                self.fields['order'] = forms.ChoiceField(choices=choices, required=False)
 
         self.search = search
         if search:
@@ -161,9 +161,9 @@ class QueryForm(forms.Form):
         return queryset
 
     def _order(self, queryset):
-        if 'order' in self.cleaned_data:
-            orders = []
-            # Ensure a deterministic order by pk if it's not already in the mix.
+        if 'order' in self.cleaned_data and self.cleaned_data['order']:
+            orders = [self.cleaned_data['order']]
+            # Ensure a deterministic order by pk.
             pk_name = self.model._meta.pk.name
             if not set(orders) & set(['pk', '-pk', pk_name, '-' + pk_name]):
                 orders.append('-pk')
