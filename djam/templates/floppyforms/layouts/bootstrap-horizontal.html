@@ -16,7 +16,7 @@
   {% endblock %}
   {% block hidden_fields %}
     {% for field in form.hidden_fields %}
-      {{ form.hidden_fields }}
+      {{ field.as_hidden }}
     {% endfor %}
   {% endblock %}
   {% if fieldsets %}
@@ -33,7 +33,7 @@
   {% else %}
     {% for form in forms %}
       {% block default_rows %}
-        {% for field in form %}
+        {% for field in form.visible_fields %}
           {% block default_row %}{% formrow field %}{% endblock %}
         {% endfor %}
       {% endblock %}

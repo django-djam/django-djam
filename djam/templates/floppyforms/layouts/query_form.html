@@ -1,0 +1,24 @@
+{% load floppyforms djam %}
+
+{% for field in form.hidden_fields %}
+    {{ field.as_hidden }}
+{% endfor %}
+
+{% if form.has_filters %}
+    <div class='btn-group'>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            Filters <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+            {% for field in form.visible_fields %}
+                {% if field.name != 'search' and field.name != 'order' %}
+                    {% formrow field using 'floppyforms/rows/dropdown.html' %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% formfield form.order %}
+
+{% formfield form.search with placeholder='Search' class='search-query' type='search' %}

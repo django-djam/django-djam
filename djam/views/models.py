@@ -1,14 +1,13 @@
 from __future__ import unicode_literals
 
-import operator
-
-from django.db import models
-from django.contrib.admin.util import flatten_fieldsets, lookup_needs_distinct
+from django.contrib.admin.util import flatten_fieldsets
 from django.forms.models import modelform_factory
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 import floppyforms
 
+from djam.forms import QueryForm
 from djam.views.base import RiffViewMixin
 
 
@@ -71,81 +70,32 @@ class ModelRiffMixin(RiffViewMixin):
         return context
 
 
+def unicode_column(obj):
+    return force_unicode(obj)
+unicode_column.short_description = 'unicode'
+unicode_column.do_not_call_in_templates = True
+
+
 class ModelListView(ModelRiffMixin, ListView):
     template_name_suffix = 'list'
-    unicode_func = lambda obj: unicode(obj)
-    unicode_func.short_description = 'unicode'
-    unicode_func.do_not_call_in_templates = True
-    columns = (unicode_func,)
+    columns = (unicode_column,)
     link_columns = None
     per_page = 100
     filters = None
     search = None
 
-    def _search_lookup(self, field):
-        # returns a lookup for searching a database field based
-        # on a shortcut name.
-        if field[0] in ('^', '=', '@'):
-            if field.startswith('^'):
-                lookup = 'istartswith'
-            elif field.startswith('='):
-                lookup = 'iexact'
-            elif field.startswith('@'):
-                lookup = 'icontains'
-            field = field[1:]
-        else:
-            lookup = 'icontains'
-        return "{0}__{1}".format(field, lookup)
-
-    def _search(self, queryset):
-        query = self.request.GET.get('search')
-        use_distinct = False
-        if self.search and query:
-            lookups = [self._search_lookup(str(field))
-                       for field in self.search]
-            for bit in query.split():
-                or_qlist = [models.Q(**{lookup: bit}) for lookup in lookups]
-                queryset = queryset.filter(reduce(operator.or_, or_qlist))
-
-            if not use_distinct:
-                for lookup in lookups:
-                    if lookup_needs_distinct(self.model._meta, lookup):
-                        use_distinct = True
-                        break
-
-        if use_distinct:
-            queryset = queryset.distinct()
-
-        return queryset
-
-    def _select_related(self, queryset):
-        # If the queryset doesn't already have select_related defined,
-        # check the columns option to auto-select ManyToOne rels that
-        # will be used.
-        if not queryset.query.select_related:
-            related = []
-            for field_name in self.columns:
-                try:
-                    field = self.model._meta.get_field(field_name)
-                except models.FieldDoesNotExist:
-                    pass
-                else:
-                    if isinstance(field.rel, models.ManyToOneRel):
-                        related.append(field_name)
-            if related:
-                queryset = queryset.select_related(*related)
-        return queryset
-
     def get_queryset(self):
         queryset = super(ModelListView, self).get_queryset()
-        queryset = self._select_related(queryset)
-        return self._search(queryset)
+        self.form = QueryForm(queryset, self.filters, self.columns,
+                              self.search, data=self.request.GET)
+        return self.form.get_queryset()
 
     def get_context_data(self, **kwargs):
         context = super(ModelListView, self).get_context_data(**kwargs)
         context.update({
             'columns': self.columns,
             'link_columns': self.link_columns or self.columns[:1],
+            'query_form': self.form,
         })
         return context
 

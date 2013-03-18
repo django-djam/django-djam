@@ -629,6 +629,8 @@ body.login { text-align: center; }
 .widget-append .add-on, .widget-append .btn, .widget-append .btn-group { margin-left: -1px; }
 .widget-append .add-on:last-child, .widget-append .btn:last-child, .widget-append .btn-group:last-child > .dropdown-toggle { -webkit-border-radius: 0 5px 5px 0; -moz-border-radius: 0 5px 5px 0; border-radius: 0 5px 5px 0; }
 
+.dropdown-menu > li > input, .dropdown-menu > li > label, .dropdown-menu > li > select { margin: 3px 20px; clear: both; font-weight: normal; line-height: 20px; color: #333333; white-space: nowrap; }
+
 h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia, serif; font-weight: normal; }
 
 body { margin-top: 60px; background: white url('../images/brilliant.png?1347054566'); }

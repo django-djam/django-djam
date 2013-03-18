@@ -1,9 +1,12 @@
+from django.db.models import FieldDoesNotExist
+
 from djam.riffs.admin import admin
 
 
 def autodiscover():
     from django.contrib.admin import autodiscover, site, ModelAdmin
     from djam.riffs.models import ModelRiff
+    from djam.views.models import unicode_column
     autodiscover()
 
     riff_classes = []
@@ -22,6 +25,20 @@ def autodiscover():
             form_class = None
         else:
             form_class = modeladmin.form
+        columns = []
+        for column in modeladmin.list_display:
+            if column in ('__unicode__', '__str__'):
+                columns.append(unicode_column)
+            else:
+                try:
+                    model._meta.get_field(column)
+                except FieldDoesNotExist:
+                    if hasattr(modeladmin, column):
+                        columns.append(getattr(modeladmin, column))
+                    elif hasattr(model, column):
+                        columns.append(getattr(model, column))
+                else:
+                    columns.append(column)
         attrs = {
             'model': model,
             'update_kwargs': {
@@ -30,7 +47,7 @@ def autodiscover():
                 'readonly': modeladmin.readonly_fields,
             },
             'list_kwargs': {
-                'columns': modeladmin.list_display,
+                'columns': columns,
                 'link_columns': modeladmin.list_display_links,
                 'filters': modeladmin.list_filter,
                 'search': modeladmin.search_fields,

@@ -1,6 +1,6 @@
 {% extends 'djam/__base.html' %}
 
-{% load djam %}
+{% load floppyforms djam %}
 
 {% block main %}
   <div class='navbar'>
@@ -11,9 +11,9 @@
         <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>
         <li class="divider-vertical"></li>
       </ul>
-      {% if riff.list_kwargs.search %}
+      {% if riff.list_kwargs.search or riff.list_kwargs.filters %}
         <form class="navbar-form pull-right">
-          <input type="search" class="search-query" name='search' placeholder="Search"{% if 'search' in request.GET %} value='{{ request.GET.search }}'{% endif %}>
+          {% form query_form using 'floppyforms/layouts/query_form.html' %}
           <button class='btn' type='submit'><i class='icon-search' title='Search'></i></button>
         </form>
       {% endif %}
