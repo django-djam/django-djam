@@ -34,7 +34,7 @@ Getting Started
    :maxdepth: 1
 
    guides/quick-start
-   guides/first-riff
+   guides/first-riffs
 
 Contributing
 ============

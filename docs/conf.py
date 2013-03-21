@@ -16,9 +16,12 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'dummy_settings'
+# Force test_project onto the sys path and use its settings.
+repo_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.join(repo_dir, 'test_project'))
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'test_project.settings'
 
 # -- General configuration -----------------------------------------------------
 
