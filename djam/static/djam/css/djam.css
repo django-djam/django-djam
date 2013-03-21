@@ -631,6 +631,11 @@ body.login { text-align: center; }
 
 .dropdown-menu > li > input, .dropdown-menu > li > label, .dropdown-menu > li > select { margin: 3px 20px; clear: both; font-weight: normal; line-height: 20px; color: #333333; white-space: nowrap; }
 
+th.order:after { margin-top: 8px; margin-left: 5px; width: 8px; height: 4px; vertical-align: top; content: ""; display: inline-block; }
+th.order.desc:after, th.order.asc:after { border-right: 4px solid transparent; border-left: 4px solid transparent; width: 0; height: 0; }
+th.order.desc:after { border-top: 4px solid; }
+th.order.asc:after { border-bottom: 4px solid; }
+
 h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia, serif; font-weight: normal; }
 
 body { margin-top: 60px; background: white url('../images/brilliant.png?1347054566'); }

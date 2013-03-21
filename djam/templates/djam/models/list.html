@@ -2,6 +2,8 @@
 
 {% load floppyforms djam %}
 
+{% block body_classes %}model-list {{ block.super }}{% endblock %}
+
 {% block main %}
   <div class='navbar'>
     <div class='navbar-inner'>
@@ -23,7 +25,9 @@
     <thead>
       <tr>
         {% for column in columns %}
-          <th>{{ column|column }}</th>
+          {% with order=column|order:query_form %}
+            <th class="order{% if '-'|add:order == query_form.order.value %} desc{% elif order == query_form.order.value %} asc{% endif %}"{% if order %} data-order='{{ order }}'{% endif %}>{{ column|column }}</th>
+          {% endwith %}
         {% endfor %}
       </tr>
     </thead>

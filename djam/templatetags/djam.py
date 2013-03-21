@@ -65,6 +65,14 @@ def column(col, obj=None):
         return value
 
 
+@register.filter
+def order(column, form):
+    try:
+        return form.order_fields[column]
+    except (KeyError, AttributeError):
+        return ''
+
+
 class FieldsetNode(FormRowNode):
     def get_extra_context(self, context):
         extra_context = super(FieldsetNode, self).get_extra_context(context)
