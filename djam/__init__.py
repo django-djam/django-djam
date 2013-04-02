@@ -67,4 +67,4 @@ def autodiscover():
         riff_classes.append(type(class_name, (ModelRiff,), attrs))
     riff_classes.sort(key=lambda cls: cls.__name__)
     for cls in riff_classes:
-        admin.register_model(cls.model, cls)
+        admin.register(cls)

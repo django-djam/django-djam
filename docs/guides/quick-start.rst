@@ -1,71 +1,48 @@
 Quick Start
 ===========
 
-For your convenience, Djam comes with a fully-functional example project
-which can be used in a development environment to experiment with and
-test the project.
-
-.. warning:: The example project uses ``DEBUG = True`` and a secret key
-             which is freely available on the internet. Using this
-             project unaltered is **extremely insecure** and only fit
-             for a development environment.
-
-Use virtualenv
---------------
-
-If you already use virtualenv_, you can skip this section.
-
-.. _virtualenv: http://virtualenv.org/
-
-Okay, you're still here. Virtualenv is a great thing. You should be
-using it.
-
-First, make sure you have pip_ installed. Pip is an improved package management tool for python.
-
-.. _pip: http://www.pip-installer.org/
+Trying out djam is easy, especially if you're already using ``django.contrib.admin``. First, just install it.
 
 .. code-block:: bash
 
-   $ sudo easy_install pip
-   $ sudo pip install virtualenv
+   $ pip install -e git+git://github.com/pculture/django-djam.git#egg=django-djam
 
-.. note:: Depending on how your system is set up, you may not need
-          to use sudo for this step.
+Djam requires Django 1.5+ and Django-Floppyforms 1.1+.
 
-Now let's set up your virtualenv:
+``urls.py``
+-----------
 
-.. code-block:: bash
+Next, go into the urls.py file for your project. There is probably something there along these lines::
 
-   $ mkdir ~/envs
-   $ cd ~/envs
-   $ virtualenv myenv
-   $ cd myenv
-   $ source bin/activate
+   from django.contrib import admin
+   admin.autodiscover()
 
-Now that the virtualenv has been activated, python packages will be
-installed inside the virtualenv instead of system-wide. That way,
-changes to the system packages won't suddenly break whatever is running
-inside the virtual environment.
+   urlpatterns = patterns('',
+       url(r'^admin/', include(admin.site.urls)),
+   )
 
-Installing djam
+All you need to do here is change it to look more like the following::
+
+   import djam
+   djam.autodiscover()
+
+   urlpatterns = patterns('',
+       url(r'^admin/', include(djam.admin.get_urls_tuple())),
+   )
+
+.. note:: It's also entirely possible to run ``djam`` and
+          ``django.contrib.admin`` side-by-side.
+
+``settings.py``
 ---------------
 
-So you've created and activated a virtualenv. Time to install djam!
+Now go into your settings file. Make sure that ``"djam"`` is somewhere
+in your ``INSTALLED_APPS``, and that ``"django.core.context_processors.request"`` is in your ``TEMPLATE_CONTEXT_PROCESSORS``.
 
-.. code-block:: bash
+Congratulations!
+----------------
 
-   $ pip install -e git+git://github.com/pculture/django-djam.git#egg=django-djam --no-deps
-   $ cd src/django-djam/example_djam_project
-   $ pip install -r requirements.txt
-   $ ./manage.py runserver
+You're now using djam. It won't capture all the custom functionality
+of the ModelAdmins you already have installed, but we do support transferring most of the basic ModelAdmin options.
 
-Adding djam to a larger project
--------------------------------
-
-Since djam is just an admin, there's not much to do when all you have is
-the example project. If you're adding djam to a larger project, all you
-have to do is:
-
-* Make sure ``"djam"`` is in the ``INSTALLED_APPS``.
-* Make sure ``"django.core.context_processors.request"`` is in the TEMPLATE_CONTEXT_PROCESSORS. (See the example project settings for an example.)
-* :doc:`Make your first riffs! </guides/first-riffs>`
+Once you've had a chance to play with your auto-generated djam admin, go ahead and :doc:`make your first custom riffs! </guides/first-riffs>`

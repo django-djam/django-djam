@@ -19,6 +19,7 @@ Here's an example of how you could set up your admin using djam:
 .. code-block:: python
 
    # myapp/riffs.py
+   from djam import admin
    from djam.riffs.models import ModelRiff
 
    from myapp.models import MyModel, MyOtherModel
@@ -30,24 +31,24 @@ Here's an example of how you could set up your admin using djam:
    class MyOtherModelRiff(ModelRiff):
        model = MyOtherModel
 
+   admin.register(MyModelRiff)
+   admin.register(MyOtherModelRiff)
+
 
 .. code-block:: python
 
    # myproject/urls.py
    from django.conf.urls import patterns, include, urls
 
-   from djam.riffs.admin import AdminRiff
+   import djam
+   djam.autodiscover()
 
    from myapp.riffs import MyModelRiff, MyOtherModelRiff
 
-
-   class MyProjectAdminRiff(AdminRiff):
-       riff_classes = AdminRiff.riff_classes + (MyModelRiff, MyOtherModelRiff,)
-
-   admin = MyProjectAdminRiff()
-
    urlpatterns = patterns('',
-       url(r'^admin/', include(admin.get_urls_tuple())),
+       url(r'^admin/', include(djam.admin.get_urls_tuple())),
    )
 
-If you use runserver and navigate to ``/admin/``, you'll be able to add, edit, and delete models! (Assuming you have the correct permissions, of course.)
+If you use runserver and navigate to ``/admin/``, you'll be able to
+add, edit, and delete models! (Assuming you have the correct
+permissions, of course.)
