@@ -6,11 +6,13 @@
 Welcome to Djam's documentation!
 ================================
 
-Djam is a third-party admin started at DjangoCon 2012 with the following goals:
+Djam is a third-party admin with the following goals:
 
 * Provide basic CRUD functionality similar to the current admin.
-* Make it easy to add new workflows (or similar custom admin sections).
-* Provide documentation on how to do said customization.
+* Ease the transition by supporting auto-generation of an admin based
+  on installed ModelAdmins.
+* Support most of the basic ModelAdmin options out-of-the-box.
+* Make it easy to add new custom areas to the admin that don't fit into the traditional CRUD model.
 * Use the latest front-end tools and design patterns.
 
 The name is alliterative; the beginning of Djam is pronounced the same as the beginning of Django.
