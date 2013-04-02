@@ -9,7 +9,10 @@ setup(
     url='https://github.com/django-djam/django-djam',
     license='BSD',
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        'django>=1.5',
+        'django-floppyforms>=1.1',
+    ],
     extras_require={
         'docs': ['sphinx>=1.1.3'],
         'tests': ['tox>=1.4.2'],
@@ -24,5 +27,3 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ),
 )
-
-
