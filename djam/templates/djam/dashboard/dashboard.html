@@ -6,19 +6,25 @@
   {% get_displayed_riffs base_riff as displayed_riffs %}
   {% if displayed_riffs %}
     {% for riff in displayed_riffs %}
-      {% cycle 0 1 as even silent %}
-      {% if not even %}
-        <div class="row">
-      {% endif %}
-          <div class="widget widget-link widget-append span6">
-            <div class='widget-inner'>
-              <a href="{{ riff.get_default_url }}">{{ riff.display_name }}</a>
+      {% with add=riff|has_add_permission:request change=riff|has_change_permission:request %}
+        {% if add or change %}
+          {% cycle 0 1 as even silent %}
+          {% if not even %}
+            <div class="row">
+          {% endif %}
+            <div class="widget widget-append span6">
+              <div class='widget-inner'>
+                {% if change %}<a class="widget-link" href="{{ riff.get_default_url }}">{% else %}<span class='widget-text'>{% endif %}{{ riff.display_name }}{% if change %}</a>{% else %}</span>{% endif %}
+              </div>
+              {% if add %}
+                <a class='btn widget-link' href="{% riff_url riff 'create' %}"><i class='icon-plus'></i></a>
+              {% endif %}
             </div>
-            <a class='btn' href="{% riff_url riff 'create' %}"><i class='icon-plus'></i></a>
-          </div>
-      {% if even %}
-        </div>
-      {% endif %}
+          {% if even %}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endwith %}
     {% endfor %}
   {% endif %}
 {% endblock %}

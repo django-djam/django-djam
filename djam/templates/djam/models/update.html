@@ -9,7 +9,7 @@
             {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
             <div class="form-actions">
                 <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
-                {% if form.instance.pk %}
+                {% if form.instance.pk and riff|has_delete_permission:request %}
                     <a class='btn btn-danger' href="{% riff_url riff 'delete' pk=form.instance.pk %}">Delete</a>
                 {% endif %}
             </div>

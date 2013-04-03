@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from __future__ import unicode_literals
 
 from django import template
@@ -6,6 +7,8 @@ from django.forms.forms import pretty_name
 from django.forms.widgets import CheckboxInput
 from django.utils.encoding import force_unicode
 from floppyforms.templatetags.floppyforms import FormRowNode
+
+from djam.riffs.base import Riff
 
 
 register = template.Library()
@@ -71,6 +74,27 @@ def order(column, form):
         return form.order_fields[column]
     except (KeyError, AttributeError):
         return ''
+
+
+@register.filter
+def has_add_permission(riff, request):
+    if not hasattr(request, 'user') or not isinstance(riff, Riff):
+        return ''
+    return riff.has_add_permission(request)
+
+
+@register.filter
+def has_change_permission(riff, request):
+    if not hasattr(request, 'user') or not isinstance(riff, Riff):
+        return ''
+    return riff.has_change_permission(request)
+
+
+@register.filter
+def has_delete_permission(riff, request):
+    if not hasattr(request, 'user') or not isinstance(riff, Riff):
+        return ''
+    return riff.has_delete_permission(request)
 
 
 class FieldsetNode(FormRowNode):

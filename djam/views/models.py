@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib.admin.util import flatten_fieldsets
 from django.forms.models import modelform_factory
+from django.http import Http404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
@@ -87,6 +88,11 @@ class ModelListView(ModelRiffMixin, ListView):
     #: only the first field will actually be used.
     order = None
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.riff.has_change_permission(request):
+            raise Http404
+        return super(ModelListView, self).dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
         queryset = super(ModelListView, self).get_queryset()
         data = self.request.GET.copy()
@@ -111,8 +117,15 @@ class ModelListView(ModelRiffMixin, ListView):
 class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):
     template_name_suffix = 'create'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.riff.has_add_permission(request):
+            raise Http404
+        return super(ModelCreateView, self).dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
-        return self.riff.reverse('update', pk=self.object.pk)
+        if self.riff.has_change_permission(self.request):
+            return self.riff.reverse('update', pk=self.object.pk)
+        return self.riff.base_riff.get_default_url()
 
     def get_context_data(self, **kwargs):
         context = super(ModelCreateView, self).get_context_data(**kwargs)
@@ -122,6 +135,11 @@ class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):
 
 class ModelUpdateView(FloppyformsMixin, ModelRiffMixin, UpdateView):
     template_name_suffix = 'update'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.riff.has_change_permission(request):
+            raise Http404
+        return super(ModelUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return self.riff.reverse('update', pk=self.object.pk)
@@ -135,8 +153,15 @@ class ModelUpdateView(FloppyformsMixin, ModelRiffMixin, UpdateView):
 class ModelDeleteView(ModelRiffMixin, DeleteView):
     template_name_suffix = 'delete'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.riff.has_delete_permission(request):
+            raise Http404
+        return super(ModelDeleteView, self).dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
-        return self.riff.get_default_url()
+        if self.riff.has_change_permission(self.request):
+            return self.riff.get_default_url()
+        return self.riff.base_riff.get_default_url()
 
     def get_context_data(self, **kwargs):
         context = super(ModelDeleteView, self).get_context_data(**kwargs)

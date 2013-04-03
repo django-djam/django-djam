@@ -617,8 +617,9 @@ body.login { text-align: center; }
 
 .widget { border: 1px solid #e5e5e5; margin: 0 -1px 20px 19px; background: white; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; display: inline-block; }
 
-.widget-link a { padding: 8px 14px; color: #333333; font-size: 31.5px; line-height: 40px; display: inline-block; }
-.widget-link a:hover { background: #eeeeee; text-decoration: none; }
+.widget-text, .widget-link { padding: 8px 14px; color: #333333; font-size: 31.5px; line-height: 40px; display: inline-block; }
+
+.widget-link:hover { color: #333333; background: #eeeeee; text-decoration: none; }
 
 .widget-inner { display: inline-block; width: 100%; }
 .widget-inner a { display: block; }

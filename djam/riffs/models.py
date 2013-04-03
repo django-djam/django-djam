@@ -82,3 +82,15 @@ class ModelRiff(Riff):
         kwargs = self.get_view_kwargs()
         kwargs.update(self.create_kwargs)
         return kwargs
+
+    def has_add_permission(self, request):
+        opts = self.model._meta
+        return request.user.has_perm(opts.app_label + '.' + opts.get_add_permission())
+
+    def has_change_permission(self, request):
+        opts = self.model._meta
+        return request.user.has_perm(opts.app_label + '.' + opts.get_change_permission())
+
+    def has_delete_permission(self, request):
+        opts = self.model._meta
+        return request.user.has_perm(opts.app_label + '.' + opts.get_delete_permission())
