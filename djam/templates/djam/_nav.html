@@ -8,6 +8,7 @@
 				<li class='dropdown'>
 					<a href="javascript://" class="dropdown-toggle" data-toggle="dropdown"><i class='icon-user'></i> {{ request.user.username }} <b class='caret'></b></a>
 					<ul class="dropdown-menu">
+						<li><a href="{% url base_riff.namespace|add:":auth:password-change" %}">Change Password</a></li>
 						<li><a href="{% url base_riff.namespace|add:":auth:logout" %}">Logout</a></li>
 					</ul>
 				</li>

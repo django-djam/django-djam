@@ -4,12 +4,13 @@ from django.conf.urls import patterns, url
 from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
-from djam.views.auth import LoginView, LogoutView
+from djam.views.auth import LoginView, LogoutView, PasswordChangeView
 
 
 class AuthRiff(Riff):
     login_view = LoginView
     logout_view = LogoutView
+    password_change_view = PasswordChangeView
     display_name = _('Auth')
 
     def get_login_kwargs(self):
@@ -17,7 +18,10 @@ class AuthRiff(Riff):
 
     def get_logout_kwargs(self):
         return self.get_view_kwargs()
-    
+
+    def get_password_change_kwargs(self):
+        return self.get_view_kwargs()
+
     def get_urls(self):
         urlpatterns = super(AuthRiff, self).get_urls()
 
@@ -28,10 +32,13 @@ class AuthRiff(Riff):
             url(r'^login/$',
                 self.wrap_view(self.login_view.as_view(**self.get_login_kwargs())),
                 name='login'),
+            url(r'^password/change/$',
+                self.wrap_view(self.password_change_view.as_view(**self.get_password_change_kwargs())),
+                name='password-change'),
         )
 
         return urlpatterns
-    
+
     def has_permission(self, request):
         # Login/logout don't care whether you're authenticated.
         return True

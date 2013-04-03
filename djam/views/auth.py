@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 import urlparse
 
-from django.conf import settings
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, FormView
@@ -78,3 +77,20 @@ class LogoutView(RiffViewMixin, TemplateView):
             'redirect_field_name': self.redirect_field_name
         })
         return context
+
+
+class PasswordChangeView(RiffViewMixin, FormView):
+    form_class = PasswordChangeForm
+    template_name = 'djam/auth/password-change.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(PasswordChangeView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.save()
+        return super(PasswordChangeView, self).form_valid(form)
+
+    def get_success_url(self):
+        return self.riff.base_riff.get_default_url()
