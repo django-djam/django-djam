@@ -19,6 +19,6 @@
     </div>
 {% endif %}
 
-{% formfield form.order %}
+{% if 'order' in form.fields %}{% formfield form.order %}{% endif %}
 
 {% formfield form.search with placeholder='Search' class='search-query' type='search' %}
