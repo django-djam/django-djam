@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponseForbidden
 from django.template.defaultfilters import slugify
+from django.utils.datastructures import SortedDict
 
 from djam.views.base import DefaultRedirectView
 
@@ -31,7 +32,22 @@ class Riff(object):
         else:
             self.base_riff = parent.base_riff
             self.path = parent.path + (self,)
-        self.riffs = [riff_class(parent=self) for riff_class in self.riff_classes]
+        self._riffs = SortedDict()
+        for riff_class in self.riff_classes:
+            self.register(riff_class)
+
+    def __getitem__(self, key):
+        return self._riffs[key]
+
+    def sort_riffs(self, key=None, reverse=False):
+        if key is None:
+            key = lambda r: r.display_name
+        riffs = sorted(self._riffs.itervalues(), key=key, reverse=reverse)
+        self._riffs.keyOrder = [r.namespace for r in riffs]
+
+    @property
+    def riffs(self):
+        return self._riffs.values()
 
     def get_default_url(self):
         """
@@ -44,14 +60,15 @@ class Riff(object):
     def get_urls(self):
         urlpatterns = self.get_extra_urls()
 
-        urlpatterns += patterns('',
-            url(r'^$', self.default_redirect_view.as_view(riff=self)),
-        )
-
         for riff in self.riffs:
+            pattern = r'^{0}/'.format(riff.slug) if riff.slug else r'^'
             urlpatterns += patterns('',
-                url(r'^{slug}/'.format(slug=riff.slug),
-                    include(riff.get_urls_tuple())),
+                url(pattern, include(riff.get_urls_tuple())),
+            )
+
+        if self.default_redirect_view is not None:
+            urlpatterns += patterns('',
+                url(r'^$', self.default_redirect_view.as_view(riff=self)),
             )
 
         return urlpatterns
@@ -88,3 +105,10 @@ class Riff(object):
     @property
     def full_namespace(self):
         return ":".join([r.namespace for r in self.path])
+
+    def register(self, riff_class):
+        riff = riff_class(parent=self)
+        if riff.namespace in self._riffs:
+            raise ValueError("Riff with namespace {0} already "
+                             "registered.".format(riff.namespace))
+        self._riffs[riff.namespace] = riff

@@ -12,6 +12,10 @@ class AuthRiff(Riff):
     logout_view = LogoutView
     password_change_view = PasswordChangeView
     display_name = _('Auth')
+    slug = ''
+    namespace = 'auth'
+    # Disable default redirect view.
+    default_redirect_view = None
 
     def get_login_kwargs(self):
         return self.get_view_kwargs()
@@ -22,10 +26,8 @@ class AuthRiff(Riff):
     def get_password_change_kwargs(self):
         return self.get_view_kwargs()
 
-    def get_urls(self):
-        urlpatterns = super(AuthRiff, self).get_urls()
-
-        urlpatterns += patterns('',
+    def get_extra_urls(self):
+        urlpatterns = patterns('',
             url(r'^logout/$',
                 self.wrap_view(self.logout_view.as_view(**self.get_logout_kwargs())),
                 name='logout'),
@@ -47,3 +49,7 @@ class AuthRiff(Riff):
         if self.parent is not None:
             return self.parent.get_default_url()
         return self.reverse('login')
+
+    def is_hidden(self, request):
+        """Always returns True to hide the auth riff."""
+        return True

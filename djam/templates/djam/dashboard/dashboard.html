@@ -6,6 +6,7 @@
   {% get_displayed_riffs base_riff as displayed_riffs %}
   {% if displayed_riffs %}
     {% for riff in displayed_riffs %}
+      {# this is a model-specific widget. Should be an inclusion. #}
       {% with add=riff|has_add_permission:request change=riff|has_change_permission:request %}
         {% if add or change %}
           {% cycle 0 1 as even silent %}

@@ -10,6 +10,8 @@ from djam.views.dashboard import DashboardView
 class DashboardRiff(Riff):
     dashboard_view = DashboardView
     display_name = _('Dashboard')
+    slug = ''
+    namespace = 'dashboard'
 
     def get_extra_urls(self):
         return patterns('',

@@ -65,6 +65,10 @@ def autodiscover():
         else:
             attrs['create_kwargs'] = attrs['update_kwargs'].copy()
         riff_classes.append(type(class_name, (ModelRiff,), attrs))
-    riff_classes.sort(key=lambda cls: cls.__name__)
     for cls in riff_classes:
-        admin.register(cls)
+        try:
+            admin.register(cls)
+        except ValueError:
+            # Don't register already-registered models.
+            pass
+    admin.sort_riffs()
