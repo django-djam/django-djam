@@ -127,10 +127,10 @@ class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):
             return self.riff.reverse('update', pk=self.object.pk)
         return self.riff.base_riff.get_default_url()
 
-    def get_context_data(self, **kwargs):
-        context = super(ModelCreateView, self).get_context_data(**kwargs)
-        context.update(page_title=_('Add a {0}'.format(self.model._meta.verbose_name)))
-        return context
+    def get_crumbs(self):
+        crumbs = super(ModelCreateView, self).get_crumbs()
+        crumbs += [(None, _('Add a {0}'.format(self.model._meta.verbose_name)))]
+        return crumbs
 
 
 class ModelUpdateView(FloppyformsMixin, ModelRiffMixin, UpdateView):
@@ -144,10 +144,13 @@ class ModelUpdateView(FloppyformsMixin, ModelRiffMixin, UpdateView):
     def get_success_url(self):
         return self.riff.reverse('update', pk=self.object.pk)
 
-    def get_context_data(self, **kwargs):
-        context = super(ModelUpdateView, self).get_context_data(**kwargs)
-        context.update(page_title=unicode(self.object))
-        return context
+    def get_crumbs(self):
+        crumbs = super(ModelUpdateView, self).get_crumbs()
+        crumbs += [
+            (self.riff.reverse('update', pk=self.object.pk),
+             unicode(self.object)),
+        ]
+        return crumbs
 
 
 class ModelDeleteView(ModelRiffMixin, DeleteView):
@@ -163,7 +166,7 @@ class ModelDeleteView(ModelRiffMixin, DeleteView):
             return self.riff.get_default_url()
         return self.riff.base_riff.get_default_url()
 
-    def get_context_data(self, **kwargs):
-        context = super(ModelDeleteView, self).get_context_data(**kwargs)
-        context.update(page_title=_('Delete {0}'.format(unicode(self.object))))
-        return context
+    def get_crumbs(self):
+        crumbs = super(ModelDeleteView, self).get_crumbs()
+        crumbs += [(None, _('Delete {0}'.format(unicode(self.object))))]
+        return crumbs

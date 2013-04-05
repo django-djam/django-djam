@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, FormView
+from django.utils.translation import ugettext as _
 
 from djam.views.base import RiffViewMixin
 
@@ -52,6 +53,12 @@ class LoginView(RiffViewMixin, FormView):
         })
         return context
 
+    def get_crumbs(self):
+        return [
+            (None, self.riff.base_riff.display_name),
+            (None, _('Login')),
+        ]
+
 
 class LogoutView(RiffViewMixin, TemplateView):
     template_name = 'djam/auth/logout.html'
@@ -78,6 +85,12 @@ class LogoutView(RiffViewMixin, TemplateView):
         })
         return context
 
+    def get_crumbs(self):
+        return [
+            (None, self.riff.base_riff.display_name),
+            (None, _('Logout')),
+        ]
+
 
 class PasswordChangeView(RiffViewMixin, FormView):
     form_class = PasswordChangeForm
@@ -94,3 +107,8 @@ class PasswordChangeView(RiffViewMixin, FormView):
 
     def get_success_url(self):
         return self.riff.base_riff.get_default_url()
+
+    def get_crumbs(self):
+        crumbs = super(PasswordChangeView, self).get_crumbs()
+        crumbs = crumbs[:-1] + [(None, _('Change password'))]
+        return crumbs
