@@ -17,6 +17,7 @@ class AdminRiff(Riff):
     namespace = 'djam'
     # Disable default redirect view.
     default_redirect_view = None
+    _autodiscovered = False
 
     def get_default_url(self):
         return self['dashboard'].get_default_url()
@@ -34,6 +35,19 @@ class AdminRiff(Riff):
         class_name = model.__name__ + str('Riff')
         riff_class = type(class_name, (ModelRiff,), {'model': model})
         self.register(riff_class)
+
+    def autodiscover(self):
+        if not self._autodiscovered:
+            from django.contrib.admin import autodiscover, site
+            autodiscover()
+
+            for model in site._registry:
+                try:
+                    self.register_model(model)
+                except ValueError:
+                    pass
+            self.sort_riffs()
+            self._autodiscovered = True
 
 
 admin = AdminRiff(app_name='djam')
