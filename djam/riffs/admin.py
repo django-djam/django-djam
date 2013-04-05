@@ -36,10 +36,14 @@ class AdminRiff(Riff):
         riff_class = type(class_name, (ModelRiff,), {'model': model})
         self.register(riff_class)
 
-    def autodiscover(self):
+    def autodiscover(self, with_batteries=True):
         if not self._autodiscovered:
             from django.contrib.admin import autodiscover, site
             autodiscover()
+
+            if with_batteries:
+                from djam.batteries import register_batteries
+                register_batteries(self)
 
             for model in site._registry:
                 try:
