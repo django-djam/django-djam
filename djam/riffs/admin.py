@@ -55,6 +55,27 @@ class AdminRiff(Riff):
                 pass
 
     def autodiscover(self, with_batteries=True, with_modeladmins=True):
+        """
+        :func:`djam.autodiscover` loops through ``INSTALLED_APPS`` and loads
+        any ``riffs.py`` modules in those apps - similar to the django admin's
+        autodiscovery.
+
+        On top of that, :mod:`djam` will by default include
+        :class:`ModelRiffs <ModelRiff>` which have been auto-generated from
+        registered ModelAdmins. This can be turned of by passing in
+        ``with_modeladmins=False``.
+
+        For some commonly-used models (such as ``django.contrib.auth.User``)
+        :mod:`djam` provides a Riff which handles some functionality that
+        would otherwise be lost during the conversion from ModelAdmin to
+        :class:`ModelRiff`. This can be disabled by passing in
+        ``with_batteries=False``.
+
+        The order that these are loaded is: app riff modules, "batteries",
+        and ModelAdmins. If two riffs are registered for the same model, the
+        first one registered will take precedence; any others will be ignored.
+
+        """
         if not self._autodiscovered:
             from django.conf import settings
             from django.contrib.admin import autodiscover, site

@@ -19,7 +19,6 @@ Here's an example of how you could set up your admin using djam:
 .. code-block:: python
 
    # myapp/riffs.py
-   from djam import admin
    from djam.riffs.models import ModelRiff
 
    from myapp.models import MyModel, MyOtherModel
@@ -28,11 +27,13 @@ Here's an example of how you could set up your admin using djam:
    class MyModelRiff(ModelRiff):
        model = MyModel
 
+
    class MyOtherModelRiff(ModelRiff):
        model = MyOtherModel
+       use_modeladmin = False
 
-   admin.register(MyModelRiff)
-   admin.register(MyOtherModelRiff)
+
+   riffs = [MyModelRiff, MyOtherModelRiff]
 
 
 .. code-block:: python
@@ -43,8 +44,6 @@ Here's an example of how you could set up your admin using djam:
    import djam
    djam.autodiscover()
 
-   from myapp.riffs import MyModelRiff, MyOtherModelRiff
-
    urlpatterns = patterns('',
        url(r'^admin/', include(djam.admin.get_urls_tuple())),
    )
@@ -52,3 +51,20 @@ Here's an example of how you could set up your admin using djam:
 If you use runserver and navigate to ``/admin/``, you'll be able to
 add, edit, and delete models! (Assuming you have the correct
 permissions, of course.)
+
+
+Autodiscovery
+-------------
+
+.. autofunction:: djam.autodiscover
+
+
+ModelRiffs automatically inherit from ModelAdmins
+-------------------------------------------------
+
+Each :class:`ModelRiff` class has an associated model. If a ModelAdmin has
+been registered for that model, the riff will by default inherit a number
+of options from that ModelAdmin.
+
+However, :class:`ModelRiffs <ModelRiff>` can only inherit options; they can't inherit most custom
+functionality.
