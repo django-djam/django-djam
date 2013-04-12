@@ -46,6 +46,11 @@
 						{% endfor %}
 					</ul>
 				{% endblock %}
+				{% block messages %}
+				    {% for message in messages %}
+					    <div class="alert{% if message.level == 20 %} alert-info{% elif message.level == 25 %} alert-success{% elif message.level == 40 %} alert-error{% endif %}{% if message.tags %} {{ message.tags }}{% endif %}"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+				    {% endfor %}
+				{% endblock %}
 				{% block main %}
 				{% endblock %}
 			</div>

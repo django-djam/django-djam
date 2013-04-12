@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.contrib import messages
 from django.contrib.admin.util import flatten_fieldsets
 from django.forms.models import modelform_factory
 from django.http import Http404
@@ -127,6 +128,17 @@ class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):
             return self.riff.reverse('update', pk=self.object.pk)
         return self.riff.base_riff.get_default_url()
 
+    def form_valid(self, form):
+        response = super(ModelCreateView, self).form_valid(form)
+        msg_kwargs = {
+            'name': force_unicode(self.model._meta.verbose_name),
+            'obj': force_unicode(self.object),
+        }
+        msg = _('The {name} "{obj}" was added successfully. '
+                'You may edit it again below.'.format(**msg_kwargs))
+        messages.success(self.request, msg)
+        return response
+
     def get_crumbs(self):
         crumbs = super(ModelCreateView, self).get_crumbs()
         crumbs += [(None, _('Add a {0}'.format(self.model._meta.verbose_name)))]
@@ -143,6 +155,16 @@ class ModelUpdateView(FloppyformsMixin, ModelRiffMixin, UpdateView):
 
     def get_success_url(self):
         return self.riff.reverse('update', pk=self.object.pk)
+
+    def form_valid(self, form):
+        msg_kwargs = {
+            'name': force_unicode(self.model._meta.verbose_name),
+            'obj': force_unicode(self.object),
+        }
+        msg = _('The {name} "{obj}" was updated successfully. You may edit '
+                'it again below.'.format(**msg_kwargs))
+        messages.success(self.request, msg)
+        return super(ModelUpdateView, self).form_valid(form)
 
     def get_crumbs(self):
         crumbs = super(ModelUpdateView, self).get_crumbs()
@@ -165,6 +187,17 @@ class ModelDeleteView(ModelRiffMixin, DeleteView):
         if self.riff.has_change_permission(self.request):
             return self.riff.get_default_url()
         return self.riff.base_riff.get_default_url()
+
+    def delete(self, *args, **kwargs):
+        response = super(ModelDeleteView, self).delete(*args, **kwargs)
+        msg_kwargs = {
+            'name': force_unicode(self.model._meta.verbose_name),
+            'obj': force_unicode(self.object),
+        }
+        msg = _('The {name} "{obj}" was deleted successfully.'
+                ''.format(**msg_kwargs))
+        messages.success(self.request, msg)
+        return response
 
     def get_crumbs(self):
         crumbs = super(ModelDeleteView, self).get_crumbs()
