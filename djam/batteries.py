@@ -48,5 +48,4 @@ class UserRiff(ModelRiff):
         return urlpatterns
 
 
-def register_batteries(riff):
-    riff.register(UserRiff)
+riffs = [UserRiff]

@@ -1,7 +1,10 @@
 from __future__ import unicode_literals
 from urllib import urlencode
+import warnings
 
 from django.http import HttpResponseRedirect
+from django.utils.importlib import import_module
+from django.utils.module_loading import module_has_submodule
 from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
@@ -36,14 +39,49 @@ class AdminRiff(Riff):
         riff_class = type(class_name, (ModelRiff,), {'model': model})
         self.register(riff_class)
 
-    def autodiscover(self, with_batteries=True):
+    def register_module(self, module_name):
+        mod = import_module(module_name)
+
+        if not hasattr(mod, 'riffs'):
+            warnings.warn('Module {0} has no attribute "riffs".'
+                          ''.format(module_name))
+            return
+
+        # Let the attribute error be raised if there's an issue.
+        for riff in mod.riffs:
+            try:
+                self.register(riff)
+            except ValueError:
+                pass
+
+    def autodiscover(self, with_batteries=True, with_modeladmins=True):
         if not self._autodiscovered:
+            from django.conf import settings
             from django.contrib.admin import autodiscover, site
             autodiscover()
 
+            # for app in installed_apps register module
+            for app in settings.INSTALLED_APPS:
+                # Don't register riffs from djam.riffs.
+                if app == 'djam':
+                    continue
+
+                mod = import_module(app)
+                before_import = self._riffs.copy()
+
+                try:
+                    self.register_module('{0}.riffs'.format(app))
+                except:
+                    # Reset riffs registry.
+                    self._riffs = before_import
+
+                    # If the app has a riffs module, but something went wrong,
+                    # reraise the exception.
+                    if module_has_submodule(mod, 'riffs'):
+                        raise
+
             if with_batteries:
-                from djam.batteries import register_batteries
-                register_batteries(self)
+                self.register_module('djam.batteries')
 
             for model in site._registry:
                 try:
