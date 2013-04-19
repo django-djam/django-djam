@@ -131,7 +131,7 @@ class ModelRiff(Riff):
         )
 
     def get_default_url(self):
-        return self.reverse('list'.format(appname=self.model._meta.app_label, modelname=self.slug))
+        return self.reverse('list')
 
     def get_view_kwargs(self):
         kwargs = super(ModelRiff, self).get_view_kwargs()

@@ -1,55 +1,15 @@
 from __future__ import unicode_literals
 
 from django.contrib import messages
-from django.contrib.admin.util import flatten_fieldsets
-from django.forms.models import modelform_factory
 from django.http import Http404
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
-import floppyforms
 
 from djam.forms import QueryForm
-from djam.views.base import RiffViewMixin
+from djam.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 
-class FloppyformsMixin(object):
-    fieldsets = None
-    readonly = ()
-
-    def get_form_class(self):
-        # This is mostly a copy of django's FormMixin.get_form_class,
-        # but it a) uses floppyforms by default, and b) supports fields
-        # and exclusions.
-        if self.form_class:
-            return self.form_class
-        else:
-            if self.model is not None:
-                model = self.model
-            elif hasattr(self, 'object') and self.object is not None:
-                model = self.object.__class__
-            else:
-                model = self.get_queryset().model
-            if self.fieldsets:
-                fields = flatten_fieldsets(self.fieldsets)
-            else:
-                fields = None
-            return modelform_factory(model,
-                                     form=floppyforms.ModelForm,
-                                     exclude=self.readonly,
-                                     fields=fields)
-
-    def get_context_data(self, **kwargs):
-        context = super(FloppyformsMixin, self).get_context_data(**kwargs)
-        fieldsets = self.fieldsets or ((None, {'fields': list(context['form'].fields)}),)
-        context.update({
-            'fieldsets': fieldsets,
-            'readonly': self.readonly,
-        })
-        return context
-
-
-class ModelRiffMixin(RiffViewMixin):
+class ModelRiffMixin(object):
     template_name_suffix = None
 
     def get_template_names(self):
@@ -115,7 +75,7 @@ class ModelListView(ModelRiffMixin, ListView):
         return context
 
 
-class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):
+class ModelCreateView(ModelRiffMixin, CreateView):
     template_name_suffix = 'create'
 
     def dispatch(self, request, *args, **kwargs):
@@ -145,7 +105,7 @@ class ModelCreateView(FloppyformsMixin, ModelRiffMixin, CreateView):
         return crumbs
 
 
-class ModelUpdateView(FloppyformsMixin, ModelRiffMixin, UpdateView):
+class ModelUpdateView(ModelRiffMixin, UpdateView):
     template_name_suffix = 'update'
 
     def dispatch(self, request, *args, **kwargs):

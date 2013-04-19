@@ -1,9 +1,9 @@
 from django.contrib.auth.forms import AdminPasswordChangeForm
 from django.contrib.auth.models import User
 from django.conf.urls import patterns, url
-from django.views.generic import UpdateView
 
 from djam.riffs.models import ModelRiff
+from djam.views.generic import UpdateView
 from djam.views.models import ModelRiffMixin
 
 

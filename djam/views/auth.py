@@ -5,16 +5,15 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, FormView
 from django.utils.translation import ugettext as _
 
-from djam.views.base import RiffViewMixin
+from djam.views.generic import FormView, TemplateView
 
 
 REDIRECT_FIELD_NAME = 'next'
 
 
-class LoginView(RiffViewMixin, FormView):
+class LoginView(FormView):
     template_name = 'djam/auth/login.html'
     redirect_field_name = REDIRECT_FIELD_NAME
     form_class = AuthenticationForm
@@ -60,7 +59,7 @@ class LoginView(RiffViewMixin, FormView):
         ]
 
 
-class LogoutView(RiffViewMixin, TemplateView):
+class LogoutView(TemplateView):
     template_name = 'djam/auth/logout.html'
     redirect_field_name = REDIRECT_FIELD_NAME
 
@@ -92,7 +91,7 @@ class LogoutView(RiffViewMixin, TemplateView):
         ]
 
 
-class PasswordChangeView(RiffViewMixin, FormView):
+class PasswordChangeView(FormView):
     form_class = PasswordChangeForm
     template_name = 'djam/auth/password-change.html'
 

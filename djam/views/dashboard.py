@@ -1,9 +1,7 @@
 from __future__ import unicode_literals
 
-from django.views.generic import TemplateView
-
-from djam.views.base import RiffViewMixin
+from djam.views.generic import TemplateView
 
 
-class DashboardView(RiffViewMixin, TemplateView):
+class DashboardView(TemplateView):
     template_name = 'djam/dashboard/dashboard.html'
