@@ -73,7 +73,9 @@ class SimpleFilterField(FilterField):
         self.requires_distinct = isinstance(self.field, models.ManyToManyField)
 
     def get_choices(self):
-        return ((self.EMPTY_VALUE, _('All')),) + tuple(self.field.choices)
+        formfield = self.field.formfield()
+        formfield.empty_label = None
+        return ((self.EMPTY_VALUE, _('All')),) + tuple(formfield.choices)
 
     def filter(self, queryset, value):
         if value == self.EMPTY_VALUE:
