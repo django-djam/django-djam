@@ -45,7 +45,7 @@ Here's an example of how you could set up your admin using djam:
    djam.autodiscover()
 
    urlpatterns = patterns('',
-       url(r'^admin/', include(djam.admin.get_urls_tuple())),
+       url(r'^admin/', include(djam.admin.urls)),
    )
 
 If you use runserver and navigate to ``/admin/``, you'll be able to

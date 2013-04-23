@@ -64,7 +64,7 @@ class Riff(object):
         for riff in self.riffs:
             pattern = r'^{0}/'.format(riff.slug) if riff.slug else r'^'
             urlpatterns += patterns('',
-                url(pattern, include(riff.get_urls_tuple())),
+                url(pattern, include(riff.urls)),
             )
 
         if self.default_redirect_view is not None:
@@ -77,7 +77,8 @@ class Riff(object):
     def get_extra_urls(self):
         return patterns('',)
 
-    def get_urls_tuple(self):
+    @property
+    def urls(self):
         return self.get_urls(), self.app_name, self.namespace
 
     def get_view_kwargs(self):

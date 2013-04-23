@@ -7,5 +7,5 @@ djam.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(site.urls)),
-    url(r'^djam/', include(djam.admin.get_urls_tuple())),
+    url(r'^djam/', include(djam.admin.urls)),
 )

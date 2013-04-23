@@ -27,7 +27,7 @@ All you need to do here is change it to look more like the following::
    djam.autodiscover()
 
    urlpatterns = patterns('',
-       url(r'^admin/', include(djam.admin.get_urls_tuple())),
+       url(r'^admin/', include(djam.admin.urls)),
    )
 
 .. note:: It's also entirely possible to run ``djam`` and
