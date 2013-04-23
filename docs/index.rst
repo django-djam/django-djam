@@ -36,7 +36,8 @@ Getting Started
    :maxdepth: 1
 
    guides/quick-start
-   guides/first-riffs
+   guides/extending-the-admin
+   guides/beyond-the-admin
 
 Contributing
 ============

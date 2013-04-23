@@ -1,0 +1,17 @@
+{% extends 'djam/__base.html' %}
+
+{% load i18n djam floppyforms %}
+
+{% block main %}
+    <div class="row">
+        <form method='{{ form_method|default:"post" }}' action='{{ form_action|default:request.path }}' class="form-horizontal">
+            {% if form_method|default:"post" == "post" %}{% csrf_token %}{% endif %}
+            {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
+            <div class="form-actions">
+                {% block actions %}
+                    <button type="submit" class="btn btn-success">{% block success-text %}{% trans "Submit" %}{% endblock %}</button>
+                {% endblock %}
+            </div>
+        </form>
+    </div>
+{% endblock %}

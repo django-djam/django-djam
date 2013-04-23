@@ -69,11 +69,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
+    'django.contrib.webdesign',
 
     # Add the following installed apps.
     'djam',
     'django_nose',
     'floppyforms',
+
+    # Example app!
+    'test_project.example_app',
 )
 
 # Be sure to set the context processors to include the request.

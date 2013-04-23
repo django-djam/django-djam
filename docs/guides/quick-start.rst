@@ -31,18 +31,48 @@ All you need to do here is change it to look more like the following::
    )
 
 .. note:: It's also entirely possible to run ``djam`` and
-          ``django.contrib.admin`` side-by-side.
+          ``django.contrib.admin`` side-by-side, if you want to
+          compare the two. The test project does it!
 
 ``settings.py``
 ---------------
 
-Now go into your settings file. Make sure that ``"djam"`` is somewhere
-in your ``INSTALLED_APPS``, and that ``"django.core.context_processors.request"`` is in your ``TEMPLATE_CONTEXT_PROCESSORS``.
+Now go into your settings file.
+
+First, make sure that ``djam`` and ``floppyforms`` are somewhere in
+your ``INSTALLED_APPS``. For example::
+
+  INSTALLED_APPS = (
+      'django.contrib.auth',
+      'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.sites',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
+
+      # Other apps...
+      'djam',
+      'floppyforms',
+  )
+
+Now make sure that ``django.core.context_proocessors.request`` is in your ``TEMPLATE_CONTEXT_PROCESSORS``. If you just add it to Django's defaults, you'll get::
+
+  TEMPLATE_CONTEXT_PROCESSORS = (
+      "django.contrib.auth.context_processors.auth",
+      "django.core.context_processors.debug",
+      "django.core.context_processors.i18n",
+      "django.core.context_processors.media",
+      "django.core.context_processors.static",
+      "django.core.context_processors.tz",
+      "django.contrib.messages.context_processors.messages",
+      "django.core.context_processors.request",
+  )
 
 Congratulations!
 ----------------
 
-You're now using djam. It won't capture all the custom functionality
-of the ModelAdmins you already have installed, but we do support transferring most of the basic ModelAdmin options.
-
-Once you've had a chance to play with your auto-generated djam admin, go ahead and :doc:`make your first custom riffs! </guides/first-riffs>`
+You're now using djam. Go ahead and log in; have a look around. All
+of the ``ModelAdmins`` you registered with ``django.contrib.admin``
+should already be showing up on the dashboard. Whenever you feel
+ready, you can move on to :doc:`/guides/extending-the-admin` and find out
+why that is.

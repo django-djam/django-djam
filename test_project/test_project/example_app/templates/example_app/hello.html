@@ -1,0 +1,11 @@
+{% extends 'djam/__base.html' %}
+
+{% load webdesign djam %}
+
+{% block main %}
+    <h1>Hello, {{ slug }}!</h1>
+
+    {% lorem 3 p random %}
+
+    <a href="{% riff_url riff 'hello' %}" class='btn btn-success btn-large'>Once more!</a>
+{% endblock %}

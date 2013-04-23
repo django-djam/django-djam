@@ -1,18 +1,13 @@
-{% extends 'djam/__base.html' %}
+{% extends 'djam/form.html' %}
 
 {% load i18n djam floppyforms %}
 
-{% block main %}
-    <div class="row">
-        <form method='post' action='{{ request.path }}' class="form-horizontal">
-            {% csrf_token %}
-            {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
-            <div class="form-actions">
-                <button type="submit" class="btn btn-success">{% trans "Save" %}</button>
-                {% if form.instance.pk and riff|has_delete_permission:request %}
-                    <a class='btn btn-danger' href="{% riff_url riff 'delete' pk=form.instance.pk %}">Delete</a>
-                {% endif %}
-            </div>
-        </form>
-    </div>
+{% block success-text %}{% trans "Save" %}{% endblock %}
+
+{% block actions %}
+    {{ block.super }}
+
+    {% if form.instance.pk and riff|has_delete_permission:request %}
+        <a class='btn btn-danger' href="{% riff_url riff 'delete' pk=form.instance.pk %}">Delete</a>
+    {% endif %}
 {% endblock %}

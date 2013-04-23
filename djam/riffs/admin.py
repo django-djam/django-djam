@@ -72,8 +72,9 @@ class AdminRiff(Riff):
         ``with_batteries=False``.
 
         The order that these are loaded is: app riff modules, "batteries",
-        and ModelAdmins. If two riffs are registered for the same model, the
-        first one registered will take precedence; any others will be ignored.
+        and ModelAdmins. If two riffs are registered using the same namespace,
+        the  first one registered will take precedence; any others will be
+        ignored.
 
         """
         if not self._autodiscovered:
