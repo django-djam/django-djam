@@ -45,20 +45,7 @@ Contributing
 .. toctree::
    :maxdepth: 1
 
-   contributing/coding-style
-   contributing/testing
-   contributing/git-practices
-
-
-API Docs
-========
-
-.. toctree::
-   :maxdepth: 1
-
-   api/riffs
-   api/views
-
+   contributing
 
 Indices and tables
 ==================
