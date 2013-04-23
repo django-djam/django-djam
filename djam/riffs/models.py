@@ -84,6 +84,7 @@ class ModelRiff(Riff):
     create_view = ModelCreateView
     update_view = ModelUpdateView
     delete_view = ModelDeleteView
+    widget_template = 'djam/models/_widget.html'
 
     # create and update kwargs can contain:
     # - form_class
@@ -164,3 +165,7 @@ class ModelRiff(Riff):
     def has_delete_permission(self, request):
         opts = self.model._meta
         return request.user.has_perm(opts.app_label + '.' + opts.get_delete_permission())
+
+    def has_permission(self, request):
+        return (self.has_add_permission(request) or
+                self.has_change_permission(request))

@@ -18,6 +18,7 @@ class Riff(object):
     namespace = None
     app_name = None
     default_redirect_view = DefaultRedirectView
+    widget_template = 'djam/_widget.html'
 
     def __init__(self, parent=None, namespace=None, app_name=None):
         self.parent = parent
