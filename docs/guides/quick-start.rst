@@ -5,7 +5,7 @@ Trying out djam is easy, especially if you're already using ``django.contrib.adm
 
 .. code-block:: bash
 
-   $ pip install -e git+git://github.com/pculture/django-djam.git#egg=django-djam
+   $ pip install -e git+git://github.com/django-djam/django-djam.git#egg=django-djam
 
 Djam requires Django 1.5+ and Django-Floppyforms 1.1+.
 

@@ -21,12 +21,12 @@ Links
 =====
 
 :docs:         http://django-djam.readthedocs.org/
-:code:         https://github.com/pculture/django-djam/
+:code:         https://github.com/django-djam/django-djam/
 :irc:          `#django-djam on irc.freenode.net <irc://irc.freenode.net/django-djam>`_
 :build status: |build-image|
 
-.. |build-image| image:: https://secure.travis-ci.org/pculture/django-djam.png?branch=master
-                 :target: http://travis-ci.org/pculture/django-djam
+.. |build-image| image:: https://secure.travis-ci.org/django-djam/django-djam.png?branch=master
+                 :target: http://travis-ci.org/django-djam/django-djam
 
 
 Getting Started
