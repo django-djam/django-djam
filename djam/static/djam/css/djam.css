@@ -639,4 +639,5 @@ th.order.asc:after { border-bottom: 4px solid; }
 
 h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia, serif; font-weight: normal; }
 
-body { margin-top: 60px; background: white url('../images/brilliant.png?1347054566'); }
+body { padding-top: 60px; background: white url('../images/brilliant.png?1347054566'); }
+@media (max-width: 979px) { body { padding-top: 0; } }
