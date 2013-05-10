@@ -8,6 +8,7 @@ from django.utils.module_loading import module_has_submodule
 from django.utils.translation import ugettext_lazy as _
 
 from djam.riffs.base import Riff
+from djam.riffs.models import ModelRiff
 
 
 class AdminRiff(Riff):
@@ -30,7 +31,6 @@ class AdminRiff(Riff):
         return HttpResponseRedirect('{url}?{params}'.format(url=self['auth'].reverse('login'), params=params))
 
     def register_model(self, model):
-        from djam.riffs.models import ModelRiff
         # Think up a reasonable name.
         class_name = model.__name__ + str('Riff')
         riff_class = type(class_name, (ModelRiff,), {'model': model})
