@@ -10,3 +10,5 @@ output_style = :compact
 relative_assets = true
 line_comments = false
 preferred_syntax = :sass
+
+require 'bootstrap-sass'

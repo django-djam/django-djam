@@ -5,6 +5,10 @@
         }
     );
 
+    $('select').chosen({
+        allow_single_deselect: true,
+    });
+
     if ($('body.model-list')) {
         var order_columns = $('th[data-order]'),
             order_field = $('#id_order');

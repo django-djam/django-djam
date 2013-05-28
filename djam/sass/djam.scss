@@ -5,6 +5,10 @@ $fontAwesomePath: '../fonts';
 @import "partials/font-awesome";
 @import "partials/patuaone";
 
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import "partials/chosen";
+
 @import "partials/login";
 @import "partials/widgets";
 @import "partials/dropdowns";
