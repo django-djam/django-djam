@@ -63,10 +63,19 @@ class FloppyformsMixin(object):
             field.widget.attrs['data-placeholder'] = msg
         return field
 
+    def get_context_data(self, **kwargs):
+        context = super(FloppyformsMixin, self).get_context_data(**kwargs)
+        fieldsets = (self.fieldsets or
+                     ((None, {'fields': list(context['form'].fields)}),))
+        context.update({
+            'fieldsets': fieldsets,
+            'readonly': self.readonly,
+        })
+        return context
+
+
+class ModelFloppyformsMixin(FloppyformsMixin):
     def get_form_class(self):
-        # This is mostly a copy of django's FormMixin.get_form_class,
-        # but it a) uses floppyforms by default, and b) supports fields
-        # and exclusions.
         if self.form_class:
             form_class = self.form_class
         else:
@@ -86,16 +95,6 @@ class FloppyformsMixin(object):
                                  exclude=self.readonly,
                                  fields=fields,
                                  formfield_callback=self.get_form_field)
-
-    def get_context_data(self, **kwargs):
-        context = super(FloppyformsMixin, self).get_context_data(**kwargs)
-        fieldsets = (self.fieldsets or
-                     ((None, {'fields': list(context['form'].fields)}),))
-        context.update({
-            'fieldsets': fieldsets,
-            'readonly': self.readonly,
-        })
-        return context
 
 
 class View(RiffViewMixin, generic.View):
@@ -146,11 +145,11 @@ class FormView(FloppyformsMixin, RiffViewMixin, generic.FormView):
     pass
 
 
-class CreateView(FloppyformsMixin, RiffViewMixin, generic.CreateView):
+class CreateView(ModelFloppyformsMixin, RiffViewMixin, generic.CreateView):
     pass
 
 
-class UpdateView(FloppyformsMixin, RiffViewMixin, generic.UpdateView):
+class UpdateView(ModelFloppyformsMixin, RiffViewMixin, generic.UpdateView):
     pass
 
 
