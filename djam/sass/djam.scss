@@ -2,11 +2,11 @@ $fontAwesomePath: '../fonts';
 
 @import "compass";
 
-@import "partials/font-awesome";
-@import "partials/patuaone";
-
 @import "bootstrap";
 @import "bootstrap-responsive";
+
+@import "partials/font-awesome";
+@import "partials/patuaone";
 @import "partials/chosen";
 
 @import "partials/login";
