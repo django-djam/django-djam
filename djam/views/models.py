@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 
 from django.contrib import messages
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.utils.encoding import force_unicode
+from django.utils.html import escape, escapejs
 from django.utils.translation import ugettext_lazy as _
 
 from djam.forms import QueryForm
@@ -90,6 +91,12 @@ class ModelCreateView(ModelRiffMixin, CreateView):
 
     def form_valid(self, form):
         response = super(ModelCreateView, self).form_valid(form)
+        if self.request.GET.get('is_popup'):
+            return HttpResponse(
+                '<!DOCTYPE html><html><head><title></title></head><body>'
+                '<script type="text/javascript">opener.djam.finishAdd'
+                '(window, "{0}", "{1}");</script></body></html>'.format(
+                    escape(form.instance.pk), escapejs(form.instance)))
         msg_kwargs = {
             'name': force_unicode(self.model._meta.verbose_name),
             'obj': force_unicode(self.object),

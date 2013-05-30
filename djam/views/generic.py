@@ -2,11 +2,14 @@ from __future__ import unicode_literals
 
 from django.contrib.admin.util import flatten_fieldsets
 from django.db import models
-from django.forms.models import modelform_factory, ModelMultipleChoiceField
+from django.forms.models import (modelform_factory, ModelChoiceField,
+                                 ModelMultipleChoiceField)
 from django.utils.cache import add_never_cache_headers
 from django.utils.translation import ugettext as _, string_concat
 from django.views import generic
 import floppyforms
+
+from djam.widgets import AddWrapper
 
 
 class RiffViewMixin(object):
@@ -49,20 +52,6 @@ class FloppyformsMixin(object):
     fieldsets = None
     readonly = ()
 
-    def get_form_field(self, db_field, **kwargs):
-        field = db_field.formfield(**kwargs)
-        if issubclass(db_field.__class__, models.ManyToManyField):
-            msg = _('Hold down "Control", or "Command" on a Mac, to select more than one.')
-            msg = unicode(string_concat(' ', msg))
-            if field.help_text.endswith(msg):
-                field.help_text = field.help_text[:-len(msg)]
-        if isinstance(field, ModelMultipleChoiceField):
-            msg = string_concat(_("Choose some "),
-                                field.queryset.model._meta.verbose_name_plural,
-                                "...")
-            field.widget.attrs['data-placeholder'] = msg
-        return field
-
     def get_context_data(self, **kwargs):
         context = super(FloppyformsMixin, self).get_context_data(**kwargs)
         fieldsets = (self.fieldsets or
@@ -75,6 +64,32 @@ class FloppyformsMixin(object):
 
 
 class ModelFloppyformsMixin(FloppyformsMixin):
+    def get_form_field(self, db_field, **kwargs):
+        field = db_field.formfield(**kwargs)
+        if issubclass(db_field.__class__, models.ManyToManyField):
+            msg = _('Hold down "Control", or "Command" on a Mac, to select more than one.')
+            msg = unicode(string_concat(' ', msg))
+            if field.help_text.endswith(msg):
+                field.help_text = field.help_text[:-len(msg)]
+        if isinstance(field, ModelChoiceField):
+            model = field.queryset.model
+            if isinstance(field, ModelMultipleChoiceField):
+                msg = string_concat(_("Choose some "),
+                                    model._meta.verbose_name_plural,
+                                    "...")
+            else:
+                msg = string_concat(_("Choose a"),
+                                    model._meta.verbose_name,
+                                    "...")
+            field.widget.attrs['data-placeholder'] = msg
+
+            for riff in self.riff.base_riff.riffs:
+                if getattr(riff, 'model', None) == model:
+                    if riff.has_add_permission(self.request):
+                        field.widget = AddWrapper(field.widget, riff)
+                    break
+        return field
+
     def get_form_class(self):
         if self.form_class:
             form_class = self.form_class

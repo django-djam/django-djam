@@ -2,6 +2,20 @@
 
 {% load i18n djam floppyforms %}
 
+{% block nav %}
+    {% if not request.GET.is_popup %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if not request.GET.is_popup %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block form_action %}{{ block.super }}{% if request.GET.is_popup %}?is_popup=1{% endif %}{% endblock %}
+
 {% block success-text %}{% trans "Save" %}{% endblock %}
 
 {% block actions %}

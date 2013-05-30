@@ -4,7 +4,7 @@
 
 {% block main %}
     <div class="row">
-        <form method='{{ form_method|default:"post" }}' action='{{ form_action|default:request.path }}' class="form-horizontal">
+        <form method='{{ form_method|default:"post" }}' action='{% block form_action %}{{ form_action|default:request.path }}{% endblock %}' class="form-horizontal">
             {% if form_method|default:"post" == "post" %}{% csrf_token %}{% endif %}
             {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
             <div class="form-actions">
