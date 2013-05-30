@@ -78,6 +78,7 @@ INSTALLED_APPS = (
 
     # Example app!
     'test_project.example_app',
+    'south',
 )
 
 # Be sure to set the context processors to include the request.

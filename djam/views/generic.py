@@ -66,6 +66,8 @@ class FloppyformsMixin(object):
 class ModelFloppyformsMixin(FloppyformsMixin):
     def get_form_field(self, db_field, **kwargs):
         field = db_field.formfield(**kwargs)
+        if field:
+            field.widget.attrs['data-required'] = int(field.required)
         if issubclass(db_field.__class__, models.ManyToManyField):
             msg = _('Hold down "Control", or "Command" on a Mac, to select more than one.')
             msg = unicode(string_concat(' ', msg))
@@ -78,7 +80,7 @@ class ModelFloppyformsMixin(FloppyformsMixin):
                                     model._meta.verbose_name_plural,
                                     "...")
             else:
-                msg = string_concat(_("Choose a"),
+                msg = string_concat(_("Choose a "),
                                     model._meta.verbose_name,
                                     "...")
             field.widget.attrs['data-placeholder'] = msg

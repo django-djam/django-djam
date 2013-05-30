@@ -10,3 +10,6 @@ blessings==1.5
 mock==1.0.1
 py==1.4.13
 virtualenv==1.9.1
+
+# For example app.
+south==0.8.1

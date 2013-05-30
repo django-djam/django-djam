@@ -9,9 +9,11 @@ jQuery(function($){
         }
     );
 
-    $('select').chosen({
+    $('select option[value=""]').text("");
+    $('select[data-required="0"]').chosen({
         allow_single_deselect: true,
     });
+    $('select[data-required="1"]').chosen();
 
     $('.add-popup').click(function(e){
         e.preventDefault();
