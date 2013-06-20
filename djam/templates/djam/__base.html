@@ -36,9 +36,9 @@
 					</ul>
 				{% endblock %}
 				{% block messages %}
-				    {% for message in messages %}
-					    <div class="alert{% if message.level == 20 %} alert-info{% elif message.level == 25 %} alert-success{% elif message.level == 40 %} alert-error{% endif %}{% if message.tags %} {{ message.tags }}{% endif %}"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-				    {% endfor %}
+					{% for message in messages %}
+						<div class="alert{% if message.level == 20 %} alert-info{% elif message.level == 25 %} alert-success{% elif message.level == 40 %} alert-error{% endif %}{% if message.tags %} {{ message.tags }}{% endif %}"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+					{% endfor %}
 				{% endblock %}
 				{% block main %}
 				{% endblock %}
@@ -51,6 +51,12 @@
 			<script src="{% static "djam/js/bootstrap-2.3.1.js" %}" type="text/javascript" charset="utf-8"></script>
 			<script src="{% static "djam/js/chosen.jquery.js" %}" type="text/javascript" charset="utf-8"></script>
 			<script src="{% static "djam/js/djam.kickoff.js" %}" type="text/javascript" charset="utf-8"></script>
+			{% if "MSIE 6" in request.META.HTTP_USER_AGENT or "MSIE 7" in request.META.HTTP_USER_AGENT %}
+				{% if not "chromeframe" in request.META.HTTP_USER_AGENT %}
+					<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+					<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+				{% endif %}
+			{% endif %}
 		{% endblock %}
 	</body>
 
