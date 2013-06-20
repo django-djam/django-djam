@@ -11,7 +11,7 @@
 		<title>{% block title %}{% for url, display_name in crumbs reversed %}{{ display_name }}{% if not forloop.last %} – {% endif %}{% endfor %}{% endblock %}</title>
 
 		{% block styles %}
-			<link rel="stylesheet" href="{% static "djam/css/djam.css" %}" type="text/css" media="screen" title="no title" charset="utf-8">
+			<link rel="stylesheet" href="{% static "djam/css/djam.css" %}" type="text/css" media="screen" charset="utf-8">
 		{% endblock %}
 
 	</head>
