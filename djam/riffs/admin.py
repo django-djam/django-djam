@@ -12,7 +12,7 @@ from djam.riffs.models import ModelRiff
 
 
 class AdminRiff(Riff):
-    display_name = _('Djam Admin')
+    display_name = _('Admin')
     slug = 'admin'
     namespace = 'djam'
     # Disable default redirect view.
