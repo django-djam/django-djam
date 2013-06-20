@@ -1,27 +1,17 @@
-{% load static %}
+{% load staticfiles %}
 
 <!DOCTYPE html>
 <html>
 
 	<head>
-
-		{% block meta %}
-			<meta charset="utf-8">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		{% endblock %}
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>{% block title %}{% for url, display_name in crumbs reversed %}{{ display_name }}{% if not forloop.last %} – {% endif %}{% endfor %}{% endblock %}</title>
 
-		{% block stylesheets %}
+		{% block styles %}
 			<link rel="stylesheet" href="{% static "djam/css/djam.css" %}" type="text/css" media="screen" title="no title" charset="utf-8">
-		{% endblock %}
-
-		{% block scripts %}
-			<script src="{% static "djam/js/jquery-1.10.0.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/bootstrap-2.3.1.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/chosen.jquery.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/djam.kickoff.js" %}" type="text/javascript" charset="utf-8"></script>
 		{% endblock %}
 
 	</head>
@@ -54,6 +44,13 @@
 				{% endblock %}
 			</div>
 
+		{% endblock %}
+
+		{% block scripts_foot %}
+			<script src="{% static "djam/js/jquery-1.10.0.js" %}" type="text/javascript" charset="utf-8"></script>
+			<script src="{% static "djam/js/bootstrap-2.3.1.js" %}" type="text/javascript" charset="utf-8"></script>
+			<script src="{% static "djam/js/chosen.jquery.js" %}" type="text/javascript" charset="utf-8"></script>
+			<script src="{% static "djam/js/djam.kickoff.js" %}" type="text/javascript" charset="utf-8"></script>
 		{% endblock %}
 	</body>
 
