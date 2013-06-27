@@ -1,6 +1,9 @@
 from django.conf.urls import patterns, url
 from djam.riffs.base import Riff
+from djam.riffs.models import ModelRiff
 
+from test_project.example_app.forms import ExampleModelForm
+from test_project.example_app.models import ExampleModel
 from test_project.example_app.views import HelloView, HelloFinishedView
 
 
@@ -21,4 +24,11 @@ class HelloRiff(Riff):
         return self.reverse('hello')
 
 
-riffs = [HelloRiff]
+class ExampleModelRiff(ModelRiff):
+    model = ExampleModel
+    update_kwargs = {
+        'form_class': ExampleModelForm,
+    }
+
+
+riffs = [HelloRiff, ExampleModelRiff]

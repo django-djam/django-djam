@@ -1,7 +1,11 @@
 import operator
 
 from django.contrib.admin.util import lookup_needs_distinct
+from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.fields import FieldDoesNotExist
 from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext as _
 import floppyforms as forms
@@ -106,7 +110,7 @@ class QueryForm(forms.Form):
                     order = force_unicode(column)
                     try:
                         self.model._meta.get_field(column)
-                    except models.FieldDoesNotExist:
+                    except FieldDoesNotExist:
                         if (hasattr(self.model, column) and
                             hasattr(column, 'admin_order_field')):
                             order = column.admin_order_field
@@ -205,7 +209,7 @@ class QueryForm(forms.Form):
             for field_name in self.columns:
                 try:
                     field = self.model._meta.get_field(field_name)
-                except models.FieldDoesNotExist:
+                except FieldDoesNotExist:
                     pass
                 else:
                     if isinstance(field.rel, models.ManyToOneRel):
@@ -213,3 +217,67 @@ class QueryForm(forms.Form):
             if related:
                 queryset = queryset.select_related(*related)
         return queryset
+
+
+class GFKForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(GFKForm, self).__init__(*args, **kwargs)
+        object_data = {}
+        for name, field in self.fields.iteritems():
+            if isinstance(field, GFKField):
+                object_data[name] = getattr(self.instance, name, None)
+        object_data.update(self.initial)
+        self.initial = object_data
+
+    def _post_clean(self):
+        for name, field in self.fields.iteritems():
+            if isinstance(field, GFKField) and name in self.cleaned_data:
+                setattr(self.instance, name, self.cleaned_data[name])
+        super(GFKForm, self)._post_clean()
+
+
+class GFKWidget(forms.MultiWidget):
+    def __init__(self, attrs=None):
+        super(GFKWidget, self).__init__((), attrs)
+
+    def decompress(self, value):
+        if value:
+            return [ContentType.objects.get_for_model(value).pk,
+                    value.pk]
+        return [None, None]
+
+    def render(self, *args, **kwargs):
+        rendered = super(GFKWidget, self).render(*args, **kwargs)
+        return u"<div class='djam-genrel'>" + rendered + u"</div>"
+
+
+class GFKField(forms.MultiValueField):
+    widget = GFKWidget
+
+    def __init__(self, model, content_object_field, *args, **kwargs):
+        for field in model._meta.virtual_fields:
+            if field.name == content_object_field:
+                break
+        else:
+            raise FieldDoesNotExist("No virtual field called {0} exists."
+                                    "".format(content_object_field))
+
+        if not isinstance(field, GenericForeignKey):
+            raise FieldDoesNotExist("No generic foreign key called {0}"
+                                    "exists.".format(content_object_field))
+
+        fields = (
+            model._meta.get_field(field.ct_field).formfield(),
+            model._meta.get_field(field.fk_field).formfield()
+        )
+        super(GFKField, self).__init__(fields, *args, **kwargs)
+        widgets = self.widget.widgets = tuple(f.widget for f in fields)
+        widgets[0].attrs['data-required'] = int(self.required)
+
+    def compress(self, data_list):
+        ct, pk = data_list
+        model = ct.model_class()
+        try:
+            return model.objects.get(pk=pk)
+        except model.DoesNotExist:
+            raise ValidationError("Choose a valid object id.")

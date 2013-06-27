@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles djam %}
 
 <!DOCTYPE html>
 <html>
@@ -47,6 +47,12 @@
 		{% endblock %}
 
 		{% block scripts_foot %}
+			{# Set some variables #}
+			<script>
+				window.djam = {
+					genRelURL: "{% filter slice:":-2" %}{% riff_url riff.base_riff 'genrelinfo' 1 %}{% endfilter %}",
+				}
+			</script>
 			<script src="{% static "djam/js/jquery-1.10.0.js" %}" type="text/javascript" charset="utf-8"></script>
 			<script src="{% static "djam/js/bootstrap-2.3.1.js" %}" type="text/javascript" charset="utf-8"></script>
 			<script src="{% static "djam/js/chosen.jquery.js" %}" type="text/javascript" charset="utf-8"></script>

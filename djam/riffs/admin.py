@@ -1,8 +1,13 @@
 from __future__ import unicode_literals
+import json
 from urllib import urlencode
 import warnings
 
-from django.http import HttpResponseRedirect
+from django.conf import settings
+from django.conf.urls import patterns, url
+from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.utils.encoding import force_text
 from django.utils.importlib import import_module
 from django.utils.module_loading import module_has_submodule
 from django.utils.translation import ugettext_lazy as _
@@ -21,6 +26,51 @@ class AdminRiff(Riff):
 
     def get_default_url(self):
         return self['dashboard'].get_default_url()
+
+    def get_extra_urls(self):
+        urlpatterns = patterns('',
+            url(r'^genrelinfo/(?P<pk>\d+)/$',
+                self._genrelinfo,
+                name="genrelinfo")
+        )
+        return urlpatterns
+
+    def _genrelinfo(self, request, pk):
+        if not request.is_ajax():
+            raise Http404("Not AJAX.")
+        try:
+            ct = ContentType.objects.get_for_id(pk)
+        except ContentType.DoesNotExist:
+            data = {
+                'choices': []
+            }
+            if settings.DEBUG:
+                data['error'] = "Content type not found."
+        else:
+            model = ct.model_class()
+
+            for riff in self.riffs:
+                if getattr(riff, 'model', None) == model:
+                    break
+            else:
+                riff = None
+
+            if riff is None or not riff.has_permission(request):
+                data = {
+                    'choices': []
+                }
+                if settings.DEBUG:
+                    if riff is None:
+                        data['error'] = "No riff found."
+                    else:
+                        data['error'] = "Not enough permissions."
+            else:
+                data = {
+                    'add_url': riff.reverse('create'),
+                    'choices': [(instance.pk, force_text(instance))
+                                for instance in model.objects.all()]
+                }
+        return HttpResponse(json.dumps(data), content_type="application/json")
 
     def has_permission(self, request):
         return request.user.is_active and request.user.is_authenticated()

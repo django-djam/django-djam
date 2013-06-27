@@ -1,26 +1,97 @@
 ;
 
-djam = window.djam || {};
+var djam = window.djam || {};
 
-jQuery(function($){
+jQuery(function($) {
     $('.dropdown-menu').find('label, select').click(
-        function(e){
+        function(e) {
             e.stopPropagation();
         }
     );
 
     $('select option[value=""]').text("");
     $('select[data-required="0"]').chosen({
-        allow_single_deselect: true,
+        allow_single_deselect: true
     });
     $('select[data-required="1"]').chosen();
 
-    $('.add-popup').click(function(e){
+    // Maps content type ids to choices/addLinks.
+    var contentTypes = djam.contentTypes = {};
+
+    function getContentType(id, callback) {
+        var opts = contentTypes[id];
+        if (opts === undefined) {
+            opts = contentTypes[id] = {
+                objectIdFields: [],
+                choices: [],
+                addUrl: ''
+            };
+            if (id !== "") {
+                $.getJSON(djam.genRelURL + id + '/',
+                    function(data) {
+                        opts.choices = data.choices;
+                        opts.addUrl = data.add_url;
+                        if (opts.choices.length === 0) {
+                            opts.inputEle = $('<input type="text" />');
+                        } else {
+                            opts.inputEle = $('<select></select>');
+                            $.each(opts.choices, function(index, item) {
+                                opts.inputEle.append($('<option value="' + item[0] + '">' + item[1] + '</option>'));
+                            });
+                        }
+                        if (opts.addUrl) {
+                            opts.addLink = $('<a href="' + opts.addUrl + '" class="btn add-popup"><i class="icon-plus"></i></a>');
+                        }
+                        callback(opts);
+                    }
+                );
+            }
+        } else {
+            callback(opts);
+        }
+    }
+
+    $('.djam-genrel').each(function(index, ele) {
+        var $ele = $(ele),
+            objectId = $ele.find('input[value]'),
+            contentType = $ele.find('select'),
+            required = contentType.data('required') === "1" ? true : false;
+
+        function displayObjectInput(opts) {
+            var inputEle = opts.inputEle.clone(),
+                addLink = opts.addLink ? opts.addLink.clone() : null;
+            inputEle.attr('id', objectId.attr('id'));
+            inputEle.attr('name', objectId.attr('name'));
+            inputEle.val(objectId.val());
+            if (required) {
+                inputEle.attr('required', 'required');
+            }
+
+            contentType.next().nextAll().remove();
+            $ele.append(inputEle);
+
+            if (opts.choices.length > 0) {
+                inputEle.chosen();
+            }
+
+            if (addLink) {
+                addLink.attr('rel', objectId.attr('id'));
+                $ele.append(addLink);
+            }
+        }
+
+        contentType.chosen().change(function() {
+            getContentType(contentType.val(), displayObjectInput);
+        });
+        contentType.change();
+    });
+
+    $('.add-popup').click(function(e) {
         e.preventDefault();
         var $this = $(this),
             name = id_to_windowname($this.attr('rel')),
             href = this.href;
-        if (href.indexOf('?') == -1) {
+        if (href.indexOf('?') === -1) {
             href += '?is_popup=1';
         } else {
             href += '&is_popup=1';
@@ -32,7 +103,7 @@ jQuery(function($){
         ).focus();
     });
 
-    var finishAdd = djam.finishAdd = function(win, newId, newRepr){
+    djam.finishAdd = function(win, newId, newRepr){
         // newId and newRepr are expected to have previously been escaped by
         // django.utils.html.escape.
         var newId = html_unescape(newId),
@@ -46,7 +117,7 @@ jQuery(function($){
         elem.trigger('liszt:updated');
 
         win.close();
-    }
+    };
 
     if ($('body.model-list')) {
         var order_columns = $('th[data-order]'),
