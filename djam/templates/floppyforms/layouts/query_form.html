@@ -6,10 +6,10 @@
 
 {% if form.has_filters %}
     <div class='btn-group'>
-        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        <a class="btn dropdown-toggle{% if form.has_active_filters %} btn-primary{% endif %}" data-toggle="dropdown" href="#">
             Filters <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+        <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
             {% for field in form.visible_fields %}
                 {% if field.name != 'search' and field.name != 'order' %}
                     {% formrow field using 'floppyforms/rows/dropdown.html' %}

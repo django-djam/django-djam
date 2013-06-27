@@ -152,6 +152,9 @@ class QueryForm(forms.Form):
     def has_filters(self):
         return bool(set(self.fields) - set(('search', 'order')))
 
+    def has_active_filters(self):
+        return bool(set(self.changed_data) - set(('search', 'order')))
+
     def get_queryset(self):
         if not self.is_valid():
             return self.queryset
