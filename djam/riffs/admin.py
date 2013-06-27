@@ -76,8 +76,9 @@ class AdminRiff(Riff):
         """
         if not self._autodiscovered:
             from django.conf import settings
-            from django.contrib.admin import autodiscover, site
-            autodiscover()
+            if with_modeladmins:
+                from django.contrib.admin import autodiscover, site
+                autodiscover()
 
             # for app in installed_apps register module
             for app in settings.INSTALLED_APPS:
@@ -102,11 +103,12 @@ class AdminRiff(Riff):
             if with_batteries:
                 self.register_module('djam.batteries')
 
-            for model in site._registry:
-                try:
-                    self.register_model(model)
-                except ValueError:
-                    pass
+            if with_modeladmins:
+                for model in site._registry:
+                    try:
+                        self.register_model(model)
+                    except ValueError:
+                        pass
             self.sort_riffs()
             self._autodiscovered = True
 
