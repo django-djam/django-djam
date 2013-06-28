@@ -103,13 +103,15 @@ class ModelFloppyformsMixin(FloppyformsMixin):
             model = self.object.__class__
         else:
             model = self.get_queryset().model
+        fields = list(form_class._meta.fields or [])
         if self.fieldsets:
-            fields = flatten_fieldsets(self.fieldsets)
-        else:
-            fields = None
+            fields += flatten_fieldsets(self.fieldsets)
+        fields = fields or None
+        exclude = tuple(form_class._meta.exclude or ()) + tuple(self.readonly)
+        exclude = exclude or None
         return modelform_factory(model,
                                  form=form_class,
-                                 exclude=self.readonly,
+                                 exclude=exclude,
                                  fields=fields,
                                  formfield_callback=self.get_form_field)
 
