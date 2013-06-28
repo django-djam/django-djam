@@ -15,6 +15,40 @@ jQuery(function($) {
     });
     $('select[data-required="1"]').chosen();
 
+    function addLinkPopup(e) {
+        e.preventDefault();
+        var $this = $(this),
+            name = id_to_windowname($this.attr('rel')),
+            href = this.href;
+        if (href.indexOf('?') === -1) {
+            href += '?is_popup=1';
+        } else {
+            href += '&is_popup=1';
+        }
+        window.open(
+            href,
+            name,
+            'height=500,width=800,resizable=yes,scrollbars=yes'
+        ).focus();
+    }
+    $('.add-popup').click(addLinkPopup);
+
+    djam.finishAdd = function(win, newId, newRepr){
+        // newId and newRepr are expected to have previously been escaped by
+        // django.utils.html.escape.
+        var newId = html_unescape(newId),
+            newRepr = html_unescape(newRepr),
+            opt = $("<option selected value='" + newId + "'>" + newRepr + "</option>"),
+            name = windowname_to_id(win.name),
+            elem = $("#" + name);
+        elem.append(opt);
+
+        // Tell Chosen this has been updated
+        elem.trigger('liszt:updated');
+
+        win.close();
+    };
+
     // Maps content type ids to choices/addLinks.
     var contentTypes = djam.contentTypes = {};
 
@@ -84,6 +118,7 @@ jQuery(function($) {
             if (addLink) {
                 addLink.attr('rel', objectId.attr('id'));
                 $ele.append(addLink);
+                addLink.click(addLinkPopup);
             }
         }
 
@@ -92,39 +127,6 @@ jQuery(function($) {
         });
         contentType.change();
     });
-
-    $('.add-popup').click(function(e) {
-        e.preventDefault();
-        var $this = $(this),
-            name = id_to_windowname($this.attr('rel')),
-            href = this.href;
-        if (href.indexOf('?') === -1) {
-            href += '?is_popup=1';
-        } else {
-            href += '&is_popup=1';
-        }
-        window.open(
-            href,
-            name,
-            'height=500,width=800,resizable=yes,scrollbars=yes'
-        ).focus();
-    });
-
-    djam.finishAdd = function(win, newId, newRepr){
-        // newId and newRepr are expected to have previously been escaped by
-        // django.utils.html.escape.
-        var newId = html_unescape(newId),
-            newRepr = html_unescape(newRepr),
-            opt = $("<option selected value='" + newId + "'>" + newRepr + "</option>"),
-            name = windowname_to_id(win.name),
-            elem = $("#" + name);
-        elem.append(opt);
-
-        // Tell Chosen this has been updated
-        elem.trigger('liszt:updated');
-
-        win.close();
-    };
 
     if ($('body.model-list')) {
         var order_columns = $('th[data-order]'),
