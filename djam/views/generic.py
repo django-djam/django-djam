@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 
 from django.contrib.admin.util import flatten_fieldsets
 from django.db import models
-from django.forms.models import (modelform_factory, ModelChoiceField,
-                                 ModelMultipleChoiceField)
+from django import forms
+from django.forms.models import modelform_factory
 from django.utils.cache import add_never_cache_headers
 from django.utils.translation import ugettext as _, string_concat
 from django.views import generic
@@ -64,18 +64,40 @@ class FloppyformsMixin(object):
 
 
 class ModelFloppyformsMixin(FloppyformsMixin):
-    def get_form_field(self, db_field, **kwargs):
-        field = db_field.formfield(**kwargs)
-        if field:
-            field.widget.attrs['data-required'] = int(field.required)
+    def _rebuild_kwargs(self, field, **kwargs):
+        """
+        Returns a tuple of (rebuild, kwargs), where rebuild is a boolean
+        indicating whether the kwargs should be used to construct a new
+        field instance.
+
+        """
+        rebuild = False
+        # Swap in floppyforms fields.
+        mod, cls_name = field.__module__, field.__class__.__name__
+        if (mod in ('django.forms.fields', 'django.forms.models') and
+                'form_class' not in kwargs):
+            kwargs['form_class'] = getattr(floppyforms, cls_name)
+            rebuild = True
+
+        #Swap in floppyforms widgets.
+        widget = field.widget
+        mod, cls_name = widget.__module__, widget.__class__.__name__
+        if mod == 'django.forms.widgets' and 'widget' not in kwargs:
+            kwargs['widget'] = getattr(floppyforms, cls_name)
+            rebuild = True
+        return rebuild, kwargs
+
+    def _post_formfield(self, field, db_field):
+        field.widget.attrs['data-required'] = int(field.required)
         if issubclass(db_field.__class__, models.ManyToManyField):
-            msg = _('Hold down "Control", or "Command" on a Mac, to select more than one.')
+            msg = _('Hold down "Control", or "Command" on a Mac, to select '
+                    'more than one.')
             msg = unicode(string_concat(' ', msg))
             if field.help_text.endswith(msg):
                 field.help_text = field.help_text[:-len(msg)]
-        if isinstance(field, ModelChoiceField):
+        if isinstance(field, forms.ChoiceField):
             model = field.queryset.model
-            if isinstance(field, ModelMultipleChoiceField):
+            if isinstance(field, forms.MultipleChoiceField):
                 msg = string_concat(_("Choose some "),
                                     model._meta.verbose_name_plural,
                                     "...")
@@ -91,6 +113,16 @@ class ModelFloppyformsMixin(FloppyformsMixin):
                         field.widget = AddWrapper(field.widget, riff)
                     break
         return field
+
+    def formfield_callback(self, db_field, **kwargs):
+        field = db_field.formfield(**kwargs)
+
+        rebuild, kwargs = self._rebuild_kwargs(field, **kwargs)
+
+        if rebuild:
+            field = db_field.formfield(**kwargs)
+
+        return self._post_formfield(field, db_field)
 
     def get_form_class(self):
         if self.form_class:
@@ -113,7 +145,7 @@ class ModelFloppyformsMixin(FloppyformsMixin):
                                  form=form_class,
                                  exclude=exclude,
                                  fields=fields,
-                                 formfield_callback=self.get_form_field)
+                                 formfield_callback=self.formfield_callback)
 
 
 class View(RiffViewMixin, generic.View):
