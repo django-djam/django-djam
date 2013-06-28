@@ -55,24 +55,31 @@ jQuery(function($) {
         var $ele = $(ele),
             objectId = $ele.find('input[value]'),
             contentType = $ele.find('select'),
-            required = contentType.data('required') === "1" ? true : false;
+            required = contentType.data('required') === "1" ? true : false,
+            values = {};
+        values[contentType.val()] = objectId.val()
+
+        function storeValue() {
+            values[contentType.val()] = $(this).val();
+        }
 
         function displayObjectInput(opts) {
             var inputEle = opts.inputEle.clone(),
                 addLink = opts.addLink ? opts.addLink.clone() : null;
             inputEle.attr('id', objectId.attr('id'));
             inputEle.attr('name', objectId.attr('name'));
-            inputEle.val(objectId.val());
             if (required) {
                 inputEle.attr('required', 'required');
             }
 
             contentType.next().nextAll().remove();
             $ele.append(inputEle);
+            inputEle.val(values[contentType.val()] || "");
 
             if (opts.choices.length > 0) {
                 inputEle.chosen();
             }
+            inputEle.change(storeValue);
 
             if (addLink) {
                 addLink.attr('rel', objectId.attr('id'));
