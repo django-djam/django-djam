@@ -3,68 +3,70 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>{% block title %}{% for url, display_name in crumbs reversed %}{{ display_name }}{% if not forloop.last %} – {% endif %}{% endfor %}{% endblock %}</title>
+    <title>{% block title %}{% for url, display_name in crumbs reversed %}{{ display_name }}{% if not forloop.last %} – {% endif %}{% endfor %}{% endblock %}</title>
 
-		{% block styles %}
-			<link rel="stylesheet" href="{% static "djam/css/djam.css" %}" type="text/css" media="screen" charset="utf-8">
-		{% endblock %}
+    {% block styles %}
+      <link rel="stylesheet" href="{% static 'djam/css/djam.css' %}" type="text/css" media="screen" charset="utf-8">
+    {% endblock %}
 
-	</head>
+  </head>
 
-	<body class="{% block body_classes %}django-djam{% endblock %}">
-		{% block body %}
+  <body class="{% block body_classes %}django-djam{% endblock %}">
+    {% block body %}
 
-			{% block nav %}
-				{% include "djam/_nav.html" %}
-			{% endblock %}
+      {% block nav %}
+        {% include "djam/_nav.html" %}
+      {% endblock %}
 
-			<div class="container">
-				{% block breadcrumb %}
-					<ul class="breadcrumb">
-						{% for url, display_name in crumbs %}
-							{% if forloop.last %}
-								<li class="active">{{ display_name }}</li>
-							{% else %}
-								<li>{% if url %}<a href="{{ url }}">{% endif %}{{ display_name }}{% if url %}</a>{% endif %} <span class="divider">/</span></li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-				{% endblock %}
-				{% block messages %}
-					{% for message in messages %}
-						<div class="alert{% if message.level == 20 %} alert-info{% elif message.level == 25 %} alert-success{% elif message.level == 40 %} alert-error{% endif %}{% if message.tags %} {{ message.tags }}{% endif %}"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
-					{% endfor %}
-				{% endblock %}
-				{% block main %}
-				{% endblock %}
-			</div>
+      <div class="container">
+        {% block breadcrumb %}
+          <ul class="breadcrumb">
+            {% for url, display_name in crumbs %}
+              {% if forloop.last %}
+                <li class="active">{{ display_name }}</li>
+              {% else %}
+                <li>{% if url %}<a href="{{ url }}">{% endif %}{{ display_name }}{% if url %}</a>{% endif %} <span class="divider">/</span></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endblock %}
+        {% block messages %}
+          {% for message in messages %}
+            <div class="alert{% if message.level == 20 %} alert-info{% elif message.level == 25 %} alert-success{% elif message.level == 40 %} alert-error{% endif %}{% if message.tags %} {{ message.tags }}{% endif %}"><button type="button" class="close" data-dismiss="alert">&times;</button>{{ message }}</div>
+          {% endfor %}
+        {% endblock %}
+        {% block main %}
+        {% endblock %}
+      </div>
 
-		{% endblock %}
+    {% endblock %}
 
-		{% block scripts_foot %}
-			{# Set some variables #}
-			<script>
-				window.djam = {
-					genRelURL: "{% filter slice:":-2" %}{% riff_url base_riff 'genrelinfo' 1 %}{% endfilter %}",
-				}
-			</script>
-			<script src="{% static "djam/js/jquery-1.10.0.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/bootstrap-2.3.1.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/bootstrap.file-input.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/chosen.jquery.js" %}" type="text/javascript" charset="utf-8"></script>
-			<script src="{% static "djam/js/djam.kickoff.js" %}" type="text/javascript" charset="utf-8"></script>
-			{% if "MSIE 6" in request.META.HTTP_USER_AGENT or "MSIE 7" in request.META.HTTP_USER_AGENT %}
-				{% if not "chromeframe" in request.META.HTTP_USER_AGENT %}
-					<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-					<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-				{% endif %}
-			{% endif %}
-		{% endblock %}
-	</body>
+    {% block scripts_foot %}
+      {# Set some variables #}
+      <script>
+        window.djam = {
+          genRelURL: "{% filter slice:":-2" %}{% riff_url base_riff 'genrelinfo' 1 %}{% endfilter %}",
+        }
+      </script>
+      <script src="{% static 'djam/js/jquery-1.10.0.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/bootstrap-2.3.1.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/bootstrap.file-input.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/bootstrap-timepicker.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/bootstrap-datepicker.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/chosen.jquery.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/djam.kickoff.js' %}" type="text/javascript" charset="utf-8"></script>
+      {% if "MSIE 6" in request.META.HTTP_USER_AGENT or "MSIE 7" in request.META.HTTP_USER_AGENT %}
+        {% if not "chromeframe" in request.META.HTTP_USER_AGENT %}
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
+          <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
+        {% endif %}
+      {% endif %}
+    {% endblock %}
+  </body>
 
 </html>

@@ -72,6 +72,13 @@ class ModelFloppyformsMixin(FloppyformsMixin):
 
         """
         rebuild = False
+
+        # Swap in split datetime.
+        if isinstance(field, forms.DateTimeField):
+            kwargs['form_class'] = floppyforms.SplitDateTimeField
+            kwargs['widget'] = floppyforms.SplitDateTimeWidget
+            rebuild = True
+
         # Swap in floppyforms fields.
         mod, cls_name = field.__module__, field.__class__.__name__
         if (mod in ('django.forms.fields', 'django.forms.models') and
@@ -79,7 +86,7 @@ class ModelFloppyformsMixin(FloppyformsMixin):
             kwargs['form_class'] = getattr(floppyforms, cls_name)
             rebuild = True
 
-        #Swap in floppyforms widgets.
+        # Swap in floppyforms widgets.
         widget = field.widget
         mod, cls_name = widget.__module__, widget.__class__.__name__
         if mod == 'django.forms.widgets' and 'widget' not in kwargs:

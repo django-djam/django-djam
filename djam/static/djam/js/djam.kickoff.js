@@ -146,6 +146,27 @@ jQuery(function($) {
         });
     };
 
+    // time inputs.
+    var timeInputs = $('input[type=time]');
+    timeInputs.attr('type', 'text');
+    timeInputs.wrap('<div class="bootstrap-timepicker input-append"></div>');
+    timeInputs.parent().append('<a href="javascript://" class="btn"><i class="icon-time"></i></a>');
+    timeInputs.timepicker({
+        template: 'dropdown',
+        showMeridian: false,
+        showInputs: false,
+    });
+
+
+    // date inputs.
+    var dateInputs = $('input[type=date]');
+    dateInputs.attr('type', 'text');
+    dateInputs.wrap('<div class="input-append date"></div>');
+    dateInputs.parent().append('<a href="javascript://" class="btn"><i class="icon-calendar"></i></a>');
+    dateInputs.parent().datepicker({
+        format: 'yyyy-mm-dd'
+    });
+
 
     // Helper functions for popup handling. From Django.
 
