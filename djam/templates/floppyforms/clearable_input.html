@@ -1,6 +1,6 @@
 {% load i18n %}
 <p>
-    <input type="{{ type }}" name="{{ name }}"{% if required %} required{% endif %}{% include "floppyforms/attrs.html" %}>
+    <input type="{{ type }}" name="{{ name }}"{% if required and not value.url %} required{% endif %}{% include "floppyforms/attrs.html" %}>
 </p>
 
 {% if value.url %}
