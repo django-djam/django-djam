@@ -1,0 +1,24 @@
+@import "overrides/patuaone";
+
+@import "overrides/login";
+@import "overrides/widgets";
+@import "overrides/dropdowns";
+@import "overrides/models";
+
+// Base
+// ==================================================
+
+h1, h2, h3, h4, .brand {
+    font-family: "Patua One", "Century Schoolbook", Georgia, serif;
+    font-weight: normal;
+}
+
+body {
+    padding-top: 60px; // make space for a fixed 40px navbar
+    background: #FFF image-url('brilliant.png');
+
+    @media (max-width: 979px) {
+        padding-top: 0;
+    }
+}
+
