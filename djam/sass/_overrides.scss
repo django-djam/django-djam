@@ -22,3 +22,32 @@ body {
     }
 }
 
+
+// Chosen
+// ==================================================
+
+.chzn-container {
+	font-size: $baseFontSize;
+}
+
+.chzn-container-single .chzn-single{
+	line-height: $baseLineHeight;
+	height: $baseLineHeight;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.chzn-container .chzn-results li {
+	line-height: $baseLineHeight;
+}
+
+.chzn-container-single .chzn-single abbr,
+.chzn-container-single .chzn-single div b {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.chzn-container-single .chzn-search input{
+	// uses border-box.
+	height: 28px;
+}

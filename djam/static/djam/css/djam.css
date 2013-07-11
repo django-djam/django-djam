@@ -3129,3 +3129,13 @@ h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia
 
 body { padding-top: 60px; background: white url('../images/brilliant.png?1371751298'); }
 @media (max-width: 979px) { body { padding-top: 0; } }
+
+.chzn-container { font-size: 14px; }
+
+.chzn-container-single .chzn-single { line-height: 20px; height: 20px; padding-top: 4px; padding-bottom: 4px; }
+
+.chzn-container .chzn-results li { line-height: 20px; }
+
+.chzn-container-single .chzn-single abbr, .chzn-container-single .chzn-single div b { margin-top: 2px; margin-bottom: 2px; }
+
+.chzn-container-single .chzn-search input { height: 28px; }
