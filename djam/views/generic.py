@@ -124,6 +124,11 @@ class ModelFloppyformsMixin(FloppyformsMixin):
     def formfield_callback(self, db_field, **kwargs):
         field = db_field.formfield(**kwargs)
 
+        # db_field.formfield can return None to signal that the field should
+        # be ignored.
+        if field is None:
+            return None
+
         rebuild, kwargs = self._rebuild_kwargs(field, **kwargs)
 
         if rebuild:
