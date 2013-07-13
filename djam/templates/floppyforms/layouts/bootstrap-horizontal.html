@@ -6,37 +6,37 @@
 {% endblock %}
 
 {% block forms %}
-  {% block errors %}
-    {% if form.non_field_errors or form|hidden_field_errors %}
-      <ul class="errorlist text-error">
-        {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
-        {% for error in form|hidden_field_errors %}<li>{{ error }}</li>{% endfor %}
-      </ul>
-    {% endif %}
-  {% endblock %}
-  {% block hidden_fields %}
-    {% for field in form.hidden_fields %}
-      {{ field.as_hidden }}
-    {% endfor %}
-  {% endblock %}
-  {% if fieldsets %}
-    {% for name, conf in fieldsets %}
-      <fieldset>
-        {% if name %}<legend>{{ name }}</legend>{% endif %}
-        {% block fieldset_rows %}
-          {% for item in conf.fields %}
-            {% block fieldset_row %}{% fieldsetrow item %}{% endblock %}
-          {% endfor %}
-        {% endblock %}
-      </fieldset>
-    {% endfor %}
-  {% else %}
-    {% for form in forms %}
+  {% for form in forms %}
+    {% block errors %}
+      {% if form.non_field_errors or form|hidden_field_errors %}
+        <ul class="errorlist text-error">
+          {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+          {% for error in form|hidden_field_errors %}<li>{{ error }}</li>{% endfor %}
+        </ul>
+      {% endif %}
+    {% endblock %}
+    {% block hidden_fields %}
+      {% for field in form.hidden_fields %}
+        {{ field.as_hidden }}
+      {% endfor %}
+    {% endblock %}
+    {% if fieldsets %}
+      {% for name, conf in fieldsets %}
+        <fieldset>
+          {% if name %}<legend>{{ name }}</legend>{% endif %}
+          {% block fieldset_rows %}
+            {% for item in conf.fields %}
+              {% block fieldset_row %}{% fieldsetrow item %}{% endblock %}
+            {% endfor %}
+          {% endblock %}
+        </fieldset>
+      {% endfor %}
+    {% else %}
       {% block default_rows %}
         {% for field in form.visible_fields %}
           {% block default_row %}{% formrow field %}{% endblock %}
         {% endfor %}
       {% endblock %}
-    {% endfor %}
-  {% endif %}
+    {% endif %}
+  {% endfor %}
 {% endblock %}

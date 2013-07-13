@@ -8,6 +8,17 @@
         <form method='{{ form_method }}' action='{% block form_action %}{{ form_action|default:request.path }}{% endblock %}' class="form-horizontal"{% if form_method == "post" %} enctype='multipart/form-data'{% endif %}>
             {% if form_method == "post" %}{% csrf_token %}{% endif %}
             {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
+            {% if formsets %}
+                {# Workaround until formset fieldsets are supported, or until {% form ... only %} is fixed. #}
+                {# see https://github.com/brutasse/django-floppyforms/issues/73 #}
+                {% with fieldsets='' %}
+                    {% for formset in formsets %}
+                        {{ formset.management_form }}
+                        <h1>Formset {{ forloop.counter }}</h1>
+                        {% form formset.forms using "floppyforms/layouts/bootstrap-horizontal.html" %}
+                    {% endfor %}
+                {% endwith %}
+            {% endif %}
             <div class="form-actions">
                 {% block actions %}
                     <button type="submit" class="btn btn-success">{% block success-text %}{% trans "Submit" %}{% endblock %}</button>

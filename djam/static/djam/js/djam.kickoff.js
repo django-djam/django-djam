@@ -155,6 +155,7 @@ jQuery(function($) {
         template: 'dropdown',
         showMeridian: false,
         showInputs: false,
+        defaultTime: false
     });
 
 

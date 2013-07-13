@@ -136,6 +136,18 @@ class ModelFloppyformsMixin(FloppyformsMixin):
 
         return self._post_formfield(field, db_field)
 
+    def _get_form_fields(self, form_class, fieldsets=None):
+        fields = list(form_class._meta.fields or [])
+        if fieldsets:
+            fields += flatten_fieldsets(fieldsets)
+        return fields or None
+
+    def _get_form_exclude(self, form_class, readonly=None):
+        exclude = list(form_class._meta.exclude or [])
+        if readonly:
+            exclude += list(readonly)
+        return exclude or None
+
     def get_form_class(self):
         if self.form_class:
             form_class = self.form_class
@@ -147,12 +159,8 @@ class ModelFloppyformsMixin(FloppyformsMixin):
             model = self.object.__class__
         else:
             model = self.get_queryset().model
-        fields = list(form_class._meta.fields or [])
-        if self.fieldsets:
-            fields += flatten_fieldsets(self.fieldsets)
-        fields = fields or None
-        exclude = tuple(form_class._meta.exclude or ()) + tuple(self.readonly)
-        exclude = exclude or None
+        fields = self._get_form_fields(form_class, self.fieldsets)
+        exclude = self._get_form_exclude(form_class, self.readonly)
         return modelform_factory(model,
                                  form=form_class,
                                  exclude=exclude,

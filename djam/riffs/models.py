@@ -11,6 +11,24 @@ from djam.views.models import (ModelListView, ModelCreateView, ModelUpdateView,
                                ModelDeleteView, unicode_column)
 
 
+def _modeladmin_fieldsets(modeladmin):
+    if modeladmin.fieldsets:
+        return modeladmin.fieldsets
+    if modeladmin.fields:
+        return [(None, {'fields': modeladmin.fields})]
+    if modeladmin.exclude:
+        fields = [f.name for f in modeladmin.model._meta.fields
+                  if f.name not in modeladmin.exclude]
+        return [(None, {'fields': fields})]
+    return None
+
+
+def _modeladmin_form_class(modeladmin):
+    if modeladmin.form is not ModelAdmin.form:
+        return modeladmin.form
+    return None
+
+
 class ModelRiffMetaclass(type):
     def __new__(cls, name, bases, attrs):
         model = attrs['model']
@@ -19,18 +37,8 @@ class ModelRiffMetaclass(type):
         if use_modeladmin and model in site._registry:
             modeladmin = site._registry[model]
             # Calculate new "base" attrs from modeladmin.
-            if modeladmin.declared_fieldsets:
-                fieldsets = modeladmin.declared_fieldsets
-            elif modeladmin.exclude:
-                fields = [f.name for f in modeladmin.opts.fields
-                          if f.name not in modeladmin.exclude]
-                fieldsets = [(None, {'fields': fields})]
-            else:
-                fieldsets = None
-            if modeladmin.form is ModelAdmin.form:
-                form_class = None
-            else:
-                form_class = modeladmin.form
+            fieldsets = _modeladmin_fieldsets(modeladmin)
+            form_class = _modeladmin_form_class(modeladmin)
             columns = []
             for column in modeladmin.list_display:
                 if column in ('__unicode__', '__str__'):
@@ -51,6 +59,19 @@ class ModelRiffMetaclass(type):
                     'form_class': form_class,
                     'fieldsets': fieldsets,
                     'readonly': modeladmin.readonly_fields,
+                    'formsets': [
+                        {
+                            'model': inline.model,
+                            'fk_name': inline.fk_name,
+                            'formset': inline.formset,
+                            'form': _modeladmin_form_class(inline),
+                            'extra': inline.extra,
+                            'max_num': inline.max_num,
+                            'can_delete': inline.can_delete,
+                            'fieldsets': _modeladmin_fieldsets(inline),
+                            'readonly': inline.readonly_fields,
+                        }
+                    for inline in modeladmin.inlines]
                 },
                 'list_kwargs': {
                     'columns': columns,
