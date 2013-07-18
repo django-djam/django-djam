@@ -132,7 +132,6 @@ jQuery(function($) {
         var order_columns = $('th[data-order]'),
             order_field = $('#id_order');
 
-        order_field.css('display', 'none');
         order_columns.css('cursor', 'pointer');
 
         order_columns.click(function(){

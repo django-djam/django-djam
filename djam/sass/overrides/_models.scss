@@ -1,0 +1,32 @@
+.model-list {
+    th.order {
+        &:after {
+            margin-top: 8px;
+            margin-left: 5px;
+            width: 8px;
+            height: 4px;
+            vertical-align: top;
+            content: "";
+            display: inline-block;
+        }
+
+        &.desc:after, &.asc:after{
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+            width: 0;
+            height: 0;
+        }
+
+        &.desc:after{
+            border-top: 4px solid;
+        }
+
+        &.asc:after{
+            border-bottom: 4px solid;
+        }
+    }
+
+    #id_order{
+        display: none;
+    }
+}

@@ -13,12 +13,12 @@
         <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>
         <li class="divider-vertical"></li>
       </ul>
-      {% if riff.list_kwargs.search or riff.list_kwargs.filters %}
-        <form class="navbar-form pull-right">
-          {% form query_form using 'floppyforms/layouts/query_form.html' %}
+      <form class="navbar-form pull-right">
+        {% form query_form using 'floppyforms/layouts/query_form.html' %}
+        {% if riff.list_kwargs.search or riff.list_kwargs.filters %}
           <button class='btn' type='submit'><i class='icon-search' title='Search'></i></button>
-        </form>
-      {% endif %}
+        {% endif %}
+      </form>
     </div>
   </div>
   <table class="table">
