@@ -102,7 +102,8 @@ class ModelFloppyformsMixin(FloppyformsMixin):
             msg = unicode(string_concat(' ', msg))
             if field.help_text.endswith(msg):
                 field.help_text = field.help_text[:-len(msg)]
-        if isinstance(field, forms.ChoiceField):
+        if (isinstance(field, forms.ChoiceField) and
+                hasattr(field, 'queryset')):
             model = field.queryset.model
             if isinstance(field, forms.MultipleChoiceField):
                 msg = string_concat(_("Choose some "),
