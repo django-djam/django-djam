@@ -55,6 +55,8 @@ class FormsetMixin(object):
         kwargs['exclude'] = self._get_form_fields(kwargs['form'],
                                                   kwargs.pop('readonly'))
         cls = inlineformset_factory(parent_model, model, **kwargs)
+        cls.verbose_name = model._meta.verbose_name
+        cls.verbose_name_plural = model._meta.verbose_name_plural
 
         kwargs = {
             'instance': self.object,

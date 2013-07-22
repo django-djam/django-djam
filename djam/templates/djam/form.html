@@ -14,8 +14,13 @@
                 {% with fieldsets='' %}
                     {% for formset in formsets %}
                         {{ formset.management_form }}
-                        <h1>Formset {{ forloop.counter }}</h1>
-                        {% form formset.forms using "floppyforms/layouts/bootstrap-horizontal.html" %}
+                        <h1>{{ formset.verbose_name_plural|title }}</h1>
+                        {% for form in formset.forms %}
+                            <h2><a data-toggle="collapse" href="#formset-{{ forloop.parentloop.counter }}-form-{{ forloop.counter }}">{% if form.instance.pk %}{{ form.instance }}{% else %}New {{ formset.verbose_name }}{% endif %} <i class='icon-angle-down'></i></a></h2>
+                            <div id="formset-{{ forloop.parentloop.counter }}-form-{{ forloop.counter }}" class='collapse'>
+                                {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
+                            </div>
+                        {% endfor %}
                     {% endfor %}
                 {% endwith %}
             {% endif %}
