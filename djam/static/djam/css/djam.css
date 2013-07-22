@@ -550,10 +550,10 @@ table td[class*="span"], table th[class*="span"], .row-fluid table td[class*="sp
 .table-hover tbody tr.warning:hover > td { background-color: #faf2cc; }
 .table-hover tbody tr.info:hover > td { background-color: #c4e3f3; }
 
-[class^="icon-"], [class*=" icon-"] { display: inline-block; width: 14px; height: 14px; *margin-right: .3em; line-height: 14px; vertical-align: text-top; background-image: url(../images/glyphicons-halflings.png?1372456122); background-position: 14px 14px; background-repeat: no-repeat; margin-top: 1px; }
+[class^="icon-"], [class*=" icon-"] { display: inline-block; width: 14px; height: 14px; *margin-right: .3em; line-height: 14px; vertical-align: text-top; background-image: url(../images/glyphicons-halflings.png?1371751298); background-position: 14px 14px; background-repeat: no-repeat; margin-top: 1px; }
 
 /* White icons with optional class, or on hover/focus/active states of certain elements */
-.icon-white, .nav-pills > .active > a > [class^="icon-"], .nav-pills > .active > a > [class*=" icon-"], .nav-list > .active > a > [class^="icon-"], .nav-list > .active > a > [class*=" icon-"], .navbar-inverse .nav > .active > a > [class^="icon-"], .navbar-inverse .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:focus > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > li > a:focus > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"], .dropdown-submenu:hover > a > [class^="icon-"], .dropdown-submenu:focus > a > [class^="icon-"], .dropdown-submenu:hover > a > [class*=" icon-"], .dropdown-submenu:focus > a > [class*=" icon-"] { background-image: url(../images/glyphicons-halflings-white.png?1372456122); }
+.icon-white, .nav-pills > .active > a > [class^="icon-"], .nav-pills > .active > a > [class*=" icon-"], .nav-list > .active > a > [class^="icon-"], .nav-list > .active > a > [class*=" icon-"], .navbar-inverse .nav > .active > a > [class^="icon-"], .navbar-inverse .nav > .active > a > [class*=" icon-"], .dropdown-menu > li > a:hover > [class^="icon-"], .dropdown-menu > li > a:focus > [class^="icon-"], .dropdown-menu > li > a:hover > [class*=" icon-"], .dropdown-menu > li > a:focus > [class*=" icon-"], .dropdown-menu > .active > a > [class^="icon-"], .dropdown-menu > .active > a > [class*=" icon-"], .dropdown-submenu:hover > a > [class^="icon-"], .dropdown-submenu:focus > a > [class^="icon-"], .dropdown-submenu:hover > a > [class*=" icon-"], .dropdown-submenu:focus > a > [class*=" icon-"] { background-image: url(../images/glyphicons-halflings-white.png?1371751298); }
 
 .icon-glass { background-position: 0 0; }
 
@@ -3128,8 +3128,10 @@ body.login { text-align: center; }
 
 h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia, serif; font-weight: normal; }
 
-body { padding-top: 60px; background: white url('../images/brilliant.png?1372456122'); }
+body { padding-top: 60px; background: white url('../images/brilliant.png?1371751298'); }
 @media (max-width: 979px) { body { padding-top: 0; } }
+
+.control-label.required { font-weight: bold; }
 
 .chzn-container { font-size: 14px; }
 
