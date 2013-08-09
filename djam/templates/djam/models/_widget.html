@@ -1,11 +1,11 @@
 {% load djam %}
 {% with add=riff|has_add_permission:request change=riff|has_change_permission:request %}
-    <div class="widget widget-append span6">
-      <div class='widget-inner'>
-        {% if change %}<a class="widget-link" href="{{ riff.get_default_url }}">{% else %}<span class='widget-text'>{% endif %}{{ riff.display_name }}{% if change %}</a>{% else %}</span>{% endif %}
-      </div>
+  <div class='col-6'>
+    <div class="widget widget-lg">
+      {% if change %}<a class="widget-text" href="{{ riff.get_default_url }}">{% else %}<span class='widget-text'>{% endif %}{{ riff.display_name }}{% if change %}</a>{% else %}</span>{% endif %}
       {% if add %}
-        <a class='btn widget-link' href="{% riff_url riff 'create' %}"><i class='icon-plus'></i></a>
+        <span class='widget-btn'><a class='btn btn-default' href="{% riff_url riff 'create' %}"><i class='icon-plus'></i></a></span>
       {% endif %}
     </div>
+  </div>
 {% endwith %}

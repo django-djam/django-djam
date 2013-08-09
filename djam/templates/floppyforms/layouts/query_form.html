@@ -6,7 +6,7 @@
 
 {% if form.has_filters %}
     <div class='btn-group'>
-        <a class="btn dropdown-toggle{% if form.has_active_filters %} btn-primary{% endif %}" data-toggle="dropdown" href="#">
+        <a class="btn dropdown-toggle {% if form.has_active_filters %}btn-primary{% else %}btn-default{% endif %}" data-toggle="dropdown" href="#">
             Filters <span class="caret"></span>
         </a>
         <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu">
@@ -22,5 +22,8 @@
 {% if 'order' in form.fields %}<div class='hidden'>{% formfield form.order %}</div>{% endif %}
 
 {% if form.search %}
-    {% formfield form.search with placeholder='Search' class='search-query' type='search' %}
+    {% formfield form.search with placeholder='Search…' %}
+{% endif %}
+{% if form.has_filters or form.search %}
+    <button class='btn btn-default' type='submit'><i class='icon-search' title='Search'></i></button>
 {% endif %}

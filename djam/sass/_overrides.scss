@@ -26,22 +26,26 @@ body {
 	font-weight: bold;
 }
 
+.navbar .form-control{
+	width: 200px;
+}
+
 // Chosen
 // ==================================================
 
 .chzn-container {
-	font-size: $baseFontSize;
+	font-size: $font-size-base;
 }
 
 .chzn-container-single .chzn-single{
-	line-height: $baseLineHeight;
-	height: $baseLineHeight;
+	line-height: $line-height-base;
+	height: $line-height-base;
 	padding-top: 4px;
 	padding-bottom: 4px;
 }
 
 .chzn-container .chzn-results li {
-	line-height: $baseLineHeight;
+	line-height: $line-height-base;
 }
 
 .chzn-container-single .chzn-single abbr,

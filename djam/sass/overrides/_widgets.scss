@@ -1,0 +1,77 @@
+.widget{
+    @extend .input-group;
+    margin-bottom: 10px;
+    width: 100%;
+
+    .widget-text:only-child {
+        @include border-radius($border-radius-base);
+    }
+}
+
+.widget-addon{
+    @extend .input-group-addon;
+}
+
+.widget-text{
+    @extend .form-control;
+    display: table-cell;
+    width: 100%;
+    margin-bottom: 0;
+    @include box-shadow(none);
+}
+
+a.widget-text{
+    &:hover{
+        text-decoration: none;
+        color: inherit;
+        background-color: $gray-lighter;
+    }
+}
+
+.widget-btn{
+    @extend .input-group-btn;
+
+    & > .btn{
+        height: 34px;
+    }
+}
+
+
+// Sizing
+.widget-lg {
+    .widget-text{
+        @extend .input-lg;
+
+        &:only-child {
+            @include border-radius($border-radius-large);
+        }
+    }
+    .widget-addon{
+        padding: $padding-large-vertical $padding-large-horizontal;
+        font-size: $font-size-large;
+        border-radius: $border-radius-large;
+    }
+    .widget-btn > .btn{
+        @extend .btn-lg;
+        height: auto;
+    }
+}
+
+.widget-sm {
+    .widget-text{
+        @extend .input-sm;
+
+        &:only-child {
+            @include border-radius($border-radius-small);
+        }
+    }
+    .widget-addon{
+        padding: $padding-small-vertical $padding-small-horizontal;
+        font-size: $font-size-small;
+        border-radius: $border-radius-small;
+    }
+    .widget-btn > .btn{
+        @extend .btn-sm;
+        height: auto;
+    }
+}
