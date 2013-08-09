@@ -4,15 +4,21 @@
   {% for field in fields %}
     {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text is_checkbox=field|is_checkbox %}
       {% block field %}
-        <div class="control-group{% if field.errors %} error{% endif %} {{ classes }}">
+        <div class="form-group{% if field.errors %} has-error{% endif %} {{ classes }}">
           {% block label %}
             {% if not is_checkbox %}
-              <label class="control-label{% if field.field.required %} required{% endif %}"{% if field|id %} for="{{ field|id }}"{% endif %}>{{ label }}</label>
+              <label class="col-lg-2 control-label{% if field.field.required %} required{% endif %}"{% if field|id %} for="{{ field|id }}"{% endif %}>{{ label }}</label>
             {% endif %}
           {% endblock %}
 
-          <div class="controls">
-            {% block widget %}{% if is_checkbox %}<label class="checkbox{% if field.field.required %} required{% endif %}" {% if field|id %}for="{{ field|id }}"{% endif %}>{% endif %}{% formfield field with required=False %}{% if is_checkbox %}{{ label }}</label>{% endif %}{% endblock %}
+          <div class="col-lg-10{% if is_checkbox %} col-lg-offset-2{% endif %}">
+            {% block widget %}
+              {% if is_checkbox %}
+                <div class='checkbox'><label{% if field.field.required %} class="required"{% endif %} {% if field|id %}for="{{ field|id }}"{% endif %}>{% formfield field with required=False %} {{ label }}</label></div>
+              {% else %}
+                {% formfield field with required=False %}
+              {% endif %}
+            {% endblock %}
             {% block errors %}<span class="help-block">{% include "floppyforms/errors.html" with errors=field.errors %}</span>{% endblock %}
             {% block help_text %}{% if help_text %}<span class="help-block">{{ help_text|safe }}</span>{% endif %}{% endblock %}
           </div>

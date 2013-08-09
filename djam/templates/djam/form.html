@@ -24,10 +24,12 @@
                     {% endfor %}
                 {% endwith %}
             {% endif %}
-            <div class="form-actions">
-                {% block actions %}
-                    <button type="submit" class="btn btn-success">{% block success-text %}{% trans "Submit" %}{% endblock %}</button>
-                {% endblock %}
+            <div class='row'>
+                <div class="col-lg-10 col-lg-offset-2">
+                    {% block actions %}
+                        <button type="submit" class="btn btn-success">{% block success-text %}{% trans "Submit" %}{% endblock %}</button>
+                    {% endblock %}
+                </div>
             </div>
         </form>
         {% endwith %}
