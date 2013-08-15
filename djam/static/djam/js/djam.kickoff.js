@@ -11,9 +11,10 @@ jQuery(function($) {
 
     $('select option[value=""]').text("");
     $('select[data-required="0"]').chosen({
-        allow_single_deselect: true
+        allow_single_deselect: true,
+        width: 'auto'
     });
-    $('select[data-required="1"]').chosen();
+    $('select[data-required="1"]').chosen({width: 'auto'});
 
     function addLinkPopup(e) {
         e.preventDefault();
@@ -111,7 +112,7 @@ jQuery(function($) {
             inputEle.val(values[contentType.val()] || "");
 
             if (opts.choices.length > 0) {
-                inputEle.chosen();
+                inputEle.chosen({width: 'auto'});
             }
             inputEle.change(storeValue);
 
@@ -122,7 +123,7 @@ jQuery(function($) {
             }
         }
 
-        contentType.chosen().change(function() {
+        contentType.chosen({width: 'auto'}).change(function() {
             getContentType(contentType.val(), displayObjectInput);
         });
         contentType.change();

@@ -6,10 +6,11 @@
 {% if value.url %}
     <p>{% trans "Currently:" %} <a target="_blank" href="{{ value.url }}">{{ value }}</a></p>
     {% if not required %}
-        <p>
-            <label class='checkbox' for="{{ checkbox_id }}">
-                <input type="checkbox" name="{{ checkbox_name }}" id="{{ checkbox_id }}"> {% trans "Clear" %}
+        <div class='checkbox'>
+            <label for="{{ checkbox_id }}">
+                <input type="checkbox" name="{{ checkbox_name }}" id="{{ checkbox_id }}">
+                {% trans "Clear" %}
             </label>
-        </p>
+        </div>
     {% endif %}
 {% endif %}

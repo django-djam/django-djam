@@ -51,23 +51,23 @@ fieldset { border: 1px solid #c0c0c0; margin: 0 2px; padding: 0.35em 0.625em 0.7
 
 legend { border: 0; padding: 0; }
 
-button, input, select, textarea, .chzn-container-multi .chzn-choices { font-family: inherit; font-size: 100%; margin: 0; }
+button, input, .chzn-container-multi .chzn-choices, select, textarea, .chzn-container-multi .chzn-choices { font-family: inherit; font-size: 100%; margin: 0; }
 
-button, input { line-height: normal; }
+button, input, .chzn-container-multi .chzn-choices { line-height: normal; }
 
 button, select { text-transform: none; }
 
-button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; cursor: pointer; }
+button, html input[type="button"], html .chzn-container-multi [type="button"].chzn-choices, .chzn-container-multi html [type="button"].chzn-choices, input[type="reset"], .chzn-container-multi [type="reset"].chzn-choices, input[type="submit"], .chzn-container-multi [type="submit"].chzn-choices { -webkit-appearance: button; cursor: pointer; }
 
-button[disabled], html input[disabled] { cursor: default; }
+button[disabled], html input[disabled], html .chzn-container-multi [disabled].chzn-choices, .chzn-container-multi html [disabled].chzn-choices { cursor: default; }
 
-input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
+input[type="checkbox"], .chzn-container-multi [type="checkbox"].chzn-choices, input[type="radio"], .chzn-container-multi [type="radio"].chzn-choices { box-sizing: border-box; padding: 0; }
 
-input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"], .chzn-container-multi [type="search"].chzn-choices { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
 
-input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+input[type="search"]::-webkit-search-cancel-button, .chzn-container-multi [type="search"].chzn-choices::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration, .chzn-container-multi [type="search"].chzn-choices::-webkit-search-decoration { -webkit-appearance: none; }
 
-button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+button::-moz-focus-inner, input::-moz-focus-inner, .chzn-container-multi .chzn-choices::-moz-focus-inner { border: 0; padding: 0; }
 
 textarea, .chzn-container-multi .chzn-choices { overflow: auto; vertical-align: top; }
 
@@ -97,9 +97,9 @@ html { font-size: 62.5%; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857; color: #333333; background-color: white; }
 
-input, button, select, textarea, .chzn-container-multi .chzn-choices { font-family: inherit; font-size: inherit; line-height: inherit; }
+input, .chzn-container-multi .chzn-choices, button, select, textarea, .chzn-container-multi .chzn-choices { font-family: inherit; font-size: inherit; line-height: inherit; }
 
-button, input, select[multiple], textarea, .chzn-container-multi .chzn-choices { background-image: none; }
+button, input, .chzn-container-multi .chzn-choices, select[multiple], textarea, .chzn-container-multi .chzn-choices { background-image: none; }
 
 a { color: #428bca; text-decoration: none; }
 
@@ -442,37 +442,37 @@ legend { display: block; width: 100%; padding: 0; margin-bottom: 20px; font-size
 
 label { display: inline-block; margin-bottom: 5px; font-weight: bold; }
 
-input[type="search"] { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+input[type="search"], .chzn-container-multi [type="search"].chzn-choices { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-input[type="radio"], input[type="checkbox"] { margin: 4px 0 0; margin-top: 1px \9; /* IE8-9 */ line-height: normal; }
+input[type="radio"], .chzn-container-multi [type="radio"].chzn-choices, input[type="checkbox"], .chzn-container-multi [type="checkbox"].chzn-choices { margin: 4px 0 0; margin-top: 1px \9; /* IE8-9 */ line-height: normal; }
 
-input[type="file"] { display: block; }
+input[type="file"], .chzn-container-multi [type="file"].chzn-choices { display: block; }
 
 select[multiple], select[size] { height: auto; }
 
 select optgroup { font-size: inherit; font-style: inherit; font-family: inherit; }
 
-input[type="file"]:focus, input[type="radio"]:focus, input[type="checkbox"]:focus { outline: thin dotted #333; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; }
+input[type="file"]:focus, .chzn-container-multi [type="file"].chzn-choices:focus, input[type="radio"]:focus, .chzn-container-multi [type="radio"].chzn-choices:focus, input[type="checkbox"]:focus, .chzn-container-multi [type="checkbox"].chzn-choices:focus { outline: thin dotted #333; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; }
 
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button { height: auto; }
+input[type="number"]::-webkit-outer-spin-button, .chzn-container-multi [type="number"].chzn-choices::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button, .chzn-container-multi [type="number"].chzn-choices::-webkit-inner-spin-button { height: auto; }
 
-.form-control:-moz-placeholder, .widget-text:-moz-placeholder { color: #999999; }
-.form-control::-moz-placeholder, .widget-text::-moz-placeholder { color: #999999; }
-.form-control:-ms-input-placeholder, .widget-text:-ms-input-placeholder { color: #999999; }
-.form-control::-webkit-input-placeholder, .widget-text::-webkit-input-placeholder { color: #999999; }
+.form-control:-moz-placeholder, .widget-text:-moz-placeholder, .chzn-container-multi .chzn-choices:-moz-placeholder { color: #999999; }
+.form-control::-moz-placeholder, .widget-text::-moz-placeholder, .chzn-container-multi .chzn-choices::-moz-placeholder { color: #999999; }
+.form-control:-ms-input-placeholder, .widget-text:-ms-input-placeholder, .chzn-container-multi .chzn-choices:-ms-input-placeholder { color: #999999; }
+.form-control::-webkit-input-placeholder, .widget-text::-webkit-input-placeholder, .chzn-container-multi .chzn-choices::-webkit-input-placeholder { color: #999999; }
 
-.form-control, .widget-text { display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px; line-height: 1.42857; color: #555555; vertical-align: middle; background-color: white; border: 1px solid #cccccc; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
-.form-control:focus, .widget-text:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
-.form-control[disabled], [disabled].widget-text, .form-control[readonly], [readonly].widget-text, fieldset[disabled] .form-control, fieldset[disabled] .widget-text { cursor: not-allowed; background-color: #eeeeee; }
+.form-control, .widget-text, .chzn-container-multi .chzn-choices { display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px; line-height: 1.42857; color: #555555; vertical-align: middle; background-color: white; border: 1px solid #cccccc; border-radius: 4px; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
+.form-control:focus, .widget-text:focus, .chzn-container-multi .chzn-choices:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
+.form-control[disabled], [disabled].widget-text, .chzn-container-multi [disabled].chzn-choices, .form-control[readonly], [readonly].widget-text, .chzn-container-multi [readonly].chzn-choices, fieldset[disabled] .form-control, fieldset[disabled] .widget-text, fieldset[disabled] .chzn-container-multi .chzn-choices, .chzn-container-multi fieldset[disabled] .chzn-choices { cursor: not-allowed; background-color: #eeeeee; }
 
-textarea.form-control, .chzn-container-multi .form-control.chzn-choices, .chzn-container-multi .chzn-choices.widget-text, textarea.widget-text { height: auto; }
+textarea.form-control, .chzn-container-multi .chzn-choices, textarea.widget-text { height: auto; }
 
 .form-group { margin-bottom: 15px; }
 
 .radio, .checkbox { display: block; min-height: 20px; margin-top: 10px; margin-bottom: 10px; padding-left: 20px; vertical-align: middle; }
 .radio label, .checkbox label { display: inline; margin-bottom: 0; font-weight: normal; cursor: pointer; }
 
-.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] { float: left; margin-left: -20px; }
+.radio input[type="radio"], .radio .chzn-container-multi [type="radio"].chzn-choices, .chzn-container-multi .radio [type="radio"].chzn-choices, .radio-inline input[type="radio"], .radio-inline .chzn-container-multi [type="radio"].chzn-choices, .chzn-container-multi .radio-inline [type="radio"].chzn-choices, .checkbox input[type="checkbox"], .checkbox .chzn-container-multi [type="checkbox"].chzn-choices, .chzn-container-multi .checkbox [type="checkbox"].chzn-choices, .checkbox-inline input[type="checkbox"], .checkbox-inline .chzn-container-multi [type="checkbox"].chzn-choices, .chzn-container-multi .checkbox-inline [type="checkbox"].chzn-choices { float: left; margin-left: -20px; }
 
 .radio + .radio, .checkbox + .checkbox { margin-top: -5px; }
 
@@ -482,31 +482,31 @@ textarea.form-control, .chzn-container-multi .form-control.chzn-choices, .chzn-c
 
 .radio[disabled], fieldset[disabled] .radio, .radio-inline[disabled], fieldset[disabled] .radio-inline, .checkbox[disabled], fieldset[disabled] .checkbox, .checkbox-inline[disabled], fieldset[disabled] .checkbox-inline { cursor: not-allowed; }
 
-.input-sm, .input-group-sm > .form-control, .input-group-sm > .widget-text, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .btn, .input-group-sm > .widget-btn > .btn, .widget-sm .widget-text { height: 30px; padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
+.input-sm, .input-group-sm > .form-control, .input-group-sm > .widget-text, .chzn-container-multi .input-group-sm > .chzn-choices, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .btn, .input-group-sm > .widget-btn > .btn, .widget-sm .widget-text { height: 30px; padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
 
-select.input-sm, .input-group-sm > select.form-control, .input-group-sm > select.widget-text, .input-group-sm > select.input-group-addon, .input-group-sm > select.widget-addon, .input-group-sm > .input-group-btn > select.btn, .input-group-sm > .widget-btn > select.btn, .widget-sm select.widget-text { height: 30px; line-height: 30px; }
+select.input-sm, .input-group-sm > select.form-control, .input-group-sm > select.widget-text, .chzn-container-multi .input-group-sm > select.chzn-choices, .input-group-sm > select.input-group-addon, .input-group-sm > select.widget-addon, .input-group-sm > .input-group-btn > select.btn, .input-group-sm > .widget-btn > select.btn, .widget-sm select.widget-text { height: 30px; line-height: 30px; }
 
-textarea.input-sm, .input-group-sm > textarea.form-control, .chzn-container-multi .input-group-sm > .form-control.chzn-choices, .chzn-container-multi .input-group-sm > .chzn-choices.widget-text, .input-group-sm > textarea.widget-text, .input-group-sm > textarea.input-group-addon, .chzn-container-multi .input-group-sm > .input-group-addon.chzn-choices, .chzn-container-multi .input-group-sm > .chzn-choices.widget-addon, .input-group-sm > textarea.widget-addon, .input-group-sm > .input-group-btn > textarea.btn, .input-group-sm > .widget-btn > textarea.btn, .chzn-container-multi .input-group-sm > .input-group-btn > .btn.chzn-choices, .chzn-container-multi .input-group-sm > .widget-btn > .btn.chzn-choices, .chzn-container-multi .input-sm.chzn-choices, .chzn-container-multi .widget-sm .chzn-choices.widget-text, .widget-sm .chzn-container-multi .chzn-choices.widget-text, .widget-sm textarea.widget-text { height: auto; }
+textarea.input-sm, .input-group-sm > textarea.form-control, .chzn-container-multi .input-group-sm > .chzn-choices, .input-group-sm > textarea.widget-text, .input-group-sm > textarea.input-group-addon, .input-group-sm > textarea.widget-addon, .input-group-sm > .input-group-btn > textarea.btn, .input-group-sm > .widget-btn > textarea.btn, .chzn-container-multi .input-sm.chzn-choices, .chzn-container-multi .widget-sm .chzn-choices.widget-text, .widget-sm .chzn-container-multi .chzn-choices.widget-text, .widget-sm textarea.widget-text { height: auto; }
 
-.input-lg, .input-group-lg > .form-control, .input-group-lg > .widget-text, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .btn, .input-group-lg > .widget-btn > .btn, .widget-lg .widget-text { height: 45px; padding: 10px 16px; font-size: 18px; line-height: 1.33; border-radius: 6px; }
+.input-lg, .input-group-lg > .form-control, .input-group-lg > .widget-text, .chzn-container-multi .input-group-lg > .chzn-choices, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .btn, .input-group-lg > .widget-btn > .btn, .widget-lg .widget-text { height: 45px; padding: 10px 16px; font-size: 18px; line-height: 1.33; border-radius: 6px; }
 
-select.input-lg, .input-group-lg > select.form-control, .input-group-lg > select.widget-text, .input-group-lg > select.input-group-addon, .input-group-lg > select.widget-addon, .input-group-lg > .input-group-btn > select.btn, .input-group-lg > .widget-btn > select.btn, .widget-lg select.widget-text { height: 45px; line-height: 45px; }
+select.input-lg, .input-group-lg > select.form-control, .input-group-lg > select.widget-text, .chzn-container-multi .input-group-lg > select.chzn-choices, .input-group-lg > select.input-group-addon, .input-group-lg > select.widget-addon, .input-group-lg > .input-group-btn > select.btn, .input-group-lg > .widget-btn > select.btn, .widget-lg select.widget-text { height: 45px; line-height: 45px; }
 
-textarea.input-lg, .input-group-lg > textarea.form-control, .chzn-container-multi .input-group-lg > .form-control.chzn-choices, .chzn-container-multi .input-group-lg > .chzn-choices.widget-text, .input-group-lg > textarea.widget-text, .input-group-lg > textarea.input-group-addon, .chzn-container-multi .input-group-lg > .input-group-addon.chzn-choices, .chzn-container-multi .input-group-lg > .chzn-choices.widget-addon, .input-group-lg > textarea.widget-addon, .input-group-lg > .input-group-btn > textarea.btn, .input-group-lg > .widget-btn > textarea.btn, .chzn-container-multi .input-group-lg > .input-group-btn > .btn.chzn-choices, .chzn-container-multi .input-group-lg > .widget-btn > .btn.chzn-choices, .chzn-container-multi .input-lg.chzn-choices, .chzn-container-multi .widget-lg .chzn-choices.widget-text, .widget-lg .chzn-container-multi .chzn-choices.widget-text, .widget-lg textarea.widget-text { height: auto; }
+textarea.input-lg, .input-group-lg > textarea.form-control, .chzn-container-multi .input-group-lg > .chzn-choices, .input-group-lg > textarea.widget-text, .input-group-lg > textarea.input-group-addon, .input-group-lg > textarea.widget-addon, .input-group-lg > .input-group-btn > textarea.btn, .input-group-lg > .widget-btn > textarea.btn, .chzn-container-multi .input-lg.chzn-choices, .chzn-container-multi .widget-lg .chzn-choices.widget-text, .widget-lg .chzn-container-multi .chzn-choices.widget-text, .widget-lg textarea.widget-text { height: auto; }
 
 .has-warning .help-block, .has-warning .control-label { color: #c09853; }
-.has-warning .form-control, .has-warning .widget-text { border-color: #c09853; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
-.has-warning .form-control:focus, .has-warning .widget-text:focus { border-color: #a47e3c; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e; }
+.has-warning .form-control, .has-warning .widget-text, .has-warning .chzn-container-multi .chzn-choices, .chzn-container-multi .has-warning .chzn-choices { border-color: #c09853; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+.has-warning .form-control:focus, .has-warning .widget-text:focus, .has-warning .chzn-container-multi .chzn-choices:focus, .chzn-container-multi .has-warning .chzn-choices:focus { border-color: #a47e3c; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #dbc59e; }
 .has-warning .input-group-addon, .has-warning .widget-addon { color: #c09853; border-color: #c09853; background-color: #fcf8e3; }
 
 .has-error .help-block, .has-error .control-label { color: #b94a48; }
-.has-error .form-control, .has-error .widget-text { border-color: #b94a48; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
-.has-error .form-control:focus, .has-error .widget-text:focus { border-color: #953b39; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; }
+.has-error .form-control, .has-error .widget-text, .has-error .chzn-container-multi .chzn-choices, .chzn-container-multi .has-error .chzn-choices { border-color: #b94a48; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+.has-error .form-control:focus, .has-error .widget-text:focus, .has-error .chzn-container-multi .chzn-choices:focus, .chzn-container-multi .has-error .chzn-choices:focus { border-color: #953b39; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #d59392; }
 .has-error .input-group-addon, .has-error .widget-addon { color: #b94a48; border-color: #b94a48; background-color: #f2dede; }
 
 .has-success .help-block, .has-success .control-label { color: #468847; }
-.has-success .form-control, .has-success .widget-text { border-color: #468847; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
-.has-success .form-control:focus, .has-success .widget-text:focus { border-color: #356635; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b; }
+.has-success .form-control, .has-success .widget-text, .has-success .chzn-container-multi .chzn-choices, .chzn-container-multi .has-success .chzn-choices { border-color: #468847; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
+.has-success .form-control:focus, .has-success .widget-text:focus, .has-success .chzn-container-multi .chzn-choices:focus, .chzn-container-multi .has-success .chzn-choices:focus { border-color: #356635; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7aba7b; }
 .has-success .input-group-addon, .has-success .widget-addon { color: #468847; border-color: #468847; background-color: #dff0d8; }
 
 .form-control-static { margin-bottom: 0; padding-top: 6px; }
@@ -514,9 +514,9 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .chzn-container-mult
 .help-block { display: block; margin-top: 5px; margin-bottom: 10px; color: #737373; }
 
 @media (min-width: 768px) { .form-inline .form-group, .navbar-form .form-group { display: inline-block; margin-bottom: 0; vertical-align: middle; }
-  .form-inline .form-control, .navbar-form .form-control, .form-inline .widget-text, .navbar-form .widget-text { display: inline-block; }
+  .form-inline .form-control, .navbar-form .form-control, .form-inline .widget-text, .navbar-form .widget-text, .form-inline .chzn-container-multi .chzn-choices, .chzn-container-multi .form-inline .chzn-choices, .navbar-form .chzn-container-multi .chzn-choices, .chzn-container-multi .navbar-form .chzn-choices { display: inline-block; }
   .form-inline .radio, .navbar-form .radio, .form-inline .checkbox, .navbar-form .checkbox { display: inline-block; margin-top: 0; margin-bottom: 0; padding-left: 0; }
-  .form-inline .radio input[type="radio"], .navbar-form .radio input[type="radio"], .form-inline .checkbox input[type="checkbox"], .navbar-form .checkbox input[type="checkbox"] { float: none; margin-left: 0; } }
+  .form-inline .radio input[type="radio"], .navbar-form .radio input[type="radio"], .form-inline .radio .chzn-container-multi [type="radio"].chzn-choices, .chzn-container-multi .form-inline .radio [type="radio"].chzn-choices, .navbar-form .radio .chzn-container-multi [type="radio"].chzn-choices, .chzn-container-multi .navbar-form .radio [type="radio"].chzn-choices, .form-inline .checkbox input[type="checkbox"], .navbar-form .checkbox input[type="checkbox"], .form-inline .checkbox .chzn-container-multi [type="checkbox"].chzn-choices, .chzn-container-multi .form-inline .checkbox [type="checkbox"].chzn-choices, .navbar-form .checkbox .chzn-container-multi [type="checkbox"].chzn-choices, .chzn-container-multi .navbar-form .checkbox [type="checkbox"].chzn-choices { float: none; margin-left: 0; } }
 
 .form-horizontal .control-label, .form-horizontal .radio-inline, .form-horizontal .checkbox-inline { padding-top: 6px; }
 
@@ -572,7 +572,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .chzn-container-mult
 
 .btn-block + .btn-block { margin-top: 5px; }
 
-input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="button"].btn-block { width: 100%; }
+input[type="submit"].btn-block, .chzn-container-multi [type="submit"].btn-block.chzn-choices, input[type="reset"].btn-block, .chzn-container-multi [type="reset"].btn-block.chzn-choices, input[type="button"].btn-block, .chzn-container-multi [type="button"].btn-block.chzn-choices { width: 100%; }
 
 .fade { opacity: 0; -webkit-transition: opacity 0.15s linear; transition: opacity 0.15s linear; }
 .fade.in { opacity: 1; }
@@ -584,23 +584,23 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 
 .input-group, .widget { position: relative; display: table; border-collapse: separate; }
 .input-group.col, .col.widget { float: none; padding-left: 0; padding-right: 0; }
-.input-group .form-control, .widget .form-control, .input-group .widget-text, .widget .widget-text { width: 100%; margin-bottom: 0; }
+.input-group .form-control, .widget .form-control, .input-group .widget-text, .widget .widget-text, .input-group .chzn-container-multi .chzn-choices, .chzn-container-multi .input-group .chzn-choices, .widget .chzn-container-multi .chzn-choices, .chzn-container-multi .widget .chzn-choices { width: 100%; margin-bottom: 0; }
 
-.input-group-addon, .widget-addon, .input-group-btn, .widget-btn, .input-group .form-control, .widget .form-control, .input-group .widget-text, .widget .widget-text { display: table-cell; }
-.input-group-addon:not(:first-child):not(:last-child), .widget-addon:not(:first-child):not(:last-child), .input-group-btn:not(:first-child):not(:last-child), .widget-btn:not(:first-child):not(:last-child), .input-group .form-control:not(:first-child):not(:last-child), .widget .form-control:not(:first-child):not(:last-child), .input-group .widget-text:not(:first-child):not(:last-child), .widget .widget-text:not(:first-child):not(:last-child) { border-radius: 0; }
+.input-group-addon, .widget-addon, .input-group-btn, .widget-btn, .input-group .form-control, .widget .form-control, .input-group .widget-text, .widget .widget-text, .input-group .chzn-container-multi .chzn-choices, .chzn-container-multi .input-group .chzn-choices, .widget .chzn-container-multi .chzn-choices, .chzn-container-multi .widget .chzn-choices { display: table-cell; }
+.input-group-addon:not(:first-child):not(:last-child), .widget-addon:not(:first-child):not(:last-child), .input-group-btn:not(:first-child):not(:last-child), .widget-btn:not(:first-child):not(:last-child), .input-group .form-control:not(:first-child):not(:last-child), .widget .form-control:not(:first-child):not(:last-child), .input-group .widget-text:not(:first-child):not(:last-child), .widget .widget-text:not(:first-child):not(:last-child), .input-group .chzn-container-multi .chzn-choices:not(:first-child):not(:last-child), .chzn-container-multi .input-group .chzn-choices:not(:first-child):not(:last-child), .widget .chzn-container-multi .chzn-choices:not(:first-child):not(:last-child), .chzn-container-multi .widget .chzn-choices:not(:first-child):not(:last-child) { border-radius: 0; }
 
 .input-group-addon, .widget-addon, .input-group-btn, .widget-btn { width: 1%; white-space: nowrap; vertical-align: middle; }
 
 .input-group-addon, .widget-addon { padding: 6px 12px; font-size: 14px; font-weight: normal; line-height: 1; text-align: center; background-color: #eeeeee; border: 1px solid #cccccc; border-radius: 4px; }
 .input-group-addon.input-sm, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .input-group-addon.btn, .input-sm.widget-addon, .widget-sm .widget-addon.widget-text, .widget-sm .input-group-addon.widget-text { padding: 5px 10px; font-size: 12px; border-radius: 3px; }
 .input-group-addon.input-lg, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .input-group-addon.btn, .input-lg.widget-addon, .widget-lg .widget-addon.widget-text, .widget-lg .input-group-addon.widget-text { padding: 10px 16px; font-size: 18px; border-radius: 6px; }
-.input-group-addon input[type="radio"], .widget-addon input[type="radio"], .input-group-addon input[type="checkbox"], .widget-addon input[type="checkbox"] { margin-top: 0; }
+.input-group-addon input[type="radio"], .widget-addon input[type="radio"], .input-group-addon .chzn-container-multi [type="radio"].chzn-choices, .chzn-container-multi .input-group-addon [type="radio"].chzn-choices, .widget-addon .chzn-container-multi [type="radio"].chzn-choices, .chzn-container-multi .widget-addon [type="radio"].chzn-choices, .input-group-addon input[type="checkbox"], .widget-addon input[type="checkbox"], .input-group-addon .chzn-container-multi [type="checkbox"].chzn-choices, .chzn-container-multi .input-group-addon [type="checkbox"].chzn-choices, .widget-addon .chzn-container-multi [type="checkbox"].chzn-choices, .chzn-container-multi .widget-addon [type="checkbox"].chzn-choices { margin-top: 0; }
 
-.input-group .form-control:first-child, .widget .form-control:first-child, .input-group .widget-text:first-child, .widget .widget-text:first-child, .input-group-addon:first-child, .widget-addon:first-child, .input-group-btn:first-child > .btn, .widget-btn:first-child > .btn, .input-group-btn:first-child > .dropdown-toggle, .widget-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .widget-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) { border-bottom-right-radius: 0; border-top-right-radius: 0; }
+.input-group .form-control:first-child, .widget .form-control:first-child, .input-group .widget-text:first-child, .widget .widget-text:first-child, .input-group .chzn-container-multi .chzn-choices:first-child, .chzn-container-multi .input-group .chzn-choices:first-child, .widget .chzn-container-multi .chzn-choices:first-child, .chzn-container-multi .widget .chzn-choices:first-child, .input-group-addon:first-child, .widget-addon:first-child, .input-group-btn:first-child > .btn, .widget-btn:first-child > .btn, .input-group-btn:first-child > .dropdown-toggle, .widget-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .widget-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) { border-bottom-right-radius: 0; border-top-right-radius: 0; }
 
 .input-group-addon:first-child, .widget-addon:first-child { border-right: 0; }
 
-.input-group .form-control:last-child, .widget .form-control:last-child, .input-group .widget-text:last-child, .widget .widget-text:last-child, .input-group-addon:last-child, .widget-addon:last-child, .input-group-btn:last-child > .btn, .widget-btn:last-child > .btn, .input-group-btn:last-child > .dropdown-toggle, .widget-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child), .widget-btn:first-child > .btn:not(:first-child) { border-bottom-left-radius: 0; border-top-left-radius: 0; }
+.input-group .form-control:last-child, .widget .form-control:last-child, .input-group .widget-text:last-child, .widget .widget-text:last-child, .input-group .chzn-container-multi .chzn-choices:last-child, .chzn-container-multi .input-group .chzn-choices:last-child, .widget .chzn-container-multi .chzn-choices:last-child, .chzn-container-multi .widget .chzn-choices:last-child, .input-group-addon:last-child, .widget-addon:last-child, .input-group-btn:last-child > .btn, .widget-btn:last-child > .btn, .input-group-btn:last-child > .dropdown-toggle, .widget-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child), .widget-btn:first-child > .btn:not(:first-child) { border-bottom-left-radius: 0; border-top-left-radius: 0; }
 
 .input-group-addon:last-child, .widget-addon:last-child { border-left: 0; }
 
@@ -934,7 +934,7 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 .btn-group-justified { display: table; width: 100%; table-layout: fixed; border-collapse: separate; }
 .btn-group-justified .btn { float: none; display: table-cell; width: 1%; }
 
-[data-toggle="buttons"] > .btn > input[type="radio"], [data-toggle="buttons"] > .btn > input[type="checkbox"] { display: none; }
+[data-toggle="buttons"] > .btn > input[type="radio"], .chzn-container-multi [data-toggle="buttons"] > .btn > [type="radio"].chzn-choices, [data-toggle="buttons"] > .btn > input[type="checkbox"], .chzn-container-multi [data-toggle="buttons"] > .btn > [type="checkbox"].chzn-choices { display: none; }
 
 .breadcrumb { padding: 8px 15px; margin-bottom: 20px; list-style: none; background-color: whitesmoke; border-radius: 4px; }
 .breadcrumb > li { display: inline-block; }
@@ -2240,7 +2240,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .chzn-container-single .chzn-search { padding: 3px 4px; position: relative; margin: 0; white-space: nowrap; z-index: 1010; }
 
-.chzn-container-single .chzn-search input { background: white url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px; background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white)); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -moz-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -o-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, linear-gradient(#eeeeee 1%, #ffffff 15%); margin: 1px 0; padding: 4px 20px 4px 5px; outline: 0; border: 1px solid #aaa; font-family: sans-serif; font-size: 1em; width: 100%; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -webkit-box-sizing: border-box; -khtml-box-sizing: border-box; box-sizing: border-box; }
+.chzn-container-single .chzn-search input, .chzn-container-single .chzn-search .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-container-single .chzn-search .chzn-choices { background: white url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px; background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white)); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -moz-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, -o-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat 100% -20px, linear-gradient(#eeeeee 1%, #ffffff 15%); margin: 1px 0; padding: 4px 20px 4px 5px; outline: 0; border: 1px solid #aaa; font-family: sans-serif; font-size: 1em; width: 100%; -moz-box-sizing: border-box; -ms-box-sizing: border-box; -webkit-box-sizing: border-box; -khtml-box-sizing: border-box; box-sizing: border-box; }
 
 .chzn-container-single .chzn-drop { margin-top: -1px; -webkit-border-radius: 0 0 4px 4px; -moz-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px; -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; }
 
@@ -2254,7 +2254,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .chzn-container-multi .chzn-choices .search-field { white-space: nowrap; margin: 0; padding: 0; }
 
-.chzn-container-multi .chzn-choices .search-field input { color: #666; background: transparent !important; border: 0 !important; font-family: sans-serif; font-size: 100%; height: 15px; padding: 5px; margin: 1px 0; outline: 0; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
+.chzn-container-multi .chzn-choices .search-field input, .chzn-container-multi .chzn-choices .search-field .chzn-choices { color: #666; background: transparent !important; border: 0 !important; font-family: sans-serif; font-size: 100%; height: 15px; padding: 5px; margin: 1px 0; outline: 0; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
 
 .chzn-container-multi .chzn-choices .search-field .default { color: #999; }
 
@@ -2316,7 +2316,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .chzn-container-active .chzn-choices { -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); border: 1px solid #5897fb; -moz-border-radius-bottomleft: 0; -webkit-border-bottom-left-radius: 0; border-bottom-left-radius: 0; -moz-border-radius-bottomright: 0; -webkit-border-bottom-right-radius: 0; border-bottom-right-radius: 0; }
 
-.chzn-container-active .chzn-choices .search-field input { color: #111 !important; }
+.chzn-container-active .chzn-choices .search-field input, .chzn-container-active .chzn-choices .search-field .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-container-active .chzn-choices .search-field .chzn-choices { color: #111 !important; }
 
 /* @end */
 /* @group Disabled Support */
@@ -2337,7 +2337,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .chzn-rtl .chzn-single abbr { left: 26px; right: auto; }
 
-.chzn-rtl .chzn-choices .search-field input { direction: rtl; }
+.chzn-rtl .chzn-choices .search-field input, .chzn-rtl .chzn-choices .search-field .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-rtl .chzn-choices .search-field .chzn-choices { direction: rtl; }
 
 .chzn-rtl .chzn-choices li { float: right; }
 
@@ -2357,7 +2357,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .chzn-rtl.chzn-container-active.chzn-with-drop .chzn-single div { border-right: none; }
 
-.chzn-rtl .chzn-search input { background: white url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px; background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white)); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -moz-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -o-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, linear-gradient(#eeeeee 1%, #ffffff 15%); padding: 4px 5px 4px 20px; direction: rtl; }
+.chzn-rtl .chzn-search input, .chzn-rtl .chzn-search .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-rtl .chzn-search .chzn-choices { background: white url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px; background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white)); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -moz-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, -o-linear-gradient(top, #eeeeee 1%, white 15%); background: url("../../djam/images/chosen-sprite.png") no-repeat -30px -20px, linear-gradient(#eeeeee 1%, #ffffff 15%); padding: 4px 5px 4px 20px; direction: rtl; }
 
 .chzn-container-single.chzn-rtl .chzn-single div b { background-position: 6px 2px; }
 
@@ -2365,7 +2365,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 /* @end */
 /* @group Retina compatibility */
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) { .chzn-rtl .chzn-search input, .chzn-container-single .chzn-single abbr, .chzn-container-single .chzn-single div b, .chzn-container-single .chzn-search input, .chzn-container-multi .chzn-choices .search-choice .search-choice-close, .chzn-container .chzn-results-scroll-down span, .chzn-container .chzn-results-scroll-up span { background-image: url("../../djam/images/chosen-sprite@2x.png") !important; background-repeat: no-repeat !important; background-size: 52px 37px !important; } }
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) { .chzn-rtl .chzn-search input, .chzn-rtl .chzn-search .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-rtl .chzn-search .chzn-choices, .chzn-container-single .chzn-single abbr, .chzn-container-single .chzn-single div b, .chzn-container-single .chzn-search input, .chzn-container-single .chzn-search .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-container-single .chzn-search .chzn-choices, .chzn-container-multi .chzn-choices .search-choice .search-choice-close, .chzn-container .chzn-results-scroll-down span, .chzn-container .chzn-results-scroll-up span { background-image: url("../../djam/images/chosen-sprite@2x.png") !important; background-repeat: no-repeat !important; background-size: 52px 37px !important; } }
 /* @end */
 /*!
  * Timepicker Component for Twitter Bootstrap
@@ -2397,7 +2397,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .bootstrap-timepicker-widget.dropdown-menu:after { border-bottom: 6px solid #FFFFFF; border-left: 6px solid transparent; border-right: 6px solid transparent; content: ""; display: inline-block; left: 10px; position: absolute; top: -6px; }
 
-.bootstrap-timepicker-widget a.btn, .bootstrap-timepicker-widget input { border-radius: 4px; }
+.bootstrap-timepicker-widget a.btn, .bootstrap-timepicker-widget input, .bootstrap-timepicker-widget .chzn-container-multi .chzn-choices, .chzn-container-multi .bootstrap-timepicker-widget .chzn-choices { border-radius: 4px; }
 
 .bootstrap-timepicker-widget table { width: 100%; margin: 0; }
 
@@ -2413,7 +2413,7 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .bootstrap-timepicker-widget table td a i { margin-top: 2px; }
 
-.bootstrap-timepicker-widget table td input { width: 25px; margin: 0; text-align: center; }
+.bootstrap-timepicker-widget table td input, .bootstrap-timepicker-widget table td .chzn-container-multi .chzn-choices, .chzn-container-multi .bootstrap-timepicker-widget table td .chzn-choices { width: 25px; margin: 0; text-align: center; }
 
 .bootstrap-timepicker-widget .modal-content { padding: 4px; }
 
@@ -2520,11 +2520,11 @@ a .icon-rotate-90:before, a .icon-rotate-180:before, a .icon-rotate-270:before, 
 
 .input-append.date .add-on i, .input-prepend.date .add-on i { display: block; cursor: pointer; width: 16px; height: 16px; }
 
-.input-daterange input { text-align: center; }
+.input-daterange input, .input-daterange .chzn-container-multi .chzn-choices, .chzn-container-multi .input-daterange .chzn-choices { text-align: center; }
 
-.input-daterange input:first-child { -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px; }
+.input-daterange input:first-child, .input-daterange .chzn-container-multi .chzn-choices:first-child, .chzn-container-multi .input-daterange .chzn-choices:first-child { -webkit-border-radius: 3px 0 0 3px; -moz-border-radius: 3px 0 0 3px; border-radius: 3px 0 0 3px; }
 
-.input-daterange input:last-child { -webkit-border-radius: 0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0; }
+.input-daterange input:last-child, .input-daterange .chzn-container-multi .chzn-choices:last-child, .chzn-container-multi .input-daterange .chzn-choices:last-child { -webkit-border-radius: 0 3px 3px 0; -moz-border-radius: 0 3px 3px 0; border-radius: 0 3px 3px 0; }
 
 .input-daterange .add-on { display: inline-block; width: auto; min-width: 16px; height: 18px; padding: 4px 5px; font-weight: normal; line-height: 18px; text-align: center; text-shadow: 0 1px 0 #ffffff; vertical-align: middle; background-color: #eeeeee; border: 1px solid #ccc; margin-left: -5px; margin-right: -5px; }
 
@@ -2558,7 +2558,7 @@ a.widget-text:hover { text-decoration: none; color: inherit; background-color: #
 .widget-sm .widget-addon { padding: 5px 10px; font-size: 12px; border-radius: 3px; }
 .widget-sm .widget-btn > .btn { height: auto; }
 
-.dropdown-menu > li > input, .dropdown-menu > li > label, .dropdown-menu > li > select { margin: 3px 20px; clear: both; font-weight: normal; line-height: 20px; color: #333333; white-space: nowrap; }
+.dropdown-menu > li > input, .chzn-container-multi .dropdown-menu > li > .chzn-choices, .dropdown-menu > li > label, .dropdown-menu > li > select { margin: 3px 20px; clear: both; font-weight: normal; line-height: 20px; color: #333333; white-space: nowrap; }
 
 .model-list th.order:after { margin-top: 8px; margin-left: 5px; width: 8px; height: 4px; vertical-align: top; content: ""; display: inline-block; }
 .model-list th.order.desc:after, .model-list th.order.asc:after { border-right: 4px solid transparent; border-left: 4px solid transparent; width: 0; height: 0; }
@@ -2573,14 +2573,18 @@ body { padding-top: 60px; background: white url('../images/brilliant.png?1371751
 
 .control-label.required { font-weight: bold; }
 
-.navbar .form-control, .navbar .widget-text { width: 200px; }
+.navbar .form-control, .navbar .widget-text, .navbar .chzn-container-multi .chzn-choices, .chzn-container-multi .navbar .chzn-choices { width: 200px; }
 
 .chzn-container { font-size: 14px; }
 
-.chzn-container-single .chzn-single { line-height: 1.42857; height: 1.42857; padding-top: 4px; padding-bottom: 4px; }
+.chzn-container-single .chzn-single { line-height: 1.42857; height: 28.0px; padding-top: 4px; padding-bottom: 4px; padding-right: 48px; }
+.chzn-container-single .chzn-single span { margin-right: 0; }
 
 .chzn-container .chzn-results li { line-height: 1.42857; }
 
 .chzn-container-single .chzn-single abbr, .chzn-container-single .chzn-single div b { margin-top: 2px; margin-bottom: 2px; }
 
-.chzn-container-single .chzn-search input { height: 28px; }
+.chzn-container-single .chzn-search input, .chzn-container-single .chzn-search .chzn-container-multi .chzn-choices, .chzn-container-multi .chzn-container-single .chzn-search .chzn-choices { height: 28.0px; }
+
+.chzn-container-multi .chzn-choices { min-width: 200px; }
+.chzn-container-multi .chzn-choices .search-field input, .chzn-container-multi .chzn-choices .search-field .chzn-choices { height: 25px; }
