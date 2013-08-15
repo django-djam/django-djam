@@ -146,11 +146,14 @@ jQuery(function($) {
         });
     };
 
+    var btnAddon = $('<span class="input-group-btn"><a href="javascript://" class="btn btn-default"></a></span>')
     // time inputs.
-    var timeInputs = $('input[type=time]');
+    var timeInputs = $('input[type=time]'),
+        timeAddon = btnAddon.clone();
+    timeAddon.find('a').append('<i class="icon-time"></i></a>')
     timeInputs.attr('type', 'text');
-    timeInputs.wrap('<div class="bootstrap-timepicker input-append"></div>');
-    timeInputs.parent().append('<a href="javascript://" class="btn"><i class="icon-time"></i></a>');
+    timeInputs.wrap('<div class="bootstrap-timepicker input-group"></div>');
+    timeInputs.parent().append(timeAddon.clone());
     timeInputs.timepicker({
         template: 'dropdown',
         showMeridian: false,
@@ -160,10 +163,12 @@ jQuery(function($) {
 
 
     // date inputs.
-    var dateInputs = $('input[type=date]');
+    var dateInputs = $('input[type=date]'),
+        dateAddon = btnAddon.clone();
+    dateAddon.find('a').append('<i class="icon-calendar"></i></a>')
     dateInputs.attr('type', 'text');
-    dateInputs.wrap('<div class="input-append date"></div>');
-    dateInputs.parent().append('<a href="javascript://" class="btn"><i class="icon-calendar"></i></a>');
+    dateInputs.wrap('<div class="input-group date"></div>');
+    dateInputs.parent().append(dateAddon);
     dateInputs.parent().datepicker({
         format: 'yyyy-mm-dd'
     });
