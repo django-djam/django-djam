@@ -1,6 +1,6 @@
 {% load djam %}
 {% with add=riff|has_add_permission:request change=riff|has_change_permission:request %}
-  <div class='col-6'>
+  <div class='col-sm-6 col-lg-4'>
     <div class="widget widget-lg">
       {% if change %}<a class="widget-text" href="{{ riff.get_default_url }}">{% else %}<span class='widget-text'>{% endif %}{{ riff.display_name }}{% if change %}</a>{% else %}</span>{% endif %}
       {% if add %}

@@ -6,7 +6,9 @@
 
 {% block main %}
   <div class='navbar'>
-    <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
+    <div class='navbar-header'>
+      <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
+    </div>
     <ul class='nav navbar-nav'>
       <li class="divider-vertical"></li>
       <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>
