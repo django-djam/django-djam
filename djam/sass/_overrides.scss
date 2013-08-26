@@ -14,12 +14,8 @@ h1, h2, h3, h4, .brand {
 }
 
 body {
-    padding-top: 60px; // make space for a fixed 40px navbar
+    padding-top: 70px; // make space for a fixed 50px navbar
     background: #FFF image-url('brilliant.png');
-
-    @media (max-width: 979px) {
-        padding-top: 0;
-    }
 }
 
 .control-label.required{
