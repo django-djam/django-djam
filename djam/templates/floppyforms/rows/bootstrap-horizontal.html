@@ -7,14 +7,14 @@
         <div class="form-group{% if field.errors %} has-error{% endif %} {{ classes }}">
           {% block label %}
             {% if not is_checkbox %}
-              <label class="col-lg-2 control-label{% if field.field.required %} required{% endif %}"{% if field|id %} for="{{ field|id }}"{% endif %}>{{ label }}</label>
+              <label class="col-lg-2 col-md-2 col-sm-2 control-label{% if field.field.required %} required{% endif %}"{% if field|id %} for="{{ field|id }}"{% endif %}>{{ label }}</label>
             {% endif %}
           {% endblock %}
 
-          <div class="col-lg-10{% if is_checkbox %} col-lg-offset-2{% endif %}">
+          <div class="col-lg-10 col-md-10 col-sm-10{% if is_checkbox %} col-lg-offset-2 col-md-offset-2 col-sm-offset-2{% endif %}">
             {% block widget %}
               {% if is_checkbox %}
-                <div class='checkbox'><label{% if field.field.required %} class="required"{% endif %} {% if field|id %}for="{{ field|id }}"{% endif %}>{% formfield field with required=False %} {{ label }}</label></div>
+                <div class='checkbox'><label{% if field.field.required %} class="required"{% endif %}{% if field|id %} for="{{ field|id }}"{% endif %}>{% formfield field with required=False %} {{ label }}</label></div>
               {% else %}
                 {% formfield field with required=False %}
               {% endif %}

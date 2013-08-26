@@ -2575,6 +2575,8 @@ body { padding-top: 60px; background: white url('../images/brilliant.png?1371751
 
 .navbar .form-control, .navbar .widget-text, .navbar .chzn-container-multi .chzn-choices, .chzn-container-multi .navbar .chzn-choices { width: 200px; }
 
+.input-group.date, .date.widget, .input-group.bootstrap-timepicker, .bootstrap-timepicker.widget { width: 200px; }
+
 .chzn-container { font-size: 14px; }
 
 .chzn-container-single .chzn-single { line-height: 1.42857; height: 28.0px; padding-top: 4px; padding-bottom: 4px; padding-right: 48px; }
