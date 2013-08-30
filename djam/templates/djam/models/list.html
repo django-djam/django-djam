@@ -5,10 +5,8 @@
 {% block body_classes %}model-list {{ block.super }}{% endblock %}
 
 {% block main %}
-  <div class='navbar'>
-    <div class='navbar-header'>
-      <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
-    </div>
+  <div class='navbar navbar-default'>
+    <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
     <ul class='nav navbar-nav'>
       <li class="divider-vertical"></li>
       <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>

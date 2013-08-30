@@ -1,0 +1,10 @@
+// Some cleanup to bootstrap dropdowns to allow for forms/labels inside a dropdown.
+
+.dropdown-menu .form-control {
+    margin: 3px 20px;
+    clear: both;
+    line-height: 20px;
+    color: #333333;
+    white-space: nowrap;
+    width: auto;
+}
