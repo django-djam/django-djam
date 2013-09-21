@@ -1,5 +1,4 @@
 {% load floppyforms djam %}
-
 {% for field in form.hidden_fields %}
     {{ field.as_hidden }}
 {% endfor %}
@@ -22,7 +21,9 @@
 {% if 'order' in form.fields %}<div class='hidden'>{% formfield form.order %}</div>{% endif %}
 
 {% if form.search %}
-    {% formfield form.search with placeholder='Search…' %}
+    <div class='form-group'>
+        {% formfield form.search with placeholder='Search…' %}
+    </div>
 {% endif %}
 {% if form.has_filters or form.search %}
     <button class='btn btn-default' type='submit'><i class='icon-search' title='Search'></i></button>
