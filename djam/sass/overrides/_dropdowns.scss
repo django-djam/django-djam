@@ -1,10 +1,10 @@
-// Some cleanup to bootstrap dropdowns to allow for forms/labels inside a dropdown.
+// Style a 'dropdown-wrapper' class which correctly styles a list
+// item to contain arbitrary content correctly in a dropdown (like
+// selects and labels.)
 
-.dropdown-menu .form-control {
-    margin: 3px 20px;
-    clear: both;
-    line-height: 20px;
-    color: #333333;
-    white-space: nowrap;
-    width: auto;
+
+.dropdown-menu {
+	.dropdown-wrapper {
+		padding: 0px 20px;
+	}
 }

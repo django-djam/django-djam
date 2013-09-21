@@ -5,8 +5,8 @@
         {% with classes=field.css_classes label=label|default:field.label help_text=help_text|default:field.help_text %}
             {% block field %}
                 {% block errors %}{% include "floppyforms/errors.html" with errors=field.errors %}{% endblock %}
-                {% block label %}<li class='{% if classes %} {{ classes }}{% endif %}'>{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if field|id %}</label>{% endif %}</li>{% endblock %}
-                <li{% if classes %} class="{{ classes }}"{% endif %}>
+                {% block label %}<li class='dropdown-wrapper{% if classes %} {{ classes }}{% endif %}'>{% if field|id %}<label for="{{ field|id }}">{% endif %}{{ label }}{% if field|id %}</label>{% endif %}</li>{% endblock %}
+                <li class='dropdown-wrapper{% if classes %} {{ classes }}{% endif %}'>
                     {% block widget %}{% formfield field %}{% endblock %}
                     {% block help_text %}{% if help_text %}<span class="helptext">{{ help_text }}</span>{% endif %}{% endblock %}
                     {% block hidden_fields %}{% for field in hidden_fields %}{{ field.as_hidden }}{% endfor %}{% endblock %}

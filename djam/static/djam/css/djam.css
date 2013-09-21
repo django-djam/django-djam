@@ -2649,7 +2649,7 @@ a.widget-text:hover { text-decoration: none; color: inherit; background-color: #
 .widget-sm .widget-addon { padding: 5px 10px; font-size: 12px; border-radius: 3px; }
 .widget-sm .widget-btn > .btn { height: auto; }
 
-.dropdown-menu .form-control, .dropdown-menu .widget-text, .dropdown-menu .chzn-container-multi .chzn-choices, .chzn-container-multi .dropdown-menu .chzn-choices { margin: 3px 20px; clear: both; line-height: 20px; color: #333333; white-space: nowrap; width: auto; }
+.dropdown-menu .dropdown-wrapper { padding: 0px 20px; }
 
 .model-list th.order:after { margin-top: 8px; margin-left: 5px; width: 8px; height: 4px; vertical-align: top; content: ""; display: inline-block; }
 .model-list th.order.desc:after, .model-list th.order.asc:after { border-right: 4px solid transparent; border-left: 4px solid transparent; width: 0; height: 0; }
