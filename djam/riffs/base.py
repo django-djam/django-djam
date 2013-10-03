@@ -100,7 +100,7 @@ class Riff(object):
     def wrap_view(self, view):
         return view
 
-    def reverse(self, name, *args, **kwargs):
+    def reverse(self, name, args=None, kwargs=None):
         return reverse('{namespace}:{viewname}'.format(namespace=self.full_namespace, viewname=name),
                        args=args, kwargs=kwargs)
 

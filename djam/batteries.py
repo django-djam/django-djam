@@ -50,7 +50,7 @@ class UserPasswordView(ModelRiffMixin, FormView):
     model = User
 
     def get_success_url(self):
-        return self.riff.reverse('update', pk=self.kwargs['pk'])
+        return self.riff.reverse('update', kwargs={'pk': self.kwargs['pk']})
 
     def has_permission(self, request):
         return self.riff.has_change_permission(request)
@@ -71,7 +71,7 @@ class UserPasswordView(ModelRiffMixin, FormView):
     def get_crumbs(self):
         crumbs = super(UserPasswordView, self).get_crumbs()
         crumbs += [
-            (self.riff.reverse('update', pk=self.kwargs['pk']),
+            (self.riff.reverse('update', kwargs={'pk': self.kwargs['pk']}),
              unicode(self.object)),
             (None, 'Change password'),
         ]

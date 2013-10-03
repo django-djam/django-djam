@@ -5,7 +5,8 @@ from django import template
 from django.conf import settings
 from django.forms.forms import pretty_name
 from django.forms.widgets import CheckboxInput
-from django.utils.encoding import force_unicode
+from django.template.base import kwarg_re, TemplateSyntaxError
+from django.utils.encoding import force_unicode, smart_str
 from floppyforms.templatetags.floppyforms import FormRowNode
 
 from djam.riffs.base import Riff
@@ -26,9 +27,60 @@ def get_displayed_riffs(context, riff):
     return [r for r in riff.riffs if not r.is_hidden(request)]
 
 
-@register.simple_tag
-def riff_url(riff, view_name, *args, **kwargs):
-    return riff.reverse(view_name, *args, **kwargs)
+class RiffURLNode(template.Node):
+    def __init__(self, riff, view_name, args, kwargs, asvar):
+        self.riff = riff
+        self.view_name = view_name
+        self.args = args
+        self.kwargs = kwargs
+        self.asvar = asvar
+
+    def render(self, context):
+        args = [arg.resolve(context) for arg in self.args]
+        kwargs = dict([(smart_str(k, 'ascii'), v.resolve(context))
+                       for k, v in self.kwargs.iteritems()])
+        riff = self.riff.resolve(context)
+        view_name = self.view_name.resolve(context)
+        url = riff.reverse(view_name, args=args, kwargs=kwargs)
+
+        if self.asvar:
+            context[self.asvar] = url
+            return ''
+
+        return url
+
+
+@register.tag
+def riff_url(parser, token):
+    bits = token.split_contents()
+    if len(bits) < 3:
+        raise TemplateSyntaxError("'{0}' takes at least two arguments: a riff "
+                                  "and a view path.".format(bits[0]))
+
+    riff = parser.compile_filter(bits[1])
+    view_name = parser.compile_filter(bits[2])
+
+    args = []
+    kwargs = {}
+    asvar = None
+    bits = bits[3:]
+    if len(bits) >= 2 and bits[-2] == 'as':
+        asvar = bits[-1]
+        bits = bits[:-2]
+
+    if bits:
+        for bit in bits:
+            match = kwarg_re.match(bit)
+            if not match:
+                raise TemplateSyntaxError("Malformed arguments to {0} tag"
+                                          "".format(bits[0]))
+            name, value = match.groups()
+            if name:
+                kwargs[name] = parser.compile_filter(value)
+            else:
+                args.append(parser.compile_filter(value))
+
+    return RiffURLNode(riff, view_name, args, kwargs, asvar)
 
 
 @register.filter

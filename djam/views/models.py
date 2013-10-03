@@ -162,7 +162,7 @@ class ModelCreateView(ModelRiffMixin, FormsetMixin, CreateView):
 
     def get_success_url(self):
         if self.riff.has_change_permission(self.request):
-            return self.riff.reverse('update', pk=self.object.pk)
+            return self.riff.reverse('update', kwargs={'pk': self.object.pk})
         return self.riff.base_riff.get_default_url()
 
     def form_valid(self, form, formsets):
@@ -205,7 +205,7 @@ class ModelUpdateView(ModelRiffMixin, FormsetMixin, UpdateView):
         return super(ModelUpdateView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
-        return self.riff.reverse('update', pk=self.object.pk)
+        return self.riff.reverse('update', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form, formsets):
         msg_kwargs = {
@@ -220,7 +220,7 @@ class ModelUpdateView(ModelRiffMixin, FormsetMixin, UpdateView):
     def get_crumbs(self):
         crumbs = super(ModelUpdateView, self).get_crumbs()
         crumbs += [
-            (self.riff.reverse('update', pk=self.object.pk),
+            (self.riff.reverse('update', kwargs={'pk': self.object.pk}),
              unicode(self.object)),
         ]
         return crumbs
