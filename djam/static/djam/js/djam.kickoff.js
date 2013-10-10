@@ -142,7 +142,7 @@ jQuery(function($) {
 
             next_val = (desc_next ? '-' : '') + order;
             order_field.val(next_val);
-            order_field.parent().submit();
+            $(order_field[0].form).submit();
         });
     };
 
