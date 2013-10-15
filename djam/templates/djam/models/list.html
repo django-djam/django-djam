@@ -8,10 +8,52 @@
   <div class='navbar navbar-default'>
     <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
     <ul class='nav navbar-nav'>
-      <li class="divider-vertical"></li>
       <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>
-      <li class="divider-vertical"></li>
+      <li class='navbar-text'>{{ page_obj.start_index }} – {{ page_obj.end_index }} of {{ paginator.count }}</li>
     </ul>
+    {% if page_obj.has_other_pages %}
+      <ul class='pagination navbar-left'>
+        {% if page_obj.has_previous %}
+          <li><a href="{% url_params request.get_full_path page=page_obj.previous_page_number %}">&lsaquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&lsaquo;</span></li>
+        {% endif %}
+        {% if paginator.num_pages <= 5 %}
+          {% for num in paginator.page_range %}
+            <li><a href="{% url_params request.get_full_path page=num %}">&rsaquo;</a></li>
+          {% endfor %}
+        {% else %}
+          {% if page_obj.number > 2 %}
+            <li><a href="{% url_params request.get_full_path page=1 %}">1</a></li>
+            {% if page_obj.number > 3 %}
+              <li class="disabled"><span>&hellip;</span></li>
+            {% endif %}
+          {% endif %}
+
+          {% if page_obj.has_previous %}
+            <li><a href="{% url_params request.get_full_path page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a></li>
+          {% endif %}
+
+          <li class='active'><a href="{% url_params request.get_full_path page=page_obj.number %}">{{ page_obj.number }} <span class="sr-only">(current)</span></a></li>
+
+          {% if page_obj.has_next %}
+            <li><a href="{% url_params request.get_full_path page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a></li>
+          {% endif %}
+
+          {% if paginator.num_pages > 1 and page_obj.number < paginator.num_pages|add:"-1" %}
+            {% if page_obj.number < paginator.num_pages|add:"-2" %}
+              <li class="disabled"><span>&hellip;</span></li>
+            {% endif %}
+            <li><a href="{% url_params request.get_full_path page=paginator.num_pages %}">{{ paginator.num_pages }}</a></li>
+          {% endif %}
+        {% endif %}
+        {% if page_obj.has_next %}
+          <li><a href="{% url_params request.get_full_path page=page_obj.next_page_number %}">&rsaquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&rsaquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}
     <form class="navbar-form navbar-right">
       {% form query_form using 'floppyforms/layouts/query_form.html' %}
     </form>

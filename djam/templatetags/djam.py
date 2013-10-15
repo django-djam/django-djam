@@ -1,6 +1,9 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 
+from urllib import urlencode
+from urlparse import urlsplit, urlunsplit, parse_qs
+
 from django import template
 from django.conf import settings
 from django.forms.forms import pretty_name
@@ -166,3 +169,16 @@ class FieldsetNode(FormRowNode):
 
 
 register.tag('fieldsetrow', FieldsetNode.parse)
+
+
+@register.simple_tag
+def url_params(url, **kwargs):
+    try:
+        parts = urlsplit(url)
+        query_dict = parse_qs(parts.query)
+        for k, v in kwargs.iteritems():
+            query_dict[k] = [force_unicode(v)]
+        return urlunsplit((parts.scheme, parts.netloc, parts.path,
+                           urlencode(query_dict, doseq=True), parts.fragment))
+    except Exception:
+        return ''
