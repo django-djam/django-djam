@@ -1,6 +1,5 @@
 @import "overrides/patuaone";
 
-@import "overrides/login";
 @import "overrides/widgets";
 @import "overrides/dropdowns";
 @import "overrides/models";
@@ -25,6 +24,11 @@ body {
 .input-group.date, .input-group.bootstrap-timepicker{
 	width: 200px;
 }
+
+.input-group{
+	margin-bottom: 20px;
+}
+
 
 // Chosen
 // ==================================================

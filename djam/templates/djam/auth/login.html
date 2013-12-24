@@ -1,24 +1,26 @@
 {% extends "djam/__base.html" %}
-{% load i18n static floppyforms %}
+{% load i18n %}
 
-{% block body_classes %}{{ block.super }} login{% endblock %}
+{% block breadcrumb %}{% endblock %}
 
-{% block body %}
-    <div class="container">
-        <div class="login-pod">
-            <h1 class="login-title">{{ base_riff.display_name }}</h1>
-            <div class="l-padded">
-                <form class="login-form" method="post">
-                    {% csrf_token %}
-                    {% form form using "floppyforms/layouts/bootstrap-horizontal.html" %}
-                    {% if redirect_field_name and redirect_to %}
-                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_to }}" />
-                    {% endif %}
-                    <div class="control-group">
-                        <button type="submit" class="btn btn-large btn-primary btn-block">{% trans "Log In" %}</button>
-                    </div>
-                </form>
-            </div>{# /.l-padded #}
-        </div>{# /.login-pod #}
-    </div>{# /.container #}
+{% block main %}
+    <form method="post">
+        {% csrf_token %}
+        {% if redirect_field_name and redirect_to %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_to }}" />
+        {% endif %}
+        <div class='col-xs-12 col-sm-6 col-sm-offset-3'>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon"><i class='fa fa-user fa-fw'></i></span>
+                <input name="username" type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon"><i class='fa fa-key fa-fw'></i></span>
+                <input name="password" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="control-group">
+                <button type="submit" class="btn btn-lg btn-primary btn-block">{% trans "Log In" %}</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}
