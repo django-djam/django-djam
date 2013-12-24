@@ -1,62 +1,6 @@
 @import "compass";
-@import "variables";
+@import "bootstrap";
 
-// ## Bootstrap imports ##
-
-// Core variables and mixins
-@import "bootstrap/mixins";
-
-// Reset
-@import "bootstrap/normalize";
-@import "bootstrap/print";
-
-// Core CSS
-@import "bootstrap/scaffolding";
-@import "bootstrap/type";
-@import "bootstrap/code";
-@import "bootstrap/grid";
-
-@import "bootstrap/tables";
-@import "bootstrap/forms";
-@import "bootstrap/buttons";
-
-// Components: common
-@import "bootstrap/component-animations";
-@import "bootstrap/input-groups";
-@import "bootstrap/dropdowns";
-@import "bootstrap/list-group";
-@import "bootstrap/panels";
-@import "bootstrap/wells";
-@import "bootstrap/close";
-
-// Components: Nav
-@import "bootstrap/navs";
-@import "bootstrap/navbar";
-@import "bootstrap/button-groups";
-@import "bootstrap/breadcrumbs";
-@import "bootstrap/pagination";
-@import "bootstrap/pager";
-
-// Components: Popovers
-@import "bootstrap/modals";
-@import "bootstrap/tooltip";
-@import "bootstrap/popovers";
-
-// Components: Misc
-@import "bootstrap/alerts";
-@import "bootstrap/thumbnails";
-@import "bootstrap/media";
-@import "bootstrap/labels";
-@import "bootstrap/badges";
-@import "bootstrap/progress-bars";
-@import "bootstrap/carousel";
-@import "bootstrap/jumbotron";
-
-// Utility classes
-@import "bootstrap/utilities"; // Has to be last to override when necessary
-@import "bootstrap/responsive-utilities";
-
-@import "font-awesome/font-awesome";
 @import "chosen";
 @import "bootstrap-timepicker";
 @import "bootstrap-datepicker";

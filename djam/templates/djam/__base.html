@@ -12,6 +12,7 @@
 
     {% block styles %}
       <link rel="stylesheet" href="{% static 'djam/css/djam.css' %}" type="text/css" media="screen" charset="utf-8">
+      <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     {% endblock %}
 
   </head>
@@ -53,8 +54,8 @@
           genRelURL: "{% filter slice:":-2" %}{% riff_url base_riff 'genrelinfo' 1 %}{% endfilter %}",
         }
       </script>
-      <script src="{% static 'djam/js/jquery-1.10.0.js' %}" type="text/javascript" charset="utf-8"></script>
-      <script src="{% static 'djam/js/bootstrap-3.0.0.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/jquery-1.10.2.js' %}" type="text/javascript" charset="utf-8"></script>
+      <script src="{% static 'djam/js/bootstrap-3.0.3.js' %}" type="text/javascript" charset="utf-8"></script>
       <script src="{% static 'djam/js/bootstrap.file-input.js' %}" type="text/javascript" charset="utf-8"></script>
       <script src="{% static 'djam/js/bootstrap-timepicker.js' %}" type="text/javascript" charset="utf-8"></script>
       <script src="{% static 'djam/js/bootstrap-datepicker.js' %}" type="text/javascript" charset="utf-8"></script>

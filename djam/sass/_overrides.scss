@@ -29,11 +29,11 @@ body {
 // Chosen
 // ==================================================
 
-.chzn-container {
+.chosen-container {
 	font-size: $font-size-base;
 }
 
-.chzn-container-single .chzn-single{
+.chosen-container-single .chosen-single{
 	line-height: $line-height-base;
 	height: 8px + ($line-height-base * $font-size-base);
 	padding-top: 4px;
@@ -45,28 +45,28 @@ body {
 	}
 }
 
-.chzn-container .chzn-results li {
+.chosen-container .chosen-results li {
 	line-height: $line-height-base;
 }
 
-.chzn-container-single .chzn-single abbr,
-.chzn-container-single .chzn-single div b {
+.chosen-container-single .chosen-single abbr,
+.chosen-container-single .chosen-single div b {
 	margin-top: 2px;
 	margin-bottom: 2px;
 }
 
-.chzn-container-single .chzn-search input{
+.chosen-container-single .chosen-search input{
 	// uses border-box.
 	height: 8px + ($line-height-base * $font-size-base);
 }
 
-.chzn-container-multi .chzn-choices {
+.chosen-container-multi .chosen-choices {
 	@extend input;
 	@extend .form-control;
 	min-width: 200px;
 
 	.search-field input{
 		// uses border-box.
-		height: 25px;
+		height: 25px !important;
 	}
 }

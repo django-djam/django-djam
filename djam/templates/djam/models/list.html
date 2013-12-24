@@ -8,7 +8,7 @@
   <div class='navbar navbar-default'>
     <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
     <ul class='nav navbar-nav'>
-      <li><a href="{% riff_url riff 'create' %}"><i class='icon-plus' title='Add a {{ verbose_name }}'></i></a></li>
+      <li><a href="{% riff_url riff 'create' %}"><i class='fa fa-plus' title='Add a {{ verbose_name }}'></i></a></li>
       <li class='navbar-text'>{{ page_obj.start_index }} – {{ page_obj.end_index }} of {{ paginator.count }}</li>
     </ul>
     {% if page_obj.has_other_pages %}

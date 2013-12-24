@@ -75,7 +75,7 @@ jQuery(function($) {
                             });
                         }
                         if (opts.addUrl) {
-                            opts.addLink = $('<a href="' + opts.addUrl + '" class="btn add-popup"><i class="icon-plus"></i></a>');
+                            opts.addLink = $('<a href="' + opts.addUrl + '" class="btn add-popup"><i class="fa fa-plus"></i></a>');
                         }
                         callback(opts);
                     }
@@ -150,7 +150,7 @@ jQuery(function($) {
     // time inputs.
     var timeInputs = $('input[type=time]'),
         timeAddon = btnAddon.clone();
-    timeAddon.find('a').append('<i class="icon-time"></i></a>')
+    timeAddon.find('a').append('<i class="fa fa-clock-o fa-fw"></i></a>')
     timeInputs.attr('type', 'text');
     timeInputs.wrap('<div class="bootstrap-timepicker input-group"></div>');
     timeInputs.parent().append(timeAddon.clone());
@@ -165,7 +165,7 @@ jQuery(function($) {
     // date inputs.
     var dateInputs = $('input[type=date]'),
         dateAddon = btnAddon.clone();
-    dateAddon.find('a').append('<i class="icon-calendar"></i></a>')
+    dateAddon.find('a').append('<i class="fa fa-calendar fa-fw"></i></a>')
     dateInputs.attr('type', 'text');
     dateInputs.wrap('<div class="input-group date"></div>');
     dateInputs.parent().append(dateAddon);
