@@ -590,17 +590,17 @@ textarea.form-control, textarea.widget-text, .chosen-container-multi textarea.ch
 
 input[type="radio"][disabled], .chosen-container-multi [type="radio"][disabled].chosen-choices, fieldset[disabled] input[type="radio"], fieldset[disabled] .chosen-container-multi [type="radio"].chosen-choices, .chosen-container-multi fieldset[disabled] [type="radio"].chosen-choices, input[type="checkbox"][disabled], .chosen-container-multi [type="checkbox"][disabled].chosen-choices, fieldset[disabled] input[type="checkbox"], fieldset[disabled] .chosen-container-multi [type="checkbox"].chosen-choices, .chosen-container-multi fieldset[disabled] [type="checkbox"].chosen-choices, .radio[disabled], fieldset[disabled] .radio, .radio-inline[disabled], fieldset[disabled] .radio-inline, .checkbox[disabled], fieldset[disabled] .checkbox, .checkbox-inline[disabled], fieldset[disabled] .checkbox-inline { cursor: not-allowed; }
 
-.input-sm, .input-group-sm > .form-control, .input-group-sm > .widget-text, .chosen-container-multi .input-group-sm > .chosen-choices, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .btn, .input-group-sm > .widget-btn > .btn, .widget-sm .widget-text { height: 30px; padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
+.input-sm, .input-group-sm > .form-control, .input-group-sm > .widget-text, .chosen-container-multi .input-group-sm > .chosen-choices, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .btn, .input-group-sm > .widget-btn > .btn, .widget-sm .widget-text, .widget-sm .widget-btn > .btn { height: 30px; padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
 
-select.input-sm, .input-group-sm > select.form-control, .input-group-sm > select.widget-text, .chosen-container-multi .input-group-sm > select.chosen-choices, .input-group-sm > select.input-group-addon, .input-group-sm > select.widget-addon, .input-group-sm > .input-group-btn > select.btn, .input-group-sm > .widget-btn > select.btn, .widget-sm select.widget-text { height: 30px; line-height: 30px; }
+select.input-sm, .input-group-sm > select.form-control, .input-group-sm > select.widget-text, .chosen-container-multi .input-group-sm > select.chosen-choices, .input-group-sm > select.input-group-addon, .input-group-sm > select.widget-addon, .input-group-sm > .input-group-btn > select.btn, .input-group-sm > .widget-btn > select.btn, .widget-sm select.widget-text, .widget-sm .widget-btn > select.btn { height: 30px; line-height: 30px; }
 
-textarea.input-sm, .input-group-sm > textarea.form-control, .input-group-sm > textarea.widget-text, .chosen-container-multi .input-group-sm > textarea.chosen-choices, .input-group-sm > textarea.input-group-addon, .input-group-sm > textarea.widget-addon, .input-group-sm > .input-group-btn > textarea.btn, .input-group-sm > .widget-btn > textarea.btn, .widget-sm textarea.widget-text { height: auto; }
+textarea.input-sm, .input-group-sm > textarea.form-control, .input-group-sm > textarea.widget-text, .chosen-container-multi .input-group-sm > textarea.chosen-choices, .input-group-sm > textarea.input-group-addon, .input-group-sm > textarea.widget-addon, .input-group-sm > .input-group-btn > textarea.btn, .input-group-sm > .widget-btn > textarea.btn, .widget-sm textarea.widget-text, .widget-sm .widget-btn > textarea.btn { height: auto; }
 
-.input-lg, .input-group-lg > .form-control, .input-group-lg > .widget-text, .chosen-container-multi .input-group-lg > .chosen-choices, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .btn, .input-group-lg > .widget-btn > .btn, .widget-lg .widget-text { height: 46px; padding: 10px 16px; font-size: 18px; line-height: 1.33; border-radius: 6px; }
+.input-lg, .input-group-lg > .form-control, .input-group-lg > .widget-text, .chosen-container-multi .input-group-lg > .chosen-choices, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .btn, .input-group-lg > .widget-btn > .btn, .widget-lg .widget-text, .widget-lg .widget-btn > .btn { height: 46px; padding: 10px 16px; font-size: 18px; line-height: 1.33; border-radius: 6px; }
 
-select.input-lg, .input-group-lg > select.form-control, .input-group-lg > select.widget-text, .chosen-container-multi .input-group-lg > select.chosen-choices, .input-group-lg > select.input-group-addon, .input-group-lg > select.widget-addon, .input-group-lg > .input-group-btn > select.btn, .input-group-lg > .widget-btn > select.btn, .widget-lg select.widget-text { height: 46px; line-height: 46px; }
+select.input-lg, .input-group-lg > select.form-control, .input-group-lg > select.widget-text, .chosen-container-multi .input-group-lg > select.chosen-choices, .input-group-lg > select.input-group-addon, .input-group-lg > select.widget-addon, .input-group-lg > .input-group-btn > select.btn, .input-group-lg > .widget-btn > select.btn, .widget-lg select.widget-text, .widget-lg .widget-btn > select.btn { height: 46px; line-height: 46px; }
 
-textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > textarea.widget-text, .chosen-container-multi .input-group-lg > textarea.chosen-choices, .input-group-lg > textarea.input-group-addon, .input-group-lg > textarea.widget-addon, .input-group-lg > .input-group-btn > textarea.btn, .input-group-lg > .widget-btn > textarea.btn, .widget-lg textarea.widget-text { height: auto; }
+textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > textarea.widget-text, .chosen-container-multi .input-group-lg > textarea.chosen-choices, .input-group-lg > textarea.input-group-addon, .input-group-lg > textarea.widget-addon, .input-group-lg > .input-group-btn > textarea.btn, .input-group-lg > .widget-btn > textarea.btn, .widget-lg textarea.widget-text, .widget-lg .widget-btn > textarea.btn { height: auto; }
 
 .has-warning .help-block, .has-warning .control-label, .has-warning .radio, .has-warning .checkbox, .has-warning .radio-inline, .has-warning .checkbox-inline { color: #8a6d3b; }
 .has-warning .form-control, .has-warning .widget-text, .has-warning .chosen-container-multi .chosen-choices, .chosen-container-multi .has-warning .chosen-choices { border-color: #8a6d3b; -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
@@ -695,9 +695,9 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .input-group-lg > te
 .btn-link:hover, .btn-link:focus { color: #2a6496; text-decoration: underline; background-color: transparent; }
 .btn-link[disabled]:hover, .btn-link[disabled]:focus, fieldset[disabled] .btn-link:hover, fieldset[disabled] .btn-link:focus { color: #999999; text-decoration: none; }
 
-.btn-lg, .btn-group-lg > .btn, .widget-lg .widget-btn > .btn { padding: 10px 16px; font-size: 18px; line-height: 1.33; border-radius: 6px; }
+.btn-lg, .btn-group-lg > .btn { padding: 10px 16px; font-size: 18px; line-height: 1.33; border-radius: 6px; }
 
-.btn-sm, .btn-group-sm > .btn, .widget-sm .widget-btn > .btn { padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
+.btn-sm, .btn-group-sm > .btn { padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
 
 .btn-xs, .btn-group-xs > .btn { padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
 
@@ -1183,16 +1183,16 @@ input[type="submit"].btn-block, .chosen-container-multi [type="submit"].btn-bloc
 
 .btn-group > .btn + .dropdown-toggle { padding-left: 8px; padding-right: 8px; }
 
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .widget-lg .widget-btn.btn-group > .btn + .dropdown-toggle { padding-left: 12px; padding-right: 12px; }
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle { padding-left: 12px; padding-right: 12px; }
 
 .btn-group.open .dropdown-toggle { -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125); }
 .btn-group.open .dropdown-toggle.btn-link { -webkit-box-shadow: none; box-shadow: none; }
 
 .btn .caret { margin-left: 0; }
 
-.btn-lg .caret, .btn-group-lg > .btn .caret, .widget-lg .widget-btn > .btn .caret { border-width: 5px 5px 0; border-bottom-width: 0; }
+.btn-lg .caret, .btn-group-lg > .btn .caret { border-width: 5px 5px 0; border-bottom-width: 0; }
 
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .widget-lg .widget-btn > .btn .caret, .widget-lg .dropup .widget-btn > .btn .caret { border-width: 0 5px 5px; }
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret { border-width: 0 5px 5px; }
 
 .btn-group-vertical > .btn, .btn-group-vertical > .btn-group, .btn-group-vertical > .btn-group > .btn { display: block; float: none; width: 100%; max-width: 100%; }
 .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after { content: " "; display: table; }
@@ -1226,8 +1226,8 @@ input[type="submit"].btn-block, .chosen-container-multi [type="submit"].btn-bloc
 .input-group-addon, .widget-addon, .input-group-btn, .widget-btn { width: 1%; white-space: nowrap; vertical-align: middle; }
 
 .input-group-addon, .widget-addon { padding: 6px 12px; font-size: 14px; font-weight: normal; line-height: 1; color: #555555; text-align: center; background-color: #eeeeee; border: 1px solid #cccccc; border-radius: 4px; }
-.input-group-addon.input-sm, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .input-group-addon.btn, .input-sm.widget-addon, .widget-sm .widget-addon.widget-text, .widget-sm .input-group-addon.widget-text { padding: 5px 10px; font-size: 12px; border-radius: 3px; }
-.input-group-addon.input-lg, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .input-group-addon.btn, .input-lg.widget-addon, .widget-lg .widget-addon.widget-text, .widget-lg .input-group-addon.widget-text { padding: 10px 16px; font-size: 18px; border-radius: 6px; }
+.input-group-addon.input-sm, .input-group-sm > .input-group-addon, .input-group-sm > .widget-addon, .input-group-sm > .input-group-btn > .input-group-addon.btn, .input-sm.widget-addon, .widget-sm .widget-addon.widget-text, .widget-sm .widget-btn > .widget-addon.btn, .widget-sm .input-group-addon.widget-text, .widget-sm .widget-btn > .input-group-addon.btn { padding: 5px 10px; font-size: 12px; border-radius: 3px; }
+.input-group-addon.input-lg, .input-group-lg > .input-group-addon, .input-group-lg > .widget-addon, .input-group-lg > .input-group-btn > .input-group-addon.btn, .input-lg.widget-addon, .widget-lg .widget-addon.widget-text, .widget-lg .widget-btn > .widget-addon.btn, .widget-lg .input-group-addon.widget-text, .widget-lg .widget-btn > .input-group-addon.btn { padding: 10px 16px; font-size: 18px; border-radius: 6px; }
 .input-group-addon input[type="radio"], .widget-addon input[type="radio"], .input-group-addon .chosen-container-multi [type="radio"].chosen-choices, .chosen-container-multi .input-group-addon [type="radio"].chosen-choices, .widget-addon .chosen-container-multi [type="radio"].chosen-choices, .chosen-container-multi .widget-addon [type="radio"].chosen-choices, .input-group-addon input[type="checkbox"], .widget-addon input[type="checkbox"], .input-group-addon .chosen-container-multi [type="checkbox"].chosen-choices, .chosen-container-multi .input-group-addon [type="checkbox"].chosen-choices, .widget-addon .chosen-container-multi [type="checkbox"].chosen-choices, .chosen-container-multi .widget-addon [type="checkbox"].chosen-choices { margin-top: 0; }
 
 .input-group .form-control:first-child, .widget .form-control:first-child, .input-group .widget-text:first-child, .widget .widget-text:first-child, .input-group .chosen-container-multi .chosen-choices:first-child, .chosen-container-multi .input-group .chosen-choices:first-child, .widget .chosen-container-multi .chosen-choices:first-child, .chosen-container-multi .widget .chosen-choices:first-child, .input-group-addon:first-child, .widget-addon:first-child, .input-group-btn:first-child > .btn, .widget-btn:first-child > .btn, .input-group-btn:first-child > .dropdown-toggle, .widget-btn:first-child > .dropdown-toggle, .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .widget-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) { border-bottom-right-radius: 0; border-top-right-radius: 0; }
@@ -1355,7 +1355,7 @@ input[type="submit"].btn-block, .chosen-container-multi [type="submit"].btn-bloc
 .navbar-nav.pull-right > li > .dropdown-menu, .navbar-nav > li > .dropdown-menu.pull-right { left: auto; right: 0; }
 
 .navbar-btn { margin-top: 8px; margin-bottom: 8px; }
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .widget-sm .widget-btn > .navbar-btn.btn { margin-top: 10px; margin-bottom: 10px; }
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn { margin-top: 10px; margin-bottom: 10px; }
 .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn { margin-top: 14px; margin-bottom: 14px; }
 
 .navbar-text { margin-top: 15px; margin-bottom: 15px; }
@@ -2169,15 +2169,11 @@ th.hidden-lg, td.hidden-lg { display: table-cell !important; }
 
 a.widget-text:hover { text-decoration: none; color: inherit; background-color: #eeeeee; }
 
-.widget-btn > .btn { height: 34px; }
-
 .widget-lg .widget-text:only-child { -webkit-border-radius: 6px; -moz-border-radius: 6px; -ms-border-radius: 6px; -o-border-radius: 6px; border-radius: 6px; }
 .widget-lg .widget-addon { padding: 10px 16px; font-size: 18px; border-radius: 6px; }
-.widget-lg .widget-btn > .btn { height: auto; }
 
 .widget-sm .widget-text:only-child { -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; }
 .widget-sm .widget-addon { padding: 5px 10px; font-size: 12px; border-radius: 3px; }
-.widget-sm .widget-btn > .btn { height: auto; }
 
 .dropdown-menu .dropdown-wrapper { padding: 0px 20px; }
 

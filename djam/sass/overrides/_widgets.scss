@@ -30,10 +30,6 @@ a.widget-text{
 
 .widget-btn{
     @extend .input-group-btn;
-
-    & > .btn{
-        height: 34px;
-    }
 }
 
 
@@ -52,8 +48,7 @@ a.widget-text{
         border-radius: $border-radius-large;
     }
     .widget-btn > .btn{
-        @extend .btn-lg;
-        height: auto;
+        @extend .input-lg;
     }
 }
 
@@ -71,7 +66,6 @@ a.widget-text{
         border-radius: $border-radius-small;
     }
     .widget-btn > .btn{
-        @extend .btn-sm;
-        height: auto;
+        @extend .input-sm;
     }
 }

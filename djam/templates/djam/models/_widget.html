@@ -4,7 +4,7 @@
     <div class="widget widget-lg">
       {% if change %}<a class="widget-text" href="{{ riff.get_default_url }}">{% else %}<span class='widget-text'>{% endif %}{{ riff.display_name }}{% if change %}</a>{% else %}</span>{% endif %}
       {% if add %}
-        <span class='widget-btn'><a class='btn btn-default' href="{% riff_url riff 'create' %}"><i class='fa fa-plus'></i></a></span>
+        <span class='widget-btn'><a class='btn btn-default' href="{% riff_url riff 'create' %}"><i class='fa fa-plus fa-fw'></i></a></span>
       {% endif %}
     </div>
   </div>
