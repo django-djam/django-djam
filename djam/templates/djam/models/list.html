@@ -6,57 +6,75 @@
 
 {% block main %}
   <div class='navbar navbar-default'>
-    <span class='navbar-brand'>{{ verbose_name_plural|capfirst }}</span>
-    <ul class='nav navbar-nav'>
-      <li><a href="{% riff_url riff 'create' %}"><i class='fa fa-plus' title='Add a {{ verbose_name }}'></i></a></li>
-      <li class='navbar-text'>{{ page_obj.start_index }} – {{ page_obj.end_index }} of {{ paginator.count }}</li>
-    </ul>
-    {% if page_obj.has_other_pages %}
-      <ul class='pagination navbar-left'>
-        {% if page_obj.has_previous %}
-          <li><a href="{% url_params request.get_full_path page=page_obj.previous_page_number %}">&lsaquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&lsaquo;</span></li>
-        {% endif %}
-        {% if paginator.num_pages <= 5 %}
-          {% for num in paginator.page_range %}
-            <li><a href="{% url_params request.get_full_path page=num %}">&rsaquo;</a></li>
-          {% endfor %}
-        {% else %}
-          {% if page_obj.number > 2 %}
-            <li><a href="{% url_params request.get_full_path page=1 %}">1</a></li>
-            {% if page_obj.number > 3 %}
-              <li class="disabled"><span>&hellip;</span></li>
-            {% endif %}
-          {% endif %}
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#list-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">{{ verbose_name_plural|capfirst }}</span>
+    </div>
+    <div class="collapse navbar-collapse" id="list-navbar-collapse">
+      {# One link for collapsed, a different one for expanded. #}
+      <p class='hidden-xs navbar-text'><a class='navbar-link' href="{% riff_url riff 'create' %}"><i class='fa fa-plus' title='Add a {{ verbose_name }}'></i></a></p>
+      <p class='visible-xs navbar-text'><a class='navbar-link' href="{% riff_url riff 'create' %}">Add a {{ verbose_name }}</a></p>
 
+      <form class="navbar-form navbar-right">
+        {% form query_form using 'floppyforms/layouts/query.html' %}
+      </form>
+
+      {% if is_paginated %}
+        <ul class='pagination navbar-pagination navbar-left'>
           {% if page_obj.has_previous %}
-            <li><a href="{% url_params request.get_full_path page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a></li>
+            <li><a href="{% url_params request.get_full_path page=page_obj.previous_page_number %}">&lsaquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&lsaquo;</span></li>
           {% endif %}
-
-          <li class='active'><a href="{% url_params request.get_full_path page=page_obj.number %}">{{ page_obj.number }} <span class="sr-only">(current)</span></a></li>
-
-          {% if page_obj.has_next %}
-            <li><a href="{% url_params request.get_full_path page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a></li>
-          {% endif %}
-
-          {% if paginator.num_pages > 1 and page_obj.number < paginator.num_pages|add:"-1" %}
-            {% if page_obj.number < paginator.num_pages|add:"-2" %}
-              <li class="disabled"><span>&hellip;</span></li>
+          {% if paginator.num_pages <= 5 %}
+            {% for num in paginator.page_range %}
+              <li{% if num == page_obj.number %} class='active'{% endif %}><a href="{% url_params request.get_full_path page=num %}">{{ num }}</a></li>
+            {% endfor %}
+          {% else %}
+            {% if page_obj.number > 2 %}
+              <li><a href="{% url_params request.get_full_path page=1 %}">1</a></li>
+              {% if page_obj.number > 3 %}
+                <li class="disabled"><span>&hellip;</span></li>
+              {% endif %}
             {% endif %}
-            <li><a href="{% url_params request.get_full_path page=paginator.num_pages %}">{{ paginator.num_pages }}</a></li>
+
+            {% if page_obj.has_previous %}
+              <li><a href="{% url_params request.get_full_path page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a></li>
+            {% endif %}
+
+            <li class='active'><a href="{% url_params request.get_full_path page=page_obj.number %}">{{ page_obj.number }} <span class="sr-only">(current)</span></a></li>
+
+            {% if page_obj.has_next %}
+              <li><a href="{% url_params request.get_full_path page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a></li>
+            {% endif %}
+
+            {% if paginator.num_pages > 1 and page_obj.number < paginator.num_pages|add:"-1" %}
+              {% if page_obj.number < paginator.num_pages|add:"-2" %}
+                <li class="disabled"><span>&hellip;</span></li>
+              {% endif %}
+              <li><a href="{% url_params request.get_full_path page=paginator.num_pages %}">{{ paginator.num_pages }}</a></li>
+            {% endif %}
           {% endif %}
-        {% endif %}
-        {% if page_obj.has_next %}
-          <li><a href="{% url_params request.get_full_path page=page_obj.next_page_number %}">&rsaquo;</a></li>
+          {% if page_obj.has_next %}
+            <li><a href="{% url_params request.get_full_path page=page_obj.next_page_number %}">&rsaquo;</a></li>
+          {% else %}
+            <li class="disabled"><span>&rsaquo;</span></li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      <p class='navbar-text'>
+        {% if is_paginated %}
+          {{ page_obj.start_index }} – {{ page_obj.end_index }} of {{ paginator.count }}
         {% else %}
-          <li class="disabled"><span>&rsaquo;</span></li>
+          1 – {{ object_list|length }} of {{ object_list|length }}
         {% endif %}
-      </ul>
-    {% endif %}
-    <form class="navbar-form navbar-right">
-      {% form query_form using 'floppyforms/layouts/query.html' %}
-    </form>
+      </p>
+    </div>
   </div>
   <table class="table table-hover">
     <thead>

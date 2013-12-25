@@ -2183,6 +2183,8 @@ a.widget-text:hover { text-decoration: none; color: inherit; background-color: #
 .model-list th.order.asc:after { border-bottom: 4px solid; }
 .model-list #id_order { display: none; }
 
+.navbar-pagination { margin: 7.5px 0; }
+
 h1, h2, h3, h4, .brand { font-family: "Patua One", "Century Schoolbook", Georgia, serif; font-weight: normal; }
 
 body { padding-top: 70px; background: white url('../images/brilliant.png?1371751298'); }

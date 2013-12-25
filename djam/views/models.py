@@ -111,7 +111,7 @@ class ModelListView(ModelRiffMixin, ListView):
     template_name_suffix = 'list'
     columns = (unicode_column,)
     link_columns = None
-    per_page = 100
+    paginate_by = 100
     filters = None
     search = None
     #: May be a list of fields to use to order the list. Currently

@@ -78,7 +78,7 @@ class ModelRiffMetaclass(type):
                     'link_columns': modeladmin.list_display_links,
                     'filters': modeladmin.list_filter,
                     'search': modeladmin.search_fields,
-                    'per_page': modeladmin.list_per_page,
+                    'paginate_by': modeladmin.list_per_page,
                     'order': modeladmin.ordering or None,
                 }
             }
